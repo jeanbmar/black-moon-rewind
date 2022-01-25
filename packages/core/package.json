@@ -1,0 +1,25 @@
+{
+  "name": "@blackmoon-rewinded/core",
+  "version": "1.0.0",
+  "author": "Jean-Baptiste (Ultrapowa) Martin",
+  "scripts": {
+    "start": "babel-node index.js",
+    "dev": "nodemon"
+  },
+  "dependencies": {
+    "@nestjs/common": "^8.2.6",
+    "@nestjs/core": "^8.2.6",
+    "@nestjs/microservices": "^8.2.6"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.16.8",
+    "@babel/core": "^7.16.12",
+    "@babel/node": "^7.16.8",
+    "@babel/plugin-proposal-decorators": "^7.16.7",
+    "@babel/plugin-transform-runtime": "^7.16.10",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/register": "^7.16.7",
+    "@babel/runtime": "^7.16.7",
+    "nodemon": "^2.0.15"
+  }
+}
