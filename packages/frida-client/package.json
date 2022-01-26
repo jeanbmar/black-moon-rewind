@@ -1,5 +1,5 @@
 {
-  "name": "@blackmoon-rewinded/frida-client",
+  "name": "@blackmoon-rewind/frida-client",
   "version": "1.0.0",
   "author": "Jean-Baptiste (Ultrapowa) Martin",
   "main": "lib/index.js",
