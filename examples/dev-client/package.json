@@ -1,0 +1,9 @@
+{
+  "version": "1.0.0",
+  "author": "Jean-Baptiste (Ultrapowa) Martin",
+  "main": "index.js",
+  "devDependencies": {
+    "@blackmoon-rewinded/frida-client": "^1.0.0",
+    "dotenv": "^14.3.2"
+  }
+}

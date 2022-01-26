@@ -1,0 +1,6 @@
+{
+  "name": "@blackmoon-rewinded/frida-agent",
+  "version": "1.0.0",
+  "author": "Jean-Baptiste (Ultrapowa) Martin",
+  "main": "lib/index.js"
+}
