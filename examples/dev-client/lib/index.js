@@ -20,7 +20,7 @@ if (BMC_GAME_DEBUG === 'true') {
     try {
         const client = new FridaClient();
         client.on('info', console.log);
-        client.on('message', console.log);
+        client.on('stdout', (message) => process.stdout.write(message));
         client.on('error', console.error);
         await client.connect({
             script,

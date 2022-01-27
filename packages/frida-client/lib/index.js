@@ -15,7 +15,12 @@ class FridaClient extends EventEmitter {
     configureEvents(script) {
         script.message.connect((message) => {
             if (message.type === 'send') {
-                this.emit('message', message.payload);
+                const { payload } = message;
+                if (typeof payload === 'string') {
+                    this.emit('info', payload);
+                } else {
+                    this.emit(payload.type, payload.message);
+                }
             } else if (message.type === 'error') {
                 this.emit('error', message.stack);
             }
