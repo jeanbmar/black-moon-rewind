@@ -3,7 +3,7 @@
   "author": "Jean-Baptiste (Ultrapowa) Martin",
   "main": "index.js",
   "devDependencies": {
-    "@blackmoon-rewind/frida-client": "^1.0.0",
+    "@black-moon-rewind/frida-client": "^1.0.0",
     "dotenv": "^14.3.2"
   }
 }

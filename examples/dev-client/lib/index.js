@@ -1,6 +1,6 @@
 const path = require('path');
-const FridaClient = require('@blackmoon-rewind/frida-client');
-const script = require.resolve('@blackmoon-rewind/frida-agent');
+const FridaClient = require('@black-moon-rewind/frida-client');
+const script = require.resolve('@black-moon-rewind/frida-agent');
 
 const {
     BMC_GAME_DEBUG,
