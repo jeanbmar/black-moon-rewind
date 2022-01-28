@@ -37,7 +37,7 @@ class FridaClient extends EventEmitter {
         const { bundle: source } = await FridaClient.compile(agentScript);
         this.emit('info', 'agent built successfully');
         const device = await frida.getLocalDevice();
-        const pid = await device.spawn([packageName, packageOptions], { cwd });
+        const pid = await device.spawn(packageName, { argv: packageOptions, cwd });
         this.emit('info', `spawned ${packageName} with pid ${pid}`);
         let script = await FridaClient.inject(device, pid, source);
         this.configureEvents(script);
