@@ -19,7 +19,19 @@ const enableTCP = () => {
     }, 'int', ['int', 'pointer', 'int'], 'stdcall'));
 };
 
+const disableSynAck = () => {
+    Memory.protect(ptr(0x49541D), 4, 'rwx');
+    Memory.protect(ptr(0x495423), 4, 'rwx');
+    ptr(0x49541D).writeByteArray([0xC7, 0x01, 0x00, 0x00]);
+    ptr(0x495423).writeByteArray([0xC7, 0x02, 0x00, 0x00]);
+    Memory.protect(ptr(0x495431), 4, 'rwx');
+    Memory.protect(ptr(0x495437), 4, 'rwx');
+    ptr(0x495431).writeByteArray([0xC7, 0x00, 0x00, 0x00]);
+    ptr(0x495437).writeByteArray([0xC7, 0x01, 0x00, 0x00]);
+};
+
 module.exports = {
     disableCrypto,
+    disableSynAck,
     enableTCP,
 };
