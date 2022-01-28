@@ -1,0 +1,9 @@
+{
+  "name": "@black-moon-rewind/byte-stream-scalars",
+  "version": "1.0.0",
+  "author": "Jean-Baptiste (Ultrapowa) Martin",
+  "main": "lib/index.js",
+  "peerDependencies": {
+    "@black-moon-rewind/byte-stream": "^1.0.0"
+  }
+}
