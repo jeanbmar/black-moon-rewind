@@ -5,6 +5,15 @@ const hookPackets = (cb) => {
         const buf = to.add(16).readPointer();
         cb(buf.readByteArray(len), 1);
     });
+    Interceptor.attach(ptr(0x492CC0), {
+        onLeave(value) {
+            if (!value.isNull()) {
+                const len = value.add(20).readInt();
+                const buf = value.add(16).readPointer();
+                cb(buf.readByteArray(len), 2);
+            }
+        },
+    });
 };
 
 const hookDebugLog = (cb) => {
