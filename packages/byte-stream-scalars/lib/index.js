@@ -6,7 +6,7 @@ const Int32BE = require('./int32be');
 const Int32LE = require('./int32le');
 const Int64BE = require('./int64be');
 const Int64LE = require('./int64le');
-const Int8 = require('./uint8');
+const UInt8 = require('./uint8');
 const UInt16BE = require('./uint16be');
 const UInt16LE = require('./uint16le');
 const UInt24BE = require('./uint24be');
@@ -26,7 +26,7 @@ module.exports = {
     Int32LE,
     Int64BE,
     Int64LE,
-    Int8,
+    UInt8,
     UInt16BE,
     UInt16LE,
     UInt24BE,

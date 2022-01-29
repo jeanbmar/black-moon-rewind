@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "Jean-Baptiste (Ultrapowa) Martin",
   "main": "lib/index.js",
-  "peerDependencies": {
+  "dependencies": {
     "@black-moon-rewind/byte-stream": "^1.0.0"
   }
 }
