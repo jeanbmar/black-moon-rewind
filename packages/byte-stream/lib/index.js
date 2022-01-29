@@ -13,6 +13,7 @@ class ByteStream {
         } = options;
         this.dynamic = dynamic;
         this.growth = growth;
+        this.internalOffset = 0;
         if (buffer) {
             this.buffer = buffer;
             this.byteLength = buffer.length;
@@ -20,12 +21,21 @@ class ByteStream {
             this.buffer = Buffer.allocUnsafe(defaultSize);
             this.byteLength = 0;
         }
-        this.offset = 0;
     }
 
-    truncate() {
-        this.buffer = this.buffer.slice(0, this.byteLength);
-        return this.buffer;
+    set offset(value) {
+        if (value > this.byteLength) {
+            this.byteLength = value;
+        }
+        this.internalOffset = value;
+    }
+
+    get offset() {
+        return this.internalOffset;
+    }
+
+    toBuffer() {
+        return this.buffer.slice(0, this.byteLength);
     }
 
     get capacity() {
@@ -33,7 +43,7 @@ class ByteStream {
     }
 
     ensureCapacity(size) {
-        const overflow = this.offset + size - this.capacity;
+        const overflow = this.internalOffset + size - this.capacity;
         if (overflow > 0) {
             const growth = this.dynamic ? Math.ceil(this.capacity * this.growth) : this.growth;
             this.buffer = Buffer.concat([this.buffer, Buffer.allocUnsafe(Math.max(overflow, growth))]);
@@ -41,7 +51,7 @@ class ByteStream {
     }
 
     isAtEnd() {
-        return this.byteLength <= this.offset;
+        return this.byteLength === this.internalOffset;
     }
 }
 
