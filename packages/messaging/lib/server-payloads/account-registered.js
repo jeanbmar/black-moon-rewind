@@ -1,5 +1,5 @@
-const Payload = require('../payload');
 const { String, UInt8 } = require('@black-moon-rewind/byte-stream-scalars');
+const Payload = require('../payload');
 
 class AccountRegistered extends Payload {
     static type = 0x0E;
