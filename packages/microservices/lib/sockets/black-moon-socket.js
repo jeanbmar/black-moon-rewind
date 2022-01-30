@@ -7,10 +7,13 @@ class BlackMoonSocket extends TcpSocket {
     constructor(socket) {
         super(socket);
         this.buffer = Buffer.alloc(0);
+        this.seq = 0;
     }
 
     handleSend(message, callback) {
         const bs = new ByteStream();
+        message.header.seq = this.seq;
+        this.seq += 1;
         MessageManager.write(bs, message);
         this.socket.write(bs.toBuffer());
     }
