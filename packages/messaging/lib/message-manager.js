@@ -17,7 +17,7 @@ class MessageManager {
         if (header.length === 0) {
             payload = Ack.read(byteStream);
         } else {
-            payload = PayloadFactory.getPayloadByType(header.type).read(byteStream);
+            payload = PayloadFactory.getPayloadByType(header.type).read(byteStream, { header });
         }
         const message = new Message();
         message.header = header;

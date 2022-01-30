@@ -1,4 +1,5 @@
 const RegisterAccount = require('./client-payloads/register-account');
+const UnknownPayload = require('./unknown-payload');
 
 class PayloadFactory {
     static getPayloadByType(type) {
@@ -6,7 +7,7 @@ class PayloadFactory {
         case 0x0e:
             return RegisterAccount;
         default:
-            throw new Error(`unknown payload type ${type}`);
+            return UnknownPayload;
         }
     }
 }
