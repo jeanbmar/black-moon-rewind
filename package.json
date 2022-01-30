@@ -3,6 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "author": "Jean-Baptiste (Ultrapowa) Martin",
+  "scripts": {
+    "start": "node packages/simple-core"
+  },
   "workspaces": [
     "examples/*",
     "packages/*"
