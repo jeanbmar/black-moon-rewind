@@ -1,0 +1,12 @@
+{
+  "name": "@black-moon-rewind/simple-core",
+  "version": "1.0.0",
+  "author": "Jean-Baptiste (Ultrapowa) Martin",
+  "main": "lib/index.js",
+  "dependencies": {
+    "@black-moon-rewind/messaging": "^1.0.0"
+  },
+  "peerDependencies": {
+    "@black-moon-rewind/microservices": "^1.0.0"
+  }
+}
