@@ -47,8 +47,8 @@ class TcpSocket {
     onData(data) {
         try {
             this.handleData(data);
-        } catch (e) {
-            this.socket.emit('error', e.message);
+        } catch (error) {
+            this.socket.emit('error', error);
             this.socket.end();
         }
     }
