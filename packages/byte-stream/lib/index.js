@@ -34,6 +34,10 @@ class ByteStream {
         return this.internalOffset;
     }
 
+    skip(offset) {
+        this.offset += offset;
+    }
+
     toBuffer(start = 0, end = this.byteLength) {
         return this.buffer.slice(start, end);
     }
