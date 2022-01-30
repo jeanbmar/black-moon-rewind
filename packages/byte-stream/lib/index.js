@@ -34,8 +34,8 @@ class ByteStream {
         return this.internalOffset;
     }
 
-    toBuffer() {
-        return this.buffer.slice(0, this.byteLength);
+    toBuffer(start = 0, end = this.byteLength) {
+        return this.buffer.slice(start, end);
     }
 
     get capacity() {
