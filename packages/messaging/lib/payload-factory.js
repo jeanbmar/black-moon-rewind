@@ -6,7 +6,7 @@ class PayloadFactory {
         case 0x0e:
             return RegisterAccount;
         default:
-            throw new Error(`unknown message body type ${type}`);
+            throw new Error(`unknown payload type ${type}`);
         }
     }
 }
