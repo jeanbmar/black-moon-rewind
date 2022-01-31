@@ -5,17 +5,13 @@ class Entity {
         return entity;
     }
 
-    read(byteStream, options) {
-        throw new Error('read method is not implemented by superclass');
-    }
+    read(byteStream, options) {}
 
     static write(byteStream, entityLike, options) {
         this.prototype.write.call(entityLike, byteStream, options);
     }
 
-    write(byteStream, options) {
-        throw new Error('write method is not implemented by superclass');
-    }
+    write(byteStream, options) {}
 }
 
 module.exports = Entity;

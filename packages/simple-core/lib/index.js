@@ -4,6 +4,7 @@ const {
     ServerVersion,
     CharacterList,
     CharacterData,
+    EnteredGame,
 } = require('@black-moon-rewind/messaging');
 const { BlackMoonSocket } = require('@black-moon-rewind/microservices');
 
@@ -39,7 +40,16 @@ messageHandlers.set('GetCharacterList', (message, socket) => {
     socket.sendMessage(characterList);
 });
 messageHandlers.set('LoadCharacter', (message, socket) => {
+    const characterData = new CharacterData();
+    characterData.items = [
+        { id: 0x0017EBF, slot: 0xFF },
+        { id: 0x0003110A, slot: 0 },
+        { id: 0x000216E8, slot: 1 },
+    ]
     socket.sendMessage(new CharacterData());
+});
+messageHandlers.set('EnterGame', (message, socket) => {
+    socket.sendMessage(new EnteredGame());
 });
 messageHandlers.set('Unknown', (message) => {
     console.log(`unknown payload ${JSON.stringify(message)}`);

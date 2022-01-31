@@ -1,5 +1,5 @@
 const { UInt8, String, UInt16BE } = require('@black-moon-rewind/byte-stream-scalars');
-const Message = require('../message');
+const Message = require('../../message');
 
 class CharacterList extends Message {
     static type = 0x1a;

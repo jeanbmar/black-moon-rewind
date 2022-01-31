@@ -1,5 +1,5 @@
 const { String } = require('@black-moon-rewind/byte-stream-scalars');
-const Message = require('../message');
+const Message = require('../../message');
 
 class Unknown extends Message {
     read(byteStream) {

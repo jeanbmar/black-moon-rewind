@@ -5,7 +5,7 @@ const {
     UInt16BE,
 } = require('@black-moon-rewind/byte-stream-scalars');
 const MessageFactory = require('./message-factory');
-const Message = require('./message');
+const { Message } = require('./entities');
 
 class MessageManager {
     static peekMessageLength(byteStream) {

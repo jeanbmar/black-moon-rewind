@@ -1,5 +1,5 @@
 const { String } = require('@black-moon-rewind/byte-stream-scalars');
-const Message = require('../message');
+const Message = require('../../message');
 
 class RegisterAccount extends Message {
     static type = 0x0E;

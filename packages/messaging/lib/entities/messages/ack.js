@@ -1,4 +1,4 @@
-const Message = require('./message');
+const Message = require('../message');
 
 class Ack extends Message {
     static type = 0;
