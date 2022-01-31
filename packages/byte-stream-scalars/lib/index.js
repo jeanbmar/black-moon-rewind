@@ -1,3 +1,4 @@
+const Int8 = require('./int8');
 const Int16BE = require('./int16be');
 const Int16LE = require('./int16le');
 const Int24BE = require('./int24be');
@@ -18,6 +19,7 @@ const UInt64LE = require('./uint64le');
 const String = require('./string');
 
 module.exports = {
+    Int8,
     Int16BE,
     Int16LE,
     Int24BE,
