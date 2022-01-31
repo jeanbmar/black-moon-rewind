@@ -5,6 +5,7 @@ const {
     CharacterList,
     CharacterData,
     EnteredGame,
+    SpellList,
 } = require('@black-moon-rewind/messaging');
 const { BlackMoonSocket } = require('@black-moon-rewind/microservices');
 
@@ -53,6 +54,11 @@ messageHandlers.set('EnterGame', (message, socket) => {
 });
 messageHandlers.set('JoinChatterChannels', (message) => {
     console.log(`user requested to join channels ${JSON.stringify(message.chatterChannels)}`);
+});
+messageHandlers.set('GetSpellList', (message, socket) => {
+    const spellList = new SpellList();
+    spellList.spells = [];
+    socket.sendMessage(spellList);
 });
 messageHandlers.set('Unknown', (message) => {
     console.log(`unknown payload ${JSON.stringify(message)}`);
