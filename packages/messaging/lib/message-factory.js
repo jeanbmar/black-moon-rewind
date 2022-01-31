@@ -6,6 +6,7 @@ const {
     LoadCharacter,
     EnterGame,
     ExitGame,
+    JoinChatterChannels,
     Unknown,
 } = require('./entities/messages');
 
@@ -24,6 +25,8 @@ class MessageFactory {
             return new GetCharacterList();
         case 0x2e:
             return new EnterGame();
+        case 0x30:
+            return new JoinChatterChannels();
         case 0x63:
             return new AuthenticateServerVersion();
         default:

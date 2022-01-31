@@ -9,6 +9,7 @@ const QueryUnitExistence = require('./query-unit-existence');
 const RegisterAccount = require('./register-account');
 const Unknown = require('./unknown');
 const ViewEquipped = require('./view-equipped');
+const JoinChatterChannels = require('./join-chatter-channels');
 
 module.exports = {
     AuthenticateServerVersion,
@@ -22,4 +23,5 @@ module.exports = {
     RegisterAccount,
     Unknown,
     ViewEquipped,
+    JoinChatterChannels,
 };

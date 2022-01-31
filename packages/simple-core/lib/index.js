@@ -51,6 +51,9 @@ messageHandlers.set('LoadCharacter', (message, socket) => {
 messageHandlers.set('EnterGame', (message, socket) => {
     socket.sendMessage(new EnteredGame());
 });
+messageHandlers.set('JoinChatterChannels', (message) => {
+    console.log(`user requested to join channels ${JSON.stringify(message.chatterChannels)}`);
+});
 messageHandlers.set('Unknown', (message) => {
     console.log(`unknown payload ${JSON.stringify(message)}`);
 });
