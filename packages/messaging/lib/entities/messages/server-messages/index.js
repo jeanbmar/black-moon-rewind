@@ -4,6 +4,7 @@ const CharacterList = require('./character-list');
 const EnteredGame = require('./entered-game');
 const ServerVersion = require('./server-version');
 const SpellList = require('./spell-list');
+const EquipmentData = require('./equipment-data');
 
 module.exports = {
     AccountRegistered,
@@ -12,4 +13,5 @@ module.exports = {
     EnteredGame,
     ServerVersion,
     SpellList,
+    EquipmentData,
 };

@@ -6,6 +6,7 @@ const {
     CharacterData,
     EnteredGame,
     SpellList,
+    EquipmentData,
 } = require('@black-moon-rewind/messaging');
 const { BlackMoonSocket } = require('@black-moon-rewind/microservices');
 
@@ -47,7 +48,7 @@ messageHandlers.set('LoadCharacter', (message, socket) => {
         { id: 0x0003110A, slot: 0 },
         { id: 0x000216E8, slot: 1 },
     ]
-    socket.sendMessage(new CharacterData());
+    socket.sendMessage(characterData);
 });
 messageHandlers.set('EnterGame', (message, socket) => {
     socket.sendMessage(new EnteredGame());
@@ -59,6 +60,37 @@ messageHandlers.set('GetSpellList', (message, socket) => {
     const spellList = new SpellList();
     spellList.spells = [];
     socket.sendMessage(spellList);
+});
+messageHandlers.set('ViewEquipped', (message, socket) => {
+    const equipmentData = new EquipmentData();
+    equipmentData.items[1] = {
+        id: 0x00100092,
+        b: 0x00017EBF,
+        c: -1,
+        d: 0x0001,
+        e: 0x4F41,
+        f: 0x00001B89,
+        g: 0x00001B8A,
+    };
+    equipmentData.items[2] = {
+        id: 0x00100093,
+        b: 0x0003110A,
+        c: 0,
+        d: 0x0001,
+        e: 0x5100,
+        f: 0x0000C70E,
+        g: 0x0000C70F,
+    };
+    equipmentData.items[3] = {
+        id: 0x00100094,
+        b: 0x000216E8,
+        c: 1,
+        d: 0x0001,
+        e: 0x6927,
+        f: 0x0000240A,
+        g: 0x0000240B,
+    };
+    socket.sendMessage(equipmentData);
 });
 messageHandlers.set('Unknown', (message) => {
     console.log(`unknown payload ${JSON.stringify(message)}`);

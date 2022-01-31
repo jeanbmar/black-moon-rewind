@@ -7,6 +7,8 @@ const {
     EnterGame,
     ExitGame,
     JoinChatterChannels,
+    GetSpellList,
+    ViewEquipped,
     Unknown,
 } = require('./entities/messages');
 
@@ -19,6 +21,8 @@ class MessageFactory {
             return new LoadCharacter();
         case 0x0e:
             return new RegisterAccount();
+        case 0x13:
+            return new ViewEquipped();
         case 0x14:
             return new ExitGame();
         case 0x1a:
@@ -27,6 +31,8 @@ class MessageFactory {
             return new EnterGame();
         case 0x30:
             return new JoinChatterChannels();
+        case 0x3e:
+            return new GetSpellList();
         case 0x63:
             return new AuthenticateServerVersion();
         default:
