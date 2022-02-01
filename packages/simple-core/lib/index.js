@@ -58,7 +58,7 @@ messageHandlers.set('JoinChatterChannels', (message) => {
 });
 messageHandlers.set('GetSpellList', (message, socket) => {
     const spellList = new SpellList();
-    spellList.spells = [];
+    // spellList.spells = [];
     socket.sendMessage(spellList);
 });
 messageHandlers.set('ViewEquipped', (message, socket) => {
