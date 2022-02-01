@@ -7,7 +7,7 @@
     "start": "node packages/simple-core"
   },
   "workspaces": [
-    "examples/*",
+    "tools/*",
     "packages/*"
   ]
 }
