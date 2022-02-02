@@ -14,7 +14,6 @@ class BlackMoonSocket extends Socket {
     }
 
     send(message, callback) {
-        console.log(message);
         const bs = new ByteStream();
         message.header.seq = this.seq;
         this.seq += 1;
