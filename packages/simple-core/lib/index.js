@@ -94,9 +94,7 @@ messageHandlers.set('ViewEquipped', (message, socket) => {
     };
     socket.send(equipmentData);
 });
-messageHandlers.set('KeepAlive', (message, socket) => {
-    socket.send(new KeepAliveOk());
-});
+messageHandlers.set('KeepAliveOk', () => {});
 messageHandlers.set('Unknown', (message, socket) => {
     console.log(`unknown payload ${JSON.stringify(message)}`);
     socket.send(new KeepAliveOk());
