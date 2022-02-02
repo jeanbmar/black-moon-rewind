@@ -8,38 +8,22 @@ const MessageFactory = require('./message-factory');
 const { Message } = require('./entities');
 
 class MessageManager {
-    static peekMessageLength(byteStream) {
-        byteStream.offset += 2;
-        const length = UInt16LE.read(byteStream);
-        byteStream.offset -= 4;
-        return length;
-    }
-
     static read(byteStream) {
-        if (byteStream.byteLength < 12) {
-            return null;
-        }
-        const messageLength = this.peekMessageLength(byteStream);
-        if (byteStream.byteLength < messageLength) {
-            return null;
-        }
         const header = {};
         header.mode = UInt16LE.read(byteStream);
-        header.length = messageLength;
-        byteStream.skip(2);
+        header.length = UInt16LE.read(byteStream);
         header.seq = UInt32LE.read(byteStream);
         header.crc = Int32LE.read(byteStream);
-        header.nonce = messageLength > 0 ? UInt16LE.read(byteStream) : 0;
-        header.checksum = messageLength > 0 ? UInt16LE.read(byteStream) : 0;
-        header.type = messageLength > 0 ? UInt16BE.read(byteStream) : 0;
+        header.nonce = header.length > 0 ? UInt16LE.read(byteStream) : 0;
+        header.checksum = header.length > 0 ? UInt16LE.read(byteStream) : 0;
+        header.type = header.length > 0 ? UInt16BE.read(byteStream) : 0;
         const message = MessageFactory.createMessageByType(header.type);
         message.header = header;
-        if (messageLength > 0) {
-            const { offset: start } = byteStream;
+        if (header.length > 0) {
             message.read(byteStream);
-            if (byteStream.offset - start !== messageLength - 18) {
-                throw new Error('message length mismatch');
-            }
+        }
+        if (!byteStream.isAtEnd()) {
+            throw new Error('message length mismatch');
         }
         return message;
     }

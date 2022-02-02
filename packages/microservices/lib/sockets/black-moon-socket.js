@@ -4,8 +4,8 @@ const { MessageManager } = require('@black-moon-rewind/messaging');
 const { Socket } = require('net');
 
 class BlackMoonSocket extends Socket {
-    constructor(socket) {
-        super({ handle: socket._handle });
+    constructor(options) {
+        super(options);
         this.buffer = Buffer.alloc(0);
         this.seq = 0;
         this.on('data', this.onData.bind(this));

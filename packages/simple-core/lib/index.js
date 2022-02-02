@@ -16,7 +16,7 @@ const server = new net.createServer();
 
 server.on('connection', function(netSocket) {
     console.log('new player connected');
-    const socket = new BlackMoonSocket(netSocket);
+    const socket = new BlackMoonSocket({ handle: netSocket._handle });
     socket.on('error', console.log);
     socket.on('message', async (message) => console.log('received', message.constructor.name));
     socket.on('message', async (message) => {
