@@ -31,15 +31,15 @@ server.on('connection', function(netSocket) {
 });
 
 messageHandlers.set('RegisterAccount', (message, socket) => {
-    socket.sendMessage(new AccountRegistered());
+    socket.send(new AccountRegistered());
 });
 messageHandlers.set('AuthenticateServerVersion', (message, socket) => {
-    socket.sendMessage(new ServerVersion());
+    socket.send(new ServerVersion());
 });
 messageHandlers.set('GetCharacterList', (message, socket) => {
     const characterList = new CharacterList();
     characterList.characters = [{ name: 'Ultrapowa', level: 3 }];
-    socket.sendMessage(characterList);
+    socket.send(characterList);
 });
 messageHandlers.set('LoadCharacter', (message, socket) => {
     const characterData = new CharacterData();
@@ -48,10 +48,10 @@ messageHandlers.set('LoadCharacter', (message, socket) => {
         { id: 0x0003110A, slot: 0 },
         { id: 0x000216E8, slot: 1 },
     ]
-    socket.sendMessage(characterData);
+    socket.send(characterData);
 });
 messageHandlers.set('EnterGame', (message, socket) => {
-    socket.sendMessage(new EnteredGame());
+    socket.send(new EnteredGame());
 });
 messageHandlers.set('JoinChatterChannels', (message) => {
     console.log(`user requested to join channels ${JSON.stringify(message.chatterChannels)}`);
@@ -59,7 +59,7 @@ messageHandlers.set('JoinChatterChannels', (message) => {
 messageHandlers.set('GetSpellList', (message, socket) => {
     const spellList = new SpellList();
     // spellList.spells = [];
-    socket.sendMessage(spellList);
+    socket.send(spellList);
 });
 messageHandlers.set('ViewEquipped', (message, socket) => {
     const equipmentData = new EquipmentData();
@@ -90,7 +90,7 @@ messageHandlers.set('ViewEquipped', (message, socket) => {
         f: 0x0000240A,
         g: 0x0000240B,
     };
-    socket.sendMessage(equipmentData);
+    socket.send(equipmentData);
 });
 messageHandlers.set('Unknown', (message) => {
     console.log(`unknown payload ${JSON.stringify(message)}`);

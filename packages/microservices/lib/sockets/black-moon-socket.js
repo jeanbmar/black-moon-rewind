@@ -1,31 +1,37 @@
 const { Buffer } = require('buffer');
 const ByteStream = require('@black-moon-rewind/byte-stream');
 const { MessageManager } = require('@black-moon-rewind/messaging');
-const TcpSocket = require('./tcp-socket');
+const { Socket } = require('net');
 
-class BlackMoonSocket extends TcpSocket {
+class BlackMoonSocket extends Socket {
     constructor(socket) {
-        super(socket);
+        super({ handle: socket._handle });
         this.buffer = Buffer.alloc(0);
         this.seq = 0;
+        this.on('data', this.onData.bind(this));
     }
 
-    handleSend(message, callback) {
+    send(message, callback) {
         const bs = new ByteStream();
         message.header.seq = this.seq;
         this.seq += 1;
         MessageManager.write(bs, message);
-        this.socket.write(bs.toBuffer());
+        this.write(bs.toBuffer(), callback);
     }
 
-    handleData(data) {
+    onData(data) {
         this.buffer = Buffer.concat([this.buffer, data]);
-        let message;
-        let byteStream = new ByteStream(this.buffer);
-        while (message = MessageManager.read(byteStream)) {
-            this.buffer = this.buffer.slice(byteStream.offset);
-            this.emitMessage(message);
-            byteStream = new ByteStream(this.buffer);
+        while (this.buffer.length >= 12) {
+            let messageLength = this.buffer.readUInt16LE(2);
+            if (messageLength === 0) {
+                messageLength = 12;
+            }
+            if (messageLength <= this.buffer.length) {
+                const messageBuffer = this.buffer.slice(0, messageLength);
+                this.buffer = this.buffer.slice(messageLength);
+                const message = MessageManager.read(new ByteStream(messageBuffer));
+                this.emit('message', message);
+            }
         }
     }
 }
