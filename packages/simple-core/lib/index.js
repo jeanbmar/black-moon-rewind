@@ -7,6 +7,7 @@ const {
     EnteredGame,
     SpellList,
     EquipmentData,
+    KeepAliveOk,
 } = require('@black-moon-rewind/messaging');
 const { BlackMoonSocket } = require('@black-moon-rewind/microservices');
 
@@ -17,6 +18,7 @@ const server = new net.createServer();
 server.on('connection', function(netSocket) {
     console.log('new player connected');
     const socket = new BlackMoonSocket({ handle: netSocket._handle });
+    socket.setTimeout(3000);
     socket.on('error', console.log);
     socket.on('message', async (message) => console.log('received', message.constructor.name));
     socket.on('message', async (message) => {
@@ -92,8 +94,12 @@ messageHandlers.set('ViewEquipped', (message, socket) => {
     };
     socket.send(equipmentData);
 });
-messageHandlers.set('Unknown', (message) => {
+messageHandlers.set('KeepAlive', (message, socket) => {
+    socket.send(new KeepAliveOk());
+});
+messageHandlers.set('Unknown', (message, socket) => {
     console.log(`unknown payload ${JSON.stringify(message)}`);
+    socket.send(new KeepAliveOk());
 });
 
 server.listen(port, () => {

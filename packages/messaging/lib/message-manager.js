@@ -38,8 +38,8 @@ class MessageManager {
         }
         const payloadLength = byteStream.offset - offset;
         message.header.checksum = 0; // client doesn't care so why bother?
-        message.header.length = payloadLength > 0 ? payloadLength + 18 : 0;
-        if (payloadLength > 0) {
+        message.header.length = message.header.type !== 0 ? payloadLength + 18 : 0;
+        if (message.header.type !== 0) {
             byteStream.ensureCapacity(18);
             byteStream.buffer.copy(byteStream.buffer, offset + 18, offset, byteStream.offset);
             byteStream.offset = offset;
@@ -48,7 +48,7 @@ class MessageManager {
         UInt16LE.write(byteStream, message.header.length);
         UInt32LE.write(byteStream, message.header.seq ?? 0);
         UInt32LE.write(byteStream, message.header.crc ?? 0);
-        if (message.header.length > 0) {
+        if (message.header.type !== 0) {
             UInt16LE.write(byteStream, message.header.nonce ?? 0);
             UInt16LE.write(byteStream, message.header.checksum);
             UInt16BE.write(byteStream, message.header.type);

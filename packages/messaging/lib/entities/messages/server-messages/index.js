@@ -5,6 +5,7 @@ const EnteredGame = require('./entered-game');
 const ServerVersion = require('./server-version');
 const SpellList = require('./spell-list');
 const EquipmentData = require('./equipment-data');
+const KeepAlive = require('./keep-alive');
 
 module.exports = {
     AccountRegistered,
@@ -14,4 +15,5 @@ module.exports = {
     ServerVersion,
     SpellList,
     EquipmentData,
+    KeepAlive,
 };

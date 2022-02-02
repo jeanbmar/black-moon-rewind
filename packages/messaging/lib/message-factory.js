@@ -9,6 +9,7 @@ const {
     JoinChatterChannels,
     GetSpellList,
     ViewEquipped,
+    KeepAliveOk,
     Unknown,
 } = require('./entities/messages');
 
@@ -17,6 +18,8 @@ class MessageFactory {
         switch (type) {
         case 0:
             return new Ack();
+        case 0x0a:
+            return new KeepAliveOk();
         case 0x0d:
             return new LoadCharacter();
         case 0x0e:
