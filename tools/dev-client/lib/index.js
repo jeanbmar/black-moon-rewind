@@ -11,7 +11,7 @@ const {
     BMC_GAME_UID,
 } = process.env;
 
-const packageOptions = [`-uid=${BMC_GAME_UID}`, `-pwd=${BMC_GAME_PWD}`, `-ip=${BMC_GAME_IP}`, `-pc=${BMC_GAME_PC}`];
+const packageOptions = `-uid=${BMC_GAME_UID} -pwd=${BMC_GAME_PWD} -ip=${BMC_GAME_IP} -pc=${BMC_GAME_PC}`.split(' ');
 if (BMC_GAME_DEBUG === 'true') {
     packageOptions.push('-debug');
 }
