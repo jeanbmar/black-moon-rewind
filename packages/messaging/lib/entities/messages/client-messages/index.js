@@ -10,6 +10,14 @@ const Unknown = require('./unknown');
 const ViewEquipped = require('./view-equipped');
 const JoinChatterChannels = require('./join-chatter-channels');
 const KeepAliveOk = require('./keep-alive-ok');
+const MoveTop = require('./move-top');
+const MoveTopRight = require('./move-top-right');
+const MoveRight = require('./move-right');
+const MoveBottomRight = require('./move-bottom-right');
+const MoveBottom = require('./move-bottom');
+const MoveBottomLeft = require('./move-bottom-left');
+const MoveLeft = require('./move-left');
+const MoveTopLeft = require('./move-top-left');
 
 module.exports = {
     AuthenticateServerVersion,
@@ -24,4 +32,12 @@ module.exports = {
     ViewEquipped,
     JoinChatterChannels,
     KeepAliveOk,
+    MoveTop,
+    MoveTopRight,
+    MoveRight,
+    MoveBottomRight,
+    MoveBottom,
+    MoveBottomLeft,
+    MoveLeft,
+    MoveTopLeft,
 };

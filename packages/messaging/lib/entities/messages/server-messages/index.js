@@ -6,6 +6,7 @@ const ServerVersion = require('./server-version');
 const SpellList = require('./spell-list');
 const EquipmentData = require('./equipment-data');
 const KeepAlive = require('./keep-alive');
+const EntityMoved = require('./entity-moved');
 
 module.exports = {
     AccountRegistered,
@@ -16,4 +17,5 @@ module.exports = {
     SpellList,
     EquipmentData,
     KeepAlive,
+    EntityMoved,
 };

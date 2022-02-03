@@ -1,4 +1,3 @@
-const crypto = require('crypto');
 const {
     UInt8,
     UInt16BE,
@@ -16,8 +15,8 @@ class CharacterData extends Message {
     }
 
     write(byteStream) {
-        UInt32BE.write(byteStream, this.characterId ?? crypto.randomInt(1, 0xFFFF));
-        UInt8.write(byteStream, this.isNewChar ? 1 : 0);
+        UInt32BE.write(byteStream, this.id);
+        UInt8.write(byteStream, this.newChar ? 1 : 0);
         UInt16BE.write(byteStream, this.x ?? 0x34);
         UInt16BE.write(byteStream, this.y ?? 0x4a);
         UInt16BE.write(byteStream, this.z ?? 0x93);

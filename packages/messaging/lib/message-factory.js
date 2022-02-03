@@ -11,6 +11,14 @@ const {
     ViewEquipped,
     KeepAliveOk,
     Unknown,
+    MoveTop,
+    MoveTopRight,
+    MoveRight,
+    MoveBottomRight,
+    MoveBottom,
+    MoveBottomLeft,
+    MoveLeft,
+    MoveTopLeft,
 } = require('./entities/messages');
 
 class MessageFactory {
@@ -18,6 +26,22 @@ class MessageFactory {
         switch (type) {
         case 0:
             return new Ack();
+        case 0x01:
+            return new MoveTop();
+        case 0x02:
+            return new MoveTopRight();
+        case 0x03:
+            return new MoveRight();
+        case 0x04:
+            return new MoveBottomRight();
+        case 0x05:
+            return new MoveBottom();
+        case 0x06:
+            return new MoveBottomLeft();
+        case 0x07:
+            return new MoveLeft();
+        case 0x08:
+            return new MoveTopLeft();
         case 0x0a:
             return new KeepAliveOk();
         case 0x0d:
