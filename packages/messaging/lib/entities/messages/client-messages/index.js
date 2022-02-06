@@ -18,6 +18,10 @@ const MoveBottom = require('./move-bottom');
 const MoveBottomLeft = require('./move-bottom-left');
 const MoveLeft = require('./move-left');
 const MoveTopLeft = require('./move-top-left');
+const GetLagOk = require('./get-lag-ok');
+const UpdatePath = require('./update-path');
+const DirectTalk = require('./direct-talk');
+const StopPath = require('./stop-path');
 
 module.exports = {
     AuthenticateServerVersion,
@@ -40,4 +44,8 @@ module.exports = {
     MoveBottomLeft,
     MoveLeft,
     MoveTopLeft,
+    GetLagOk,
+    UpdatePath,
+    DirectTalk,
+    StopPath,
 };

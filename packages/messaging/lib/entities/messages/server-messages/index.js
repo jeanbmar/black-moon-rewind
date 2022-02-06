@@ -7,6 +7,9 @@ const SpellList = require('./spell-list');
 const EquipmentData = require('./equipment-data');
 const KeepAlive = require('./keep-alive');
 const EntityMoved = require('./entity-moved');
+const PathUpdated = require('./path-updated');
+const GetLag = require('./get-lag');
+const PathBeatUpdate = require('./path-beat-update');
 
 module.exports = {
     AccountRegistered,
@@ -18,4 +21,7 @@ module.exports = {
     EquipmentData,
     KeepAlive,
     EntityMoved,
+    PathUpdated,
+    GetLag,
+    PathBeatUpdate,
 };

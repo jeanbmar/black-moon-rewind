@@ -19,6 +19,10 @@ const {
     MoveBottomLeft,
     MoveLeft,
     MoveTopLeft,
+    GetLagOk,
+    UpdatePath,
+    DirectTalk,
+    StopPath,
 } = require('./entities/messages');
 
 class MessageFactory {
@@ -54,6 +58,8 @@ class MessageFactory {
             return new ExitGame();
         case 0x1a:
             return new GetCharacterList();
+        case 0x1e:
+            return new DirectTalk();
         case 0x2e:
             return new EnterGame();
         case 0x30:
@@ -62,6 +68,12 @@ class MessageFactory {
             return new GetSpellList();
         case 0x63:
             return new AuthenticateServerVersion();
+        case 0x99:
+            return new UpdatePath();
+        case 0x9a:
+            return new GetLagOk();
+        case 0x9c:
+            return new StopPath();
         default:
             return new Unknown();
         }

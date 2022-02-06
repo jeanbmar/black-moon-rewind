@@ -84,8 +84,8 @@ class CharacterData extends Message {
         UInt8.write(byteStream, 0x05);
         UInt8.write(byteStream, 0x00);
         UInt8.write(byteStream, 0x09);
-        UInt32BE.write(byteStream, 0x000007D1);
-        Int16BE.write(byteStream, 0xaf);
+        UInt32BE.write(byteStream, this.year ?? 2022);
+        Int16BE.write(byteStream, this.pathBeat ?? 0xaf);
         UInt8.write(byteStream, 0x00);
         UInt8.write(byteStream, 0x00);
     }
