@@ -119,6 +119,89 @@ const upscale = (factor = 1.8) => {
     upscaleTaskBarUI(factor);
     upscaleSplashScreen(factor);
     upscaleQuickslotUI(factor);
+
+    /*Interceptor.attach(ptr(0x40b000), function() {
+        console.log('SPLASHHHH!');
+    });*/
+
+    /*
+    Interceptor.attach(ptr(0x44C7B0), function(args) {
+        for (let i = 0; i < 8 ; i += 1) {
+            console.log(i, this.context.sp.add(i * 4).readPointer());
+        }
+    });
+    */
+    // more ui scaling
+    /*
+    upscaleU16(ptr(0x467407).add(2), factor);
+    upscaleU16(ptr(0x46740F).add(1), factor);
+    upscaleU16(ptr(0x467414).add(2), factor);
+    upscaleU16(ptr(0x46741C).add(1), factor);
+     */
+    /*
+    // cutscene
+    upscaleU16(ptr(0x4ea576).add(3), factor);
+    upscaleU16(ptr(0x4ea57d).add(3), factor);
+    upscaleU16(ptr(0x4ea584).add(3), factor);
+
+
+    upscaleU16(ptr(0x4086fb).add(1), factor); // unsure
+    upscaleU16(ptr(0x4087a2).add(1), factor); // unsure
+    */
+    /*
+
+    upscaleU16(ptr(0x40cef3).add(1), factor);
+    upscaleU16(ptr(0x40cf21).add(1), factor);
+    // more small elements here
+    */
+    // chat
+    // more elements
+    /*
+    upscaleU16(ptr(0x41B3A7).add(1), factor);
+    upscaleU16(ptr(0x41B3B0).add(1), factor);
+    upscaleU16(ptr(0x41b3b8).add(1), factor);
+    upscaleU16(ptr(0x41B3C0).add(1), (value) => HEIGHT * factor - (HEIGHT - value));
+    upscaleU16(ptr(0x41B4df).add(1), factor);
+    upscaleU16(ptr(0x41B529).add(1), factor);
+    upscaleU16(ptr(0x41B56c).add(1), factor);
+    */
+    /*
+    upscaleU16(ptr(0x41c5d5).add(1), factor);
+    upscaleU16(ptr(0x41c60d).add(1), factor);
+
+    upscaleU16(ptr(0x437c6d).add(1), factor);
+    upscaleU16(ptr(0x437c76).add(1), factor);
+    upscaleU16(ptr(0x437c7e).add(1), factor);
+    upscaleU16(ptr(0x437c86).add(1), factor);
+    // more small elements
+
+    // something with surface manager
+    upscaleU16(ptr(0x46735a).add(2), factor);
+    upscaleU16(ptr(0x467362).add(1), factor);
+
+    upscaleU16(ptr(0x4A2B36).add(1), factor);
+    upscaleU16(ptr(0x4A2B3E).add(1), factor);
+
+    // maybe more changes in sub_4a2bc0
+
+    upscaleU16(ptr(0x4C17A7).add(1), factor);
+    upscaleU16(ptr(0x4C17AC).add(1), factor);
+    */
+
+    /*
+    Interceptor.attach(ptr(0x44C7B0), function(args) {
+        console.log(
+            this.context.sp.add(4).readInt(),
+            this.context.sp.add(8).readInt(),
+            this.context.sp.add(12).readInt(),
+            this.context.sp.add(16).readInt(),
+        );
+        this.context.sp.add(4).writeInt(Math.min(Math.ceil(this.context.sp.add(4).readInt() * factor), 1440));
+        this.context.sp.add(8).writeInt(Math.min(Math.ceil(this.context.sp.add(8).readInt() * factor), 1440));
+        this.context.sp.add(12).writeInt(Math.min(Math.ceil(this.context.sp.add(12).readInt() * factor), 1440));
+        this.context.sp.add(16).writeInt(Math.min(Math.ceil(this.context.sp.add(16).readInt() * factor), 1440));
+    });
+     */
 };
 
 module.exports = {
