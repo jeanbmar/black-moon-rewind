@@ -10,9 +10,9 @@ const port = 19947;
 const server = new net.createServer();
 
 const character = new Character();
-character.x = 710; // 0x28;
-character.y = 970; // 0x4a;
-character.z = 42; // 0x93;
+character.x = 1057; // 0x28;
+character.y = 973; // 0x4a;
+character.z = 65; // 0x93;
 
 gameState.character = character
 setInterval(() => {
