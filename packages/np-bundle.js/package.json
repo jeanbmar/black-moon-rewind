@@ -1,0 +1,11 @@
+{
+  "name": "@black-moon-rewind/np-bundle",
+  "version": "1.0.0",
+  "author": "Jean-Baptiste (Ultrapowa) Martin",
+  "main": "lib/index.js",
+  "dependencies": {
+    "@npmcli/arborist": "^4.3.1",
+    "@npmcli/fs": "^1.1.0",
+    "npm-packlist": "^3.0.0"
+  }
+}
