@@ -4,9 +4,7 @@
   "author": "Jean-Baptiste (Ultrapowa) Martin",
   "main": "lib/main.js",
   "dependencies": {
-    "@black-moon-rewind/messaging": "^1.0.0"
-  },
-  "peerDependencies": {
+    "@black-moon-rewind/messaging": "^1.0.0",
     "@black-moon-rewind/microservices": "^1.0.0"
   }
 }

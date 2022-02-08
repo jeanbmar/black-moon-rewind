@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "Jean-Baptiste (Ultrapowa) Martin",
   "main": "lib/index.js",
-  "peerDependencies": {
+  "dependencies": {
     "frida": "^15.1.14",
     "frida-compile": "^10.2.5"
   }
