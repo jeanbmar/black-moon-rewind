@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs/promises');
 const { version } = require('./package.json');
 const { bundle } = require('@black-moon-rewind/np-bundle');
 
@@ -26,6 +27,7 @@ module.exports = {
     ],
     hooks: {
         packageAfterCopy: async (forgeConfig, buildPath) => {
+            await fs.rm(path.join(buildPath, '.env'));
             await bundle(__dirname, buildPath, { root: path.join(__dirname, '../..') });
         },
     },
