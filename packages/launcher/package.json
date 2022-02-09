@@ -1,0 +1,33 @@
+{
+  "name": "black-moon-rewind-launcher",
+  "version": "0.1.0",
+  "description": "Black Moon Rewind Launcher",
+  "author": "Jean-Baptiste (Ultrapowa) Martin",
+  "main": "src/main.js",
+  "scripts": {
+    "dev": "node main.js",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "rebuild": "cross-env npm_config_runtime=electron npm_config_target=16.0.0 node scripts/rebuild-frida.js"
+  },
+  "config": {
+    "forge": "forge.config.js"
+  },
+  "dependencies": {
+    "@black-moon-rewind/frida-agent": "1.0.0",
+    "@black-moon-rewind/frida-client": "1.0.0",
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "devDependencies": {
+    "@black-moon-rewind/np-bundle": "1.0.0",
+    "@electron-forge/cli": "^6.0.0-beta.63",
+    "@electron-forge/maker-deb": "^6.0.0-beta.63",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
+    "@electron-forge/maker-zip": "^6.0.0-beta.63",
+    "cross-env": "^7.0.3",
+    "dotenv": "^14.3.2",
+    "electron": "16.0.8"
+  }
+}
