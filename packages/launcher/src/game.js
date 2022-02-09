@@ -9,15 +9,21 @@ const {
     BMC_GAME_PC = 'demo',
     BMC_GAME_PWD = 'demo',
     BMC_GAME_UID = 'demo',
+    NODE_ENV,
 } = process.env;
 
 class Game {
     static async start() {
         const packageOptions = `-uid=${BMC_GAME_UID} -pwd=${BMC_GAME_PWD} -ip=${BMC_GAME_IP} -pc=${BMC_GAME_PC}`.split(' ');
-        if (BMC_GAME_DEBUG === 'true') {
-            packageOptions.push('-debug');
-        }
         const client = new FridaClient();
+        if (NODE_ENV === 'development') {
+            client.on('info', console.log);
+            client.on('stdout', (message) => process.stdout.write(message));
+            client.on('error', console.error);
+            if (BMC_GAME_DEBUG === 'true') {
+                packageOptions.push('-debug');
+            }
+        }
         await client.connect({
             script,
             packageName: BMC_GAME_EXE_PATH,
