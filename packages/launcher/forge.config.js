@@ -11,6 +11,7 @@ module.exports = {
             FileDescription: 'Black Moon Rewind',
             ProductName: 'Black Moon Rewind',
         },
+        extraResource: 'G:\\black-moon-chronicles\\black-moon-rewind-client',
     },
     makers: [
         {
@@ -28,6 +29,7 @@ module.exports = {
     hooks: {
         packageAfterCopy: async (forgeConfig, buildPath) => {
             await fs.rm(path.join(buildPath, '.env'));
+            await fs.rm(path.join(buildPath, 'forge.config.js'));
             await bundle(__dirname, buildPath, { root: path.join(__dirname, '../..') });
         },
     },

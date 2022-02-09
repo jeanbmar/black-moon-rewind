@@ -4,9 +4,9 @@ const FridaClient = require('@black-moon-rewind/frida-client');
 
 const {
     BMC_GAME_DEBUG = 'false',
-    BMC_GAME_EXE_PATH = path.resolve(__dirname, 'game.exe'),
+    BMC_GAME_EXE_PATH = path.resolve(process.resourcesPath, 'black-moon-rewind-client', 'game.exe'),
     BMC_GAME_IP = '127.0.0.1',
-    BMC_GAME_PC = 'demo',
+    BMC_GAME_PC = 'Black Moon Rewind',
     BMC_GAME_PWD = 'demo',
     BMC_GAME_UID = 'demo',
     NODE_ENV,
