@@ -1,5 +1,7 @@
 if (require('electron-squirrel-startup')) return;
+
 const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const { app, BrowserWindow, ipcMain } = require('electron');
 const Game = require('./game');
 
