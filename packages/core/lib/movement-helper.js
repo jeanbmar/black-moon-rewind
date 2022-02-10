@@ -3,6 +3,8 @@ const { PATH_BEAT } = require('./constants');
 class MovementHelper {
     static getOffset(direction) {
         switch (direction) {
+        case 0:
+            return [0, 0];
         case 1:
             return [0, -1];
         case 2:
