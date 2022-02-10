@@ -23,6 +23,7 @@ const {
     UpdatePath,
     DirectTalk,
     StopPath,
+    GetChatterChannelList,
 } = require('./entities/messages');
 
 class MessageFactory {
@@ -66,6 +67,8 @@ class MessageFactory {
             return new JoinChatterChannels();
         case 0x3e:
             return new GetSpellList();
+        case 0x4b:
+            return new GetChatterChannelList();
         case 0x63:
             return new AuthenticateServerVersion();
         case 0x99:

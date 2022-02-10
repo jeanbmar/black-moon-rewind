@@ -8,6 +8,7 @@ const {
     SpellList,
     EquipmentData,
     KeepAliveOk,
+    ChatterChannelList,
 } = require('@black-moon-rewind/messaging');
 const { PATH_BEAT } = require('./constants');
 
@@ -87,6 +88,15 @@ events.on('ViewEquipped', (message, socket) => {
         g: 0x0000240B,
     };
     socket.send(equipmentData);
+});
+events.on('GetChatterChannelList', (message, socket) => {
+    const chatterChannelList = new ChatterChannelList();
+    chatterChannelList.channels.push({
+        name: 'General',
+        subscribers: 0,
+        status: 0,
+    });
+    socket.send(chatterChannelList);
 });
 events.on('UpdatePath', (message) => {
     gameState.character.updatePath(message.path, message.x, message.y);

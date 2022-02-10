@@ -10,6 +10,7 @@ const EntityMoved = require('./entity-moved');
 const PathUpdated = require('./path-updated');
 const GetLag = require('./get-lag');
 const PathBeatUpdate = require('./path-beat-update');
+const ChatterChannelList = require('./chatter-channel-list');
 
 module.exports = {
     AccountRegistered,
@@ -24,4 +25,5 @@ module.exports = {
     PathUpdated,
     GetLag,
     PathBeatUpdate,
+    ChatterChannelList,
 };

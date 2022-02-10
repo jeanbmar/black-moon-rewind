@@ -22,6 +22,7 @@ const GetLagOk = require('./get-lag-ok');
 const UpdatePath = require('./update-path');
 const DirectTalk = require('./direct-talk');
 const StopPath = require('./stop-path');
+const GetChatterChannelList = require('./get-chatter-channel-list');
 
 module.exports = {
     AuthenticateServerVersion,
@@ -48,4 +49,5 @@ module.exports = {
     UpdatePath,
     DirectTalk,
     StopPath,
+    GetChatterChannelList,
 };
