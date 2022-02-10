@@ -1,0 +1,39 @@
+diff --git a/node_modules/@electron-forge/core/dist/api/make.js b/node_modules/@electron-forge/core/dist/api/make.js
+index cbb32dc..e8c5b48 100644
+--- a/node_modules/@electron-forge/core/dist/api/make.js
++++ b/node_modules/@electron-forge/core/dist/api/make.js
+@@ -93,7 +93,7 @@ var _default = async ({
+     dir = resolvedDir;
+     forgeConfig = await (0, _forgeConfig.default)(dir);
+   });
+-  const actualOutDir = outDir || (0, _outDir.default)(dir, forgeConfig);
++  const actualOutDir = outDir || forgeConfig.outDir || (0, _outDir.default)(dir, forgeConfig);
+   const actualTargetPlatform = platform;
+   platform = platform === 'mas' ? 'darwin' : platform;
+ 
+diff --git a/node_modules/@electron-forge/core/dist/api/package.js b/node_modules/@electron-forge/core/dist/api/package.js
+index 9a95129..1384c0b 100644
+--- a/node_modules/@electron-forge/core/dist/api/package.js
++++ b/node_modules/@electron-forge/core/dist/api/package.js
+@@ -96,7 +96,7 @@ var _default = async ({
+     throw new Error('packageJSON.main must be set to a valid entry point for your Electron app');
+   }
+ 
+-  const calculatedOutDir = outDir || (0, _outDir.default)(dir, forgeConfig);
++  const calculatedOutDir = outDir || forgeConfig.outDir || (0, _outDir.default)(dir, forgeConfig);
+   let packagerSpinner;
+   const pruneEnabled = !('prune' in forgeConfig.packagerConfig) || forgeConfig.packagerConfig.prune;
+   const afterCopyHooks = [async (buildPath, electronVersion, pPlatform, pArch, done) => {
+diff --git a/node_modules/@electron-forge/core/dist/api/publish.js b/node_modules/@electron-forge/core/dist/api/publish.js
+index 08e532d..771d2c3 100644
+--- a/node_modules/@electron-forge/core/dist/api/publish.js
++++ b/node_modules/@electron-forge/core/dist/api/publish.js
+@@ -54,7 +54,7 @@ const publish = async ({
+   }
+ 
+   const forgeConfig = await (0, _forgeConfig.default)(dir);
+-  const calculatedOutDir = outDir || (0, _outDir.default)(dir, forgeConfig);
++  const calculatedOutDir = outDir || forgeConfig.outDir || (0, _outDir.default)(dir, forgeConfig);
+ 
+   const dryRunDir = _path.default.resolve(calculatedOutDir, 'publish-dry-run');
+ 
