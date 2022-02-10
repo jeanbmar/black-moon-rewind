@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Black Moon Rewind Launcher",
   "author": "Jean-Baptiste (Ultrapowa) Martin",
+  "repository": "github:jeanbmar/black-moon-rewind",
   "main": "src/main.js",
   "scripts": {
     "dev": "node main.js",
