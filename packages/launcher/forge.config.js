@@ -25,6 +25,18 @@ module.exports = {
             },
         },
     ],
+    publishers: [
+        {
+            name: '@electron-forge/publisher-github',
+            config: {
+                repository: {
+                    owner: 'jeanbmar',
+                    name: 'black-moon-rewind',
+                },
+                prerelease: true,
+            }
+        }
+    ],
     hooks: {
         packageAfterCopy: async (forgeConfig, buildPath) => {
             await fs.rm(path.join(buildPath, '.env'));

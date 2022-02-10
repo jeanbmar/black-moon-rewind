@@ -9,6 +9,7 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
+    "publish": "electron-forge publish",
     "rebuild": "cross-env npm_config_runtime=electron npm_config_target=16.0.0 node scripts/rebuild-frida.js"
   },
   "config": {
@@ -19,13 +20,15 @@
     "@black-moon-rewind/frida-client": "1.0.0",
     "dotenv": "^14.3.2",
     "electron-squirrel-startup": "^1.0.0",
-    "got": "^11.8.3",
-    "tar": "^6.1.11"
+    "got": "^9.6.0",
+    "tar": "^6.1.11",
+    "update-electron-app": "^2.0.1"
   },
   "devDependencies": {
     "@black-moon-rewind/np-bundle": "1.0.0",
     "@electron-forge/cli": "^6.0.0-beta.63",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
+    "@electron-forge/publisher-github": "^6.0.0-beta.63",
     "cross-env": "^7.0.3",
     "electron": "16.0.8"
   }

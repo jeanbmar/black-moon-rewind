@@ -1,4 +1,5 @@
 if (require('electron-squirrel-startup')) return;
+require('update-electron-app')();
 
 const path = require('path');
 const process = require('process');
