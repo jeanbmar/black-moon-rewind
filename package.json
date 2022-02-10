@@ -7,7 +7,7 @@
     "postinstall": "patch-package",
     "start": "node packages/core"
   },
-  "devDependencies": {
+  "dependencies": {
     "patch-package": "^6.4.7"
   },
   "workspaces": [
