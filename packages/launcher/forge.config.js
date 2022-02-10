@@ -1,5 +1,7 @@
 const path = require('path');
+const process = require('process');
 const fs = require('fs/promises');
+require('dotenv').config();
 const { version } = require('./package.json');
 const { bundle } = require('@black-moon-rewind/np-bundle');
 
@@ -29,13 +31,13 @@ module.exports = {
         {
             name: '@electron-forge/publisher-github',
             config: {
+                authToken: process.env.GITHUB_TOKEN,
                 repository: {
                     owner: 'jeanbmar',
                     name: 'black-moon-rewind',
                 },
-                prerelease: true,
-            }
-        }
+            },
+        },
     ],
     hooks: {
         packageAfterCopy: async (forgeConfig, buildPath) => {
