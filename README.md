@@ -5,5 +5,5 @@ Black Moon Rewind is a Node.js game server to play Black Moon Chronicles: Winds 
 
 Join GitHub [Discussions](https://github.com/jeanbmar/black-moon-rewind/discussions) to talk about the project or to stay informed about the latest news!
 
-A dev build version of the server is up and running.
+A dev build version of the server is up and running.  
 Download the [Launcher](https://github.com/jeanbmar/black-moon-rewind/releases) to try it out!
