@@ -11,7 +11,6 @@ module.exports = {
             FileDescription: 'Black Moon Rewind',
             ProductName: 'Black Moon Rewind',
         },
-        extraResource: 'G:\\black-moon-chronicles\\black-moon-rewind-client',
     },
     makers: [
         {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <title>Black Moon Rewind</title>
@@ -7,11 +7,13 @@
     <link rel="stylesheet" type="text/css" href="./styles.css">
 </head>
 <body>
-<h1>Black Moon Rewind</h1>
-We are using Node.js <span id="node-version"></span>,
-Chromium <span id="chrome-version"></span>,
-and Electron <span id="electron-version"></span>.
-<button id="play">Play</button>
+<div class="center-container"><img alt="black-moon" src="assets/moon.png"/></div>
+<h1 class="title">Black Moon Rewind</h1>
+<h3 class="title">a new chapter of the</h3>
+<h2 class="title">Black Moon Chronicles: Winds of War</h2>
+<h3 id="update" class="title hide">Game update in progress: <span id="update-percentage">0</span>%</h3>
+<h3 id="update-error" class="title hide">Oops... The game couldn't be updated, please try again later.</h3>
+<div class="center-container"><button id="play" class="play">Enter the Game</button></div>
 <script src="renderer.js"></script>
 </body>
 </html>

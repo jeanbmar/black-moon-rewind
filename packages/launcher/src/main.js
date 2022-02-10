@@ -1,11 +1,14 @@
 if (require('electron-squirrel-startup')) return;
 
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '../.env') });
+const process = require('process');
 const { app, BrowserWindow, ipcMain } = require('electron');
+if (app.isPackaged) {
+    process.env.NODE_ENV = 'production';
+}
 const Game = require('./game');
 
-function createWindow () {
+const createWindow = () => {
     const win = new BrowserWindow({
         width: 600,
         height: 400,
@@ -17,8 +20,24 @@ function createWindow () {
     });
     win.setMenu(null);
     win.loadFile(path.join(__dirname, 'index.html'));
-    win.once('ready-to-show', () => {
+    win.once('ready-to-show', async () => {
         win.show();
+    });
+    win.on('show', async () => {
+        if (Game.isUpdateAvailable()) {
+            try {
+                const download = await Game.createDownload();
+                download.on('progress', (progress) => {
+                    win.webContents.send('game:update-progress', Math.ceil(progress.percent * 100));
+                });
+                win.webContents.send('game:update-started');
+                await download.done();
+                await Game.renameDownload();
+                win.webContents.send('game:update-finished');
+            } catch (error) {
+                win.webContents.send('game:update-error', error.message);
+            }
+        }
     });
     ipcMain.handle('game:start', () => Game.start());
     // win.webContents.openDevTools();

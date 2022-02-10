@@ -1,34 +1,55 @@
 const path = require('path');
+const fs = require('fs');
+const fsp = require('fs/promises');
 const script = require.resolve('@black-moon-rewind/frida-agent');
 const FridaClient = require('@black-moon-rewind/frida-client');
+const Download = require('./download');
 
 const {
-    BMC_GAME_DEBUG = 'false',
-    BMC_GAME_EXE_PATH = path.resolve(process.resourcesPath, 'black-moon-rewind-client', 'game.exe'),
-    BMC_GAME_IP = '127.0.0.1',
-    BMC_GAME_PC = 'Black Moon Rewind',
-    BMC_GAME_PWD = 'demo',
-    BMC_GAME_UID = 'demo',
-    NODE_ENV,
-} = process.env;
+    gameExePath,
+    gameDebug,
+    gameIp,
+    gamePc,
+    gameUid,
+    gamePwd,
+    gameRootDir,
+    gameDir,
+    gameTmpDir,
+    updateGameUrl,
+} = require('../app.config');
 
 class Game {
+    static isUpdateAvailable() {
+        return !fs.existsSync(gameDir);
+    }
+
+    static async createDownload() {
+        await fsp.rm(gameRootDir, { recursive: true, force: true });
+        await fsp.mkdir(gameRootDir, { recursive: true });
+        return new Download({ url: updateGameUrl, path: gameRootDir });
+    }
+
+    static async renameDownload() {
+        await fsp.rename(gameTmpDir, gameDir);
+    }
+
     static async start() {
-        const packageOptions = `-uid=${BMC_GAME_UID} -pwd=${BMC_GAME_PWD} -ip=${BMC_GAME_IP} -pc=${BMC_GAME_PC}`.split(' ');
+        const packageOptions = `-uid=${gameUid} -pwd=${gamePwd} -ip=${gameIp} -pc=${gamePc}`.split(' ');
         const client = new FridaClient();
-        if (NODE_ENV === 'development') {
+        if (process.env.NODE_ENV === 'development') {
             client.on('info', console.log);
             client.on('stdout', (message) => process.stdout.write(message));
             client.on('error', console.error);
-            if (BMC_GAME_DEBUG === 'true') {
+            if (gameDebug) {
                 packageOptions.push('-debug');
             }
         }
         await client.connect({
             script,
-            packageName: BMC_GAME_EXE_PATH,
+            packageName: gameExePath,
             packageOptions,
-            cwd: path.dirname(BMC_GAME_EXE_PATH),
+            cwd: path.dirname(gameExePath),
+            env: process.env,
         });
     }
 }
