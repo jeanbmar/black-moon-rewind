@@ -4,10 +4,9 @@
   "version": "1.0.0",
   "author": "Jean-Baptiste (Ultrapowa) Martin",
   "scripts": {
-    "postinstall": "patch-package",
     "start": "node packages/core"
   },
-  "dependencies": {
+  "devDependencies": {
     "patch-package": "^6.4.7"
   },
   "workspaces": [
