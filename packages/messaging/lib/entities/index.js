@@ -3,7 +3,7 @@ const Unit = require('./unit');
 const Message = require('./message');
 
 module.exports = {
-    ...messages,
-    Unit,
-    Message,
+  ...messages,
+  Unit,
+  Message,
 };

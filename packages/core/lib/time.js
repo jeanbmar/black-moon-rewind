@@ -1,15 +1,15 @@
 class Time {
-    constructor() {
-        this.subTick = 0;
-    }
+  constructor() {
+    this.subTick = 0;
+  }
 
-    increaseSubTick() {
-        this.subTick += 1;
-    }
+  increaseSubTick() {
+    this.subTick += 1;
+  }
 
-    isFullTick() {
-        return this.subTick % 4 === 0;
-    }
+  isFullTick() {
+    return this.subTick % 4 === 0;
+  }
 }
 
 module.exports = Time;

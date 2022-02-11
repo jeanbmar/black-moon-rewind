@@ -1,7 +1,5 @@
 const Message = require('../../message');
 
-class GetExtendedEntityInformation extends Message {
-
-}
+class GetExtendedEntityInformation extends Message {}
 
 module.exports = GetExtendedEntityInformation;

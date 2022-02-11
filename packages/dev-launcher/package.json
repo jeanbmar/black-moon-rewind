@@ -8,9 +8,7 @@
   },
   "dependencies": {
     "@black-moon-rewind/frida-agent": "^1.0.0",
-    "@black-moon-rewind/frida-client": "^1.0.0"
-  },
-  "devDependencies": {
+    "@black-moon-rewind/frida-client": "^1.0.0",
     "dotenv": "^14.3.2"
   }
 }

@@ -1,17 +1,19 @@
 class Entity {
-    static read(byteStream, options) {
-        const entity = new this();
-        entity.read(byteStream, options);
-        return entity;
-    }
+  static read(byteStream, options) {
+    const entity = new this();
+    entity.read(byteStream, options);
+    return entity;
+  }
 
-    read(byteStream, options) {}
+  // eslint-disable-next-line class-methods-use-this
+  read() {}
 
-    static write(byteStream, entityLike, options) {
-        this.prototype.write.call(entityLike, byteStream, options);
-    }
+  static write(byteStream, entityLike, options) {
+    this.prototype.write.call(entityLike, byteStream, options);
+  }
 
-    write(byteStream, options) {}
+  // eslint-disable-next-line class-methods-use-this
+  write() {}
 }
 
 module.exports = Entity;

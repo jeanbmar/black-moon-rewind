@@ -1,8 +1,8 @@
 const {
-    Int32BE,
-    UInt16BE,
-    UInt8,
-    Int8,
+  Int32BE,
+  UInt16BE,
+  UInt8,
+  Int8,
 } = require('@black-moon-rewind/byte-stream-scalars');
 const Entity = require('../entity');
 
@@ -14,18 +14,18 @@ const Entity = require('../entity');
 */
 
 class Unit extends Entity {
-    write(byteStream) {
-        Int32BE.write(byteStream, this.a ?? 0x000016E7);
-        Int8.write(byteStream, this.b ?? 0);
-        Int8.write(byteStream, this.c ?? 0);
-        Int32BE.write(byteStream, this.id);
-        Int8.write(byteStream, this.e ?? 2);
-        UInt8.write(byteStream, this.f ?? 0);
-        UInt8.write(byteStream, this.g ?? 2);
-        UInt8.write(byteStream, this.h ?? 64);
-        UInt16BE.write(byteStream, this.i ?? 0xc8);
-        Int8.write(byteStream, this.j ?? 0);
-    }
+  write(byteStream) {
+    Int32BE.write(byteStream, this.a ?? 0x000016e7);
+    Int8.write(byteStream, this.b ?? 0);
+    Int8.write(byteStream, this.c ?? 0);
+    Int32BE.write(byteStream, this.id);
+    Int8.write(byteStream, this.e ?? 2);
+    UInt8.write(byteStream, this.f ?? 0);
+    UInt8.write(byteStream, this.g ?? 2);
+    UInt8.write(byteStream, this.h ?? 64);
+    UInt16BE.write(byteStream, this.i ?? 0xc8);
+    Int8.write(byteStream, this.j ?? 0);
+  }
 }
 
 module.exports = Unit;
