@@ -1,5 +1,5 @@
 const { EventEmitter } = require('events');
-const { ChatterChannelList } = require('@black-moon-rewind/messaging');
+const { ChatterChannelListMessage } = require('@black-moon-rewind/messaging');
 const ChatterChannel = require('./models/chatter-channel');
 const ChatterChannelMember = require('./models/chatter-channel-member');
 const chatterChannels = require('./service');
@@ -53,21 +53,24 @@ events.on(
   }
 );
 
-events.on('chatter-channel-list', ({ channels, character }, socket) => {
-  const chatterChannelList = new ChatterChannelList();
-  channels.forEach(({ id }) => {
-    const chatterChannel = chatterChannels.get(id);
-    const chatterChannelMember = chatterChannel.findMember(character.id);
-    if (chatterChannel && chatterChannelMember) {
-      chatterChannelList.channels.push({
-        name: chatterChannel.name,
-        online: chatterChannel.online,
-        status: chatterChannelMember.status,
-      });
-    }
-  });
-  socket.send(chatterChannelList);
-});
+events.on(
+  'get-chatter-channel-list-server-message',
+  ({ channels, character }, socket) => {
+    const chatterChannelList = new ChatterChannelListMessage();
+    channels.forEach(({ id }) => {
+      const chatterChannel = chatterChannels.get(id);
+      const chatterChannelMember = chatterChannel.findMember(character.id);
+      if (chatterChannel && chatterChannelMember) {
+        chatterChannelList.channels.push({
+          name: chatterChannel.name,
+          online: chatterChannel.online,
+          status: chatterChannelMember.status,
+        });
+      }
+    });
+    socket.send(chatterChannelList);
+  }
+);
 
 events.on(
   'set-channel-member-online-server-message',

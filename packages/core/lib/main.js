@@ -1,4 +1,5 @@
 const net = require('net');
+const kebabCase = require('lodash.kebabcase');
 const { BlackMoonSocket } = require('@black-moon-rewind/microservices');
 const Character = require('./character');
 const { TICK_RATE } = require('./constants');
@@ -31,7 +32,7 @@ server.on('connection', (netSocket) => {
     console.log('received', message.constructor.name)
   );
   socket.on('message', async (message) => {
-    const handlerName = message.constructor.name;
+    const handlerName = kebabCase(message.constructor.name);
     if (messageHandler.listenerCount(handlerName) === 0) {
       console.warn(`no handler for payload ${handlerName}`);
       return;

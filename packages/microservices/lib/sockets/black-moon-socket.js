@@ -1,7 +1,10 @@
 const { Buffer } = require('buffer');
 const { Socket } = require('net');
 const ByteStream = require('@black-moon-rewind/byte-stream');
-const { MessageManager, KeepAlive } = require('@black-moon-rewind/messaging');
+const {
+  MessageManager,
+  KeepAliveMessage,
+} = require('@black-moon-rewind/messaging');
 
 class BlackMoonSocket extends Socket {
   constructor(options) {
@@ -43,7 +46,7 @@ class BlackMoonSocket extends Socket {
     if (this.keepAliveCount >= 3) {
       this.destroy(new Error('connection timeout'));
     }
-    this.send(new KeepAlive());
+    this.send(new KeepAliveMessage());
     this.keepAliveCount += 1;
   }
 }

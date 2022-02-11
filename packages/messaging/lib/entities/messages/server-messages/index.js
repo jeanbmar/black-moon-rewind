@@ -1,31 +1,31 @@
-const AccountRegistered = require('./account-registered');
-const CharacterData = require('./character-data');
-const CharacterList = require('./character-list');
-const EnteredGame = require('./entered-game');
-const ServerVersion = require('./server-version');
-const SpellList = require('./spell-list');
-const EquipmentData = require('./equipment-data');
-const KeepAlive = require('./keep-alive');
-const EntityMoved = require('./entity-moved');
-const PathUpdated = require('./path-updated');
-const GetLag = require('./get-lag');
-const PathBeatUpdate = require('./path-beat-update');
-const ChatterChannelList = require('./chatter-channel-list');
-const ChatterChannelJoined = require('./chatter-channel-joined');
+const AccountRegisteredMessage = require('./account-registered-message');
+const CharacterDataMessage = require('./character-data-message');
+const CharacterListMessage = require('./character-list-message');
+const EnteredGameMessage = require('./entered-game-message');
+const ServerVersionMessage = require('./server-version-message');
+const SpellListMessage = require('./spell-list-message');
+const EquipmentDataMessage = require('./equipment-data-message');
+const KeepAliveMessage = require('./keep-alive-message');
+const EntityMovedMessage = require('./entity-moved-message');
+const PathUpdatedMessage = require('./path-updated-message');
+const GetLagMessage = require('./get-lag-message');
+const PathBeatUpdateMessage = require('./path-beat-update-message');
+const ChatterChannelListMessage = require('./chatter-channel-list-message');
+const ChatterChannelJoinedMessage = require('./chatter-channel-joined-message');
 
 module.exports = {
-  AccountRegistered,
-  CharacterData,
-  CharacterList,
-  EnteredGame,
-  ServerVersion,
-  SpellList,
-  EquipmentData,
-  KeepAlive,
-  EntityMoved,
-  PathUpdated,
-  GetLag,
-  PathBeatUpdate,
-  ChatterChannelList,
-  ChatterChannelJoined,
+  AccountRegisteredMessage,
+  CharacterDataMessage,
+  CharacterListMessage,
+  EnteredGameMessage,
+  ServerVersionMessage,
+  SpellListMessage,
+  EquipmentDataMessage,
+  KeepAliveMessage,
+  EntityMovedMessage,
+  PathUpdatedMessage,
+  GetLagMessage,
+  PathBeatUpdateMessage,
+  ChatterChannelListMessage,
+  ChatterChannelJoinedMessage,
 };

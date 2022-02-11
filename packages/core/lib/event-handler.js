@@ -1,12 +1,12 @@
 const { EventEmitter } = require('events');
-const { PathUpdated } = require('@black-moon-rewind/messaging');
+const { PathUpdatedMessage } = require('@black-moon-rewind/messaging');
 const activeConnections = require('./active-connections');
 const gameState = require('./game-state');
 
 const events = new EventEmitter();
 
-events.on('PathUpdated', (unit) => {
-  const pathUpdated = new PathUpdated();
+events.on('path-updated-server-message', (unit) => {
+  const pathUpdated = new PathUpdatedMessage();
   pathUpdated.x = unit.x;
   pathUpdated.y = unit.y;
   pathUpdated.unit = { id: unit.id };

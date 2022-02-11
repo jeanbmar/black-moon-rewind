@@ -1,14 +1,14 @@
 const { EventEmitter } = require('events');
 const {
-  AccountRegistered,
-  ServerVersion,
-  CharacterList,
-  CharacterData,
-  EnteredGame,
-  SpellList,
-  EquipmentData,
-  KeepAliveOk,
-  ChatterChannelList,
+  AccountRegisteredMessage,
+  ServerVersionMessage,
+  CharacterListMessage,
+  CharacterDataMessage,
+  EnteredGameMessage,
+  SpellListMessage,
+  EquipmentDataMessage,
+  KeepAliveOkMessage,
+  ChatterChannelListMessage,
 } = require('@black-moon-rewind/messaging');
 const { PATH_BEAT } = require('./constants');
 const gameState = require('./game-state');
@@ -22,19 +22,19 @@ chatEvents.eventNames().forEach((eventName) => {
   });
 });
 
-events.on('RegisterAccount', (message, socket) => {
-  socket.send(new AccountRegistered());
+events.on('register-account-message', (message, socket) => {
+  socket.send(new AccountRegisteredMessage());
 });
-events.on('AuthenticateServerVersion', (message, socket) => {
-  socket.send(new ServerVersion());
+events.on('authenticate-server-version-message', (message, socket) => {
+  socket.send(new ServerVersionMessage());
 });
-events.on('GetCharacterList', (message, socket) => {
-  const characterList = new CharacterList();
+events.on('get-character-list-message', (message, socket) => {
+  const characterList = new CharacterListMessage();
   characterList.characters = [{ name: gameState.character.name, level: 3 }];
   socket.send(characterList);
 });
-events.on('LoadCharacter', (message, socket) => {
-  const characterData = new CharacterData();
+events.on('load-character-message', (message, socket) => {
+  const characterData = new CharacterDataMessage();
   characterData.id = gameState.character.id;
   characterData.x = gameState.character.x;
   characterData.y = gameState.character.y;
@@ -47,8 +47,8 @@ events.on('LoadCharacter', (message, socket) => {
   characterData.pathBeat = PATH_BEAT;
   socket.send(characterData);
 });
-events.on('EnterGame', (message, socket) => {
-  const enteredGame = new EnteredGame();
+events.on('enter-game-message', (message, socket) => {
+  const enteredGame = new EnteredGameMessage();
   enteredGame.entities = [
     {
       x: gameState.character.x,
@@ -58,7 +58,7 @@ events.on('EnterGame', (message, socket) => {
   ];
   socket.send(enteredGame);
 });
-events.on('JoinChatterChannels', (message, socket) => {
+events.on('join-chatter-channels-message', (message, socket) => {
   const { character } = gameState;
   events.emit(
     'join-chatter-channels-server-message',
@@ -86,7 +86,7 @@ events.on(
   function listener(message, socket) {
     const { character } = gameState;
     this.emit(
-      'chatter-channel-list',
+      'get-chatter-channel-list-server-message',
       {
         channels: character.chatterChannels,
         character: { id: character.id },
@@ -95,13 +95,13 @@ events.on(
     );
   }
 );
-events.on('GetSpellList', (message, socket) => {
-  const spellList = new SpellList();
+events.on('get-spell-list-message', (message, socket) => {
+  const spellList = new SpellListMessage();
   // spellList.spells = [];
   socket.send(spellList);
 });
-events.on('ViewEquipped', (message, socket) => {
-  const equipmentData = new EquipmentData();
+events.on('view-equipped-message', (message, socket) => {
+  const equipmentData = new EquipmentDataMessage();
   equipmentData.items[1] = {
     id: 0x00100092,
     b: 0x00017ebf,
@@ -132,7 +132,7 @@ events.on('ViewEquipped', (message, socket) => {
   socket.send(equipmentData);
 });
 /*
-events.on('GetChatterChannelList', (message, socket) => {
+events.on('get-chatter-channel-list-message', (message, socket) => {
   const chatterChannelList = new ChatterChannelList();
   chatterChannelList.channels.push({
     name: 'General',
@@ -142,40 +142,40 @@ events.on('GetChatterChannelList', (message, socket) => {
   socket.send(chatterChannelList);
 });
 */
-events.on('UpdatePath', (message) => {
+events.on('update-path-message', (message) => {
   gameState.character.updatePath(message.path, message.x, message.y);
 });
-events.on('StopPath', () => {
+events.on('stop-path-message', () => {
   gameState.character.stopPath();
 });
-events.on('MoveTop', (message) => {
+events.on('move-top-message', (message) => {
   gameState.character.addMove(1, message.distance);
 });
-events.on('MoveTopRight', (message) => {
+events.on('move-top-right-message', (message) => {
   gameState.character.addMove(2, message.distance);
 });
-events.on('MoveRight', (message) => {
+events.on('move-right-message', (message) => {
   gameState.character.addMove(3, message.distance);
 });
-events.on('MoveBottomRight', (message) => {
+events.on('move-bottom-right-message', (message) => {
   gameState.character.addMove(4, message.distance);
 });
-events.on('MoveBottom', (message) => {
+events.on('move-bottom-message', (message) => {
   gameState.character.addMove(5, message.distance);
 });
-events.on('MoveBottomLeft', (message) => {
+events.on('move-bottom-left-message', (message) => {
   gameState.character.addMove(6, message.distance);
 });
-events.on('MoveLeft', (message) => {
+events.on('move-left-message', (message) => {
   gameState.character.addMove(7, message.distance);
 });
-events.on('MoveTopLeft', (message) => {
+events.on('move-top-left-message', (message) => {
   gameState.character.addMove(8, message.distance);
 });
-events.on('KeepAliveOk', () => {});
-events.on('Unknown', (message, socket) => {
+events.on('keep-alive-ok-message', () => {});
+events.on('unknown-message', (message, socket) => {
   console.log(`unknown payload ${JSON.stringify(message)}`);
-  socket.send(new KeepAliveOk());
+  socket.send(new KeepAliveOkMessage());
 });
 
 module.exports = events;

@@ -1,55 +1,55 @@
-const AuthenticateServerVersion = require('./authenticate-server-version');
-const EnterGame = require('./enter-game');
-const ExitGame = require('./exit-game');
-const GetCharacterList = require('./get-character-list');
-const GetExtendedEntityInformation = require('./get-extended-entity-information');
-const GetSpellList = require('./get-spell-list');
-const LoadCharacter = require('./load-character');
-const RegisterAccount = require('./register-account');
-const Unknown = require('./unknown');
-const ViewEquipped = require('./view-equipped');
-const JoinChatterChannels = require('./join-chatter-channels');
-const KeepAliveOk = require('./keep-alive-ok');
-const MoveTop = require('./move-top');
-const MoveTopRight = require('./move-top-right');
-const MoveRight = require('./move-right');
-const MoveBottomRight = require('./move-bottom-right');
-const MoveBottom = require('./move-bottom');
-const MoveBottomLeft = require('./move-bottom-left');
-const MoveLeft = require('./move-left');
-const MoveTopLeft = require('./move-top-left');
-const GetLagOk = require('./get-lag-ok');
-const UpdatePath = require('./update-path');
-const DirectTalk = require('./direct-talk');
-const StopPath = require('./stop-path');
-const GetChatterChannelList = require('./get-chatter-channel-list');
-const GetChatterChannelUserListing = require('./get-chatter-channel-user-listing');
+const AuthenticateServerVersionMessage = require('./authenticate-server-version-message');
+const EnterGameMessage = require('./enter-game-message');
+const ExitGameMessage = require('./exit-game-message');
+const GetCharacterListMessage = require('./get-character-list-message');
+const GetExtendedEntityInformationMessage = require('./get-extended-entity-information-message');
+const GetSpellListMessage = require('./get-spell-list-message');
+const LoadCharacterMessage = require('./load-character-message');
+const RegisterAccountMessage = require('./register-account-message');
+const UnknownMessage = require('./unknown-message');
+const ViewEquippedMessage = require('./view-equipped-message');
+const JoinChatterChannelsMessage = require('./join-chatter-channels-message');
+const KeepAliveOkMessage = require('./keep-alive-ok-message');
+const MoveTopMessage = require('./move-top-message');
+const MoveTopRightMessage = require('./move-top-right-message');
+const MoveRightMessage = require('./move-right-message');
+const MoveBottomRightMessage = require('./move-bottom-right-message');
+const MoveBottomMessage = require('./move-bottom-message');
+const MoveBottomLeftMessage = require('./move-bottom-left-message');
+const MoveLeftMessage = require('./move-left-message');
+const MoveTopLeftMessage = require('./move-top-left-message');
+const GetLagOkMessage = require('./get-lag-ok-message');
+const UpdatePathMessage = require('./update-path-message');
+const DirectTalkMessage = require('./direct-talk-message');
+const StopPathMessage = require('./stop-path-message');
+const GetChatterChannelListMessage = require('./get-chatter-channel-list-message');
+const GetChatterChannelUserListingMessage = require('./get-chatter-channel-user-listing-message');
 
 module.exports = {
-  AuthenticateServerVersion,
-  EnterGame,
-  ExitGame,
-  GetCharacterList,
-  GetExtendedEntityInformation,
-  GetSpellList,
-  LoadCharacter,
-  RegisterAccount,
-  Unknown,
-  ViewEquipped,
-  JoinChatterChannels,
-  KeepAliveOk,
-  MoveTop,
-  MoveTopRight,
-  MoveRight,
-  MoveBottomRight,
-  MoveBottom,
-  MoveBottomLeft,
-  MoveLeft,
-  MoveTopLeft,
-  GetLagOk,
-  UpdatePath,
-  DirectTalk,
-  StopPath,
-  GetChatterChannelList,
-  GetChatterChannelUserListing,
+  AuthenticateServerVersionMessage,
+  EnterGameMessage,
+  ExitGameMessage,
+  GetCharacterListMessage,
+  GetExtendedEntityInformationMessage,
+  GetSpellListMessage,
+  LoadCharacterMessage,
+  RegisterAccountMessage,
+  UnknownMessage,
+  ViewEquippedMessage,
+  JoinChatterChannelsMessage,
+  KeepAliveOkMessage,
+  MoveTopMessage,
+  MoveTopRightMessage,
+  MoveRightMessage,
+  MoveBottomRightMessage,
+  MoveBottomMessage,
+  MoveBottomLeftMessage,
+  MoveLeftMessage,
+  MoveTopLeftMessage,
+  GetLagOkMessage,
+  UpdatePathMessage,
+  DirectTalkMessage,
+  StopPathMessage,
+  GetChatterChannelListMessage,
+  GetChatterChannelUserListingMessage,
 };

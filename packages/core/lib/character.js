@@ -25,7 +25,7 @@ class Character {
 
   tick() {
     if (this.pathUpdated) {
-      eventHandler.emit('PathUpdated', this);
+      eventHandler.emit('path-updated-server-message', this);
       this.pathUpdated = false;
     }
   }
