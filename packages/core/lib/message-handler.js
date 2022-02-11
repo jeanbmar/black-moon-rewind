@@ -61,7 +61,7 @@ events.on('EnterGame', (message, socket) => {
 events.on('JoinChatterChannels', (message, socket) => {
   const { character } = gameState;
   events.emit(
-    'join-chatter-channels-server-command',
+    'join-chatter-channels-server-message',
     {
       channels: message.channels,
       character: {
@@ -82,7 +82,7 @@ events.on('chatter-channel-joined-server-command', (message) => {
   }
 });
 events.on(
-  'get-user-chatter-channel-list-server-command',
+  'get-chatter-channel-list-server-command',
   function listener(message, socket) {
     const { character } = gameState;
     this.emit(

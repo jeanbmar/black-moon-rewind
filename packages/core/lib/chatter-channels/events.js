@@ -7,7 +7,7 @@ const chatterChannels = require('./service');
 const events = new EventEmitter();
 
 events.on(
-  'join-chatter-channels-server-command',
+  'join-chatter-channels-server-message',
   function listener(message, socket) {
     message.channels.forEach(({ name, password }) => {
       let chatterChannel = chatterChannels.get(name); // todo call getByName instead
@@ -31,9 +31,20 @@ events.on(
           character: { id: message.character.id },
         });
       }
+      if (chatterChannel.hasMember(message.character.id)) {
+        const chatterChannelMember = chatterChannel.findMember(
+          message.character.id
+        );
+        if (!chatterChannelMember.online) {
+          this.emit('set-channel-member-online-server-message', {
+            channel: { id: chatterChannel.id },
+            character: { id: message.character.id },
+          });
+        }
+      }
     });
     this.emit(
-      'get-user-chatter-channel-list-server-command',
+      'get-chatter-channel-list-server-command',
       {
         character: { id: message.character.id },
       },
@@ -57,5 +68,29 @@ events.on('chatter-channel-list', ({ channels, character }, socket) => {
   });
   socket.send(chatterChannelList);
 });
+
+events.on(
+  'set-channel-member-online-server-message',
+  ({ channel, character }) => {
+    const chatterChannel = chatterChannels.get(channel.id);
+    const chatterChannelMember = chatterChannel.findMember(character.id);
+    if (chatterChannel && chatterChannelMember) {
+      chatterChannelMember.online = true;
+      chatterChannel.online += 1;
+    }
+  }
+);
+
+events.on(
+  'set-channel-member-offline-server-message',
+  ({ channel, character }) => {
+    const chatterChannel = chatterChannels.get(channel.id);
+    const chatterChannelMember = chatterChannel.findMember(character.id);
+    if (chatterChannel && chatterChannelMember) {
+      chatterChannelMember.online = false;
+      chatterChannel.online -= 1;
+    }
+  }
+);
 
 module.exports = events;

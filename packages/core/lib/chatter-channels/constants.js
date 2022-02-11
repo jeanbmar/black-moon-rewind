@@ -1,5 +1,4 @@
 module.exports = {
-  MEMBER_ONLINE: 1,
-  MEMBER_OFFLINE: 2,
-  MEMBER_MUTED: 3,
+  MEMBER_MUTED: 0,
+  MEMBER_AVAILABLE: 1,
 };

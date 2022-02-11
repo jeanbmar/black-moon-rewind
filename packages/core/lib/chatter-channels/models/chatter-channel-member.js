@@ -4,7 +4,16 @@ class ChatterChannelMember {
   constructor() {
     this.id = null;
     this.name = null;
-    this.status = constants.MEMBER_OFFLINE;
+    this.online = false;
+    this.status = constants.MEMBER_AVAILABLE;
+  }
+
+  mute() {
+    this.status = constants.MEMBER_MUTED;
+  }
+
+  unmute() {
+    this.status = constants.MEMBER_AVAILABLE;
   }
 }
 
