@@ -1,22 +1,22 @@
-const Message = require('../../message');
 const { UInt16BE, String } = require('@black-moon-rewind/byte-stream-scalars');
+const Message = require('../../message');
 
 class JoinChatterChannels extends Message {
-    static type = 0x30;
+  static type = 0x30;
 
-    constructor() {
-        super();
-        this.chatterChannels = [];
-    }
+  constructor() {
+    super();
+    this.channels = [];
+  }
 
-    read(byteStream) {
-        for (let i = UInt16BE.read(byteStream); i > 0; i -= 1) {
-            this.chatterChannels.push({
-                name: String.read(byteStream),
-                b: String.read(byteStream),
-            });
-        }
+  read(byteStream) {
+    for (let i = UInt16BE.read(byteStream); i > 0; i -= 1) {
+      this.channels.push({
+        name: String.read(byteStream),
+        password: String.read(byteStream),
+      });
     }
+  }
 }
 
 module.exports = JoinChatterChannels;

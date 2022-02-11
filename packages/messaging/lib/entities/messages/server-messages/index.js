@@ -11,19 +11,21 @@ const PathUpdated = require('./path-updated');
 const GetLag = require('./get-lag');
 const PathBeatUpdate = require('./path-beat-update');
 const ChatterChannelList = require('./chatter-channel-list');
+const ChatterChannelJoined = require('./chatter-channel-joined');
 
 module.exports = {
-    AccountRegistered,
-    CharacterData,
-    CharacterList,
-    EnteredGame,
-    ServerVersion,
-    SpellList,
-    EquipmentData,
-    KeepAlive,
-    EntityMoved,
-    PathUpdated,
-    GetLag,
-    PathBeatUpdate,
-    ChatterChannelList,
+  AccountRegistered,
+  CharacterData,
+  CharacterList,
+  EnteredGame,
+  ServerVersion,
+  SpellList,
+  EquipmentData,
+  KeepAlive,
+  EntityMoved,
+  PathUpdated,
+  GetLag,
+  PathBeatUpdate,
+  ChatterChannelList,
+  ChatterChannelJoined,
 };
