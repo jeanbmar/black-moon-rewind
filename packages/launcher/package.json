@@ -11,7 +11,7 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "rebuild": "cross-env npm_config_runtime=electron npm_config_target=16.0.0 node scripts/rebuild-frida.js"
+    "rebuild": "npx frida-rebuild --runtime=electron --target=16.0.0"
   },
   "config": {
     "forge": "forge.config.js"

@@ -4,7 +4,8 @@
   "author": "Jean-Baptiste (Ultrapowa) Martin",
   "main": "lib/main.js",
   "scripts": {
-    "dev": "node main.js"
+    "start": "node main.js",
+    "rebuild": "npx frida-rebuild"
   },
   "dependencies": {
     "@black-moon-rewind/frida-agent": "^1.0.0",
