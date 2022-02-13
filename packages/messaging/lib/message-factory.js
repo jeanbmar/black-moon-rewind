@@ -25,6 +25,7 @@ const {
   StopPathMessage,
   GetChatterChannelListMessage,
   GetChatterChannelUserListingMessage,
+  RemoveFromChatterChannelsMessage,
 } = require('./entities/messages');
 
 class MessageFactory {
@@ -70,6 +71,8 @@ class MessageFactory {
         return new GetChatterChannelUserListingMessage();
       case 0x3e:
         return new GetSpellListMessage();
+      case 0x4a:
+        return new RemoveFromChatterChannelsMessage();
       case 0x4b:
         return new GetChatterChannelListMessage();
       case 0x63:

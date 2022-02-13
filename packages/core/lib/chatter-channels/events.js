@@ -1,5 +1,7 @@
 const { EventEmitter } = require('events');
-const { ChatterChannelListMessage } = require('@black-moon-rewind/messaging');
+const {
+  ChatterChannelListMessage,
+} = require('@black-moon-rewind/messaging');
 const ChatterChannel = require('./models/chatter-channel');
 const ChatterChannelMember = require('./models/chatter-channel-member');
 const chatterChannels = require('./service');
@@ -36,10 +38,8 @@ events.on(
           message.character.id
         );
         if (!chatterChannelMember.online) {
-          this.emit('set-channel-member-online-server-message', {
-            channel: { id: chatterChannel.id },
-            character: { id: message.character.id },
-          });
+          chatterChannelMember.online = true;
+          chatterChannel.online += 1;
         }
       }
     });
@@ -73,25 +73,32 @@ events.on(
 );
 
 events.on(
-  'set-channel-member-online-server-message',
-  ({ channel, character }) => {
-    const chatterChannel = chatterChannels.get(channel.id);
-    const chatterChannelMember = chatterChannel.findMember(character.id);
-    if (chatterChannel && chatterChannelMember) {
-      chatterChannelMember.online = true;
-      chatterChannel.online += 1;
-    }
-  }
-);
-
-events.on(
-  'set-channel-member-offline-server-message',
-  ({ channel, character }) => {
-    const chatterChannel = chatterChannels.get(channel.id);
-    const chatterChannelMember = chatterChannel.findMember(character.id);
-    if (chatterChannel && chatterChannelMember) {
-      chatterChannelMember.online = false;
-      chatterChannel.online -= 1;
+  'remove-from-chatter-channels-server-message',
+  function listener({ channel, character }, socket) {
+    const chatterChannel = chatterChannels.get(channel.name); // todo call getByName instead
+    if (chatterChannel) {
+      const chatterChannelMember = chatterChannel.findMember(character.id);
+      if (chatterChannelMember) {
+        chatterChannel.removeMember(character.id);
+        if (chatterChannelMember.online) {
+          chatterChannelMember.online = false;
+          chatterChannel.online -= 1;
+        }
+      }
+      if (chatterChannel.members.length === 0) {
+        chatterChannels.delete(chatterChannel.id);
+      }
+      this.emit('chatter-channel-left-server-command', {
+        channel: { id: chatterChannel.id },
+        character: { id: character.id },
+      });
+      this.emit(
+        'get-chatter-channel-list-server-command',
+        {
+          character: { id: character.id },
+        },
+        socket
+      );
     }
   }
 );

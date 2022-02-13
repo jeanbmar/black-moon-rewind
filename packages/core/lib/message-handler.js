@@ -8,7 +8,7 @@ const {
   SpellListMessage,
   EquipmentDataMessage,
   KeepAliveOkMessage,
-  ChatterChannelListMessage,
+  GameExitedMessage,
 } = require('@black-moon-rewind/messaging');
 const { PATH_BEAT } = require('./constants');
 const gameState = require('./game-state');
@@ -95,6 +95,40 @@ events.on(
     );
   }
 );
+events.on('chatter-channel-left-server-command', (message) => {
+  const { character } = gameState;
+  const currentIndex = character.chatterChannels.findIndex(
+    ({ id }) => message.channel.id === id
+  );
+  if (currentIndex > -1) {
+    character.chatterChannels.splice(currentIndex, 1);
+  }
+});
+events.on('remove-from-chatter-channels-message', (message, socket) => {
+  const { character } = gameState;
+  events.emit(
+    'remove-from-chatter-channels-server-message',
+    {
+      channel: { name: message.name },
+      character: { id: character.id },
+    },
+    socket
+  );
+});
+events.on(
+  'get-chatter-channel-list-message',
+  function listener(message, socket) {
+    const { character } = gameState;
+    this.emit(
+      'get-chatter-channel-list-server-message',
+      {
+        channels: character.chatterChannels,
+        character: { id: character.id },
+      },
+      socket
+    );
+  }
+);
 events.on('get-spell-list-message', (message, socket) => {
   const spellList = new SpellListMessage();
   // spellList.spells = [];
@@ -131,17 +165,6 @@ events.on('view-equipped-message', (message, socket) => {
   };
   socket.send(equipmentData);
 });
-/*
-events.on('get-chatter-channel-list-message', (message, socket) => {
-  const chatterChannelList = new ChatterChannelList();
-  chatterChannelList.channels.push({
-    name: 'General',
-    subscribers: 0,
-    status: 0,
-  });
-  socket.send(chatterChannelList);
-});
-*/
 events.on('update-path-message', (message) => {
   gameState.character.updatePath(message.path, message.x, message.y);
 });
@@ -173,6 +196,9 @@ events.on('move-top-left-message', (message) => {
   gameState.character.addMove(8, message.distance);
 });
 events.on('keep-alive-ok-message', () => {});
+events.on('exit-game-message', (message, socket) => {
+  socket.send(new GameExitedMessage());
+});
 events.on('unknown-message', (message, socket) => {
   console.log(`unknown payload ${JSON.stringify(message)}`);
   socket.send(new KeepAliveOkMessage());
