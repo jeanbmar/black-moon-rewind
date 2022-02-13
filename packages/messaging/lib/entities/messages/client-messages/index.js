@@ -25,6 +25,7 @@ const StopPathMessage = require('./stop-path-message');
 const GetChatterChannelListMessage = require('./get-chatter-channel-list-message');
 const GetChatterChannelUserListingMessage = require('./get-chatter-channel-user-listing-message');
 const RemoveFromChatterChannelsMessage = require('./remove-from-chatter-channels-message');
+const SendChatterChannelTextMessage = require('./send-chatter-channel-text-message');
 
 module.exports = {
   AuthenticateServerVersionMessage,
@@ -54,4 +55,5 @@ module.exports = {
   GetChatterChannelListMessage,
   GetChatterChannelUserListingMessage,
   RemoveFromChatterChannelsMessage,
+  SendChatterChannelTextMessage,
 };

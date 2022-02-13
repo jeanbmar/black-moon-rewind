@@ -1,19 +1,22 @@
-const constants = require('../constants');
+const {
+  MEMBER_AVAILABLE,
+  MEMBER_MUTED,
+} = require('./chatter-channel-member-status-enum');
 
 class ChatterChannelMember {
   constructor() {
     this.id = null;
     this.name = null;
     this.online = false;
-    this.status = constants.MEMBER_AVAILABLE;
+    this.status = MEMBER_AVAILABLE;
   }
 
-  mute() {
-    this.status = constants.MEMBER_MUTED;
+  selfMute() {
+    this.status = MEMBER_MUTED;
   }
 
-  unmute() {
-    this.status = constants.MEMBER_AVAILABLE;
+  selfUnmute() {
+    this.status = MEMBER_AVAILABLE;
   }
 }
 

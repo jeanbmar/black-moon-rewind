@@ -1,4 +1,4 @@
-const { PATH_BEAT } = require('./constants');
+const { PATH_BEAT } = require('../config');
 
 class MovementHelper {
   static getOffset(direction) {

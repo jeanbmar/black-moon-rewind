@@ -1,7 +1,7 @@
-const events = require('./events');
+const config = require('./config');
 const models = require('./models');
 
 module.exports = {
-  events,
+  config,
   models,
 };

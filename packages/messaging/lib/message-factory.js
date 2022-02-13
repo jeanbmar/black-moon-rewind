@@ -26,6 +26,7 @@ const {
   GetChatterChannelListMessage,
   GetChatterChannelUserListingMessage,
   RemoveFromChatterChannelsMessage,
+  SendChatterChannelTextMessage,
 } = require('./entities/messages');
 
 class MessageFactory {
@@ -67,6 +68,8 @@ class MessageFactory {
         return new EnterGameMessage();
       case 0x30:
         return new JoinChatterChannelsMessage();
+      case 0x31:
+        return new SendChatterChannelTextMessage();
       case 0x32:
         return new GetChatterChannelUserListingMessage();
       case 0x3e:

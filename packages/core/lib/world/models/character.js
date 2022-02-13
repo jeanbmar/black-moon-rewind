@@ -1,14 +1,12 @@
 const crypto = require('crypto');
-const Timer = require('./timer');
-const eventHandler = require('./event-handler');
-const gameState = require('./game-state');
+const { Timer } = require('../../shared/models');
 const movementHelper = require('./movement-helper');
-const { MOVEMENT_BUFFER_SIZE } = require('./constants');
+const { MOVEMENT_BUFFER_SIZE } = require('../config');
 
 class Character {
   constructor() {
-    this.id = crypto.randomInt(1, 0xffff);
-    this.name = 'Black Moon Rewind';
+    this.id = `${crypto.randomInt(1, 0xffff)}`;
+    this.name = null;
     this.x = 0;
     this.y = 0;
     this.z = 0;
@@ -16,6 +14,7 @@ class Character {
     this.path = [];
     this.pathUpdated = false;
     this.chatterChannels = [];
+    this.items = [];
   }
 
   updatePosition(x, y) {
@@ -23,18 +22,16 @@ class Character {
     this.y = y;
   }
 
-  tick() {
+  tick(events) {
     if (this.pathUpdated) {
-      eventHandler.emit('path-updated-server-message', this);
+      events.emit('path-updated-server-message', { characterId: this.id });
       this.pathUpdated = false;
     }
   }
 
-  subTick() {
+  subTick(events, time) {
     if (this.exhaustTimer !== null) {
-      const remainingExhaustMs = this.exhaustTimer.getRemainingMs(
-        gameState.time
-      );
+      const remainingExhaustMs = this.exhaustTimer.getRemainingMs(time);
       if (remainingExhaustMs <= 0) {
         if (this.path.length) {
           const [offsetX, offsetY] = movementHelper.getOffset(
@@ -44,7 +41,7 @@ class Character {
           const exhaustSeconds =
             movementHelper.getExhaustMs(offsetX, offsetY) / 1000 +
             remainingExhaustMs / 1000;
-          this.exhaustTimer.start(exhaustSeconds, gameState.time);
+          this.exhaustTimer.start(exhaustSeconds, time);
         } else {
           this.exhaustTimer = null;
         }
@@ -55,7 +52,7 @@ class Character {
       const exhaustSeconds =
         movementHelper.getExhaustMs(offsetX, offsetY) / 1000;
       this.exhaustTimer = new Timer();
-      this.exhaustTimer.start(exhaustSeconds, gameState.time);
+      this.exhaustTimer.start(exhaustSeconds, time);
     }
   }
 
