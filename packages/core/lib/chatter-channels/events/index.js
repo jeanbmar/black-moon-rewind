@@ -26,5 +26,9 @@ events.on(
   'close-session-server-message',
   require('./close-session-server-message')
 );
+events.on(
+  'send-chatter-channel-text-message',
+  require('./send-chatter-channel-text-message')
+);
 
 module.exports = events;

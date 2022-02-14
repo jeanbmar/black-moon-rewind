@@ -5,7 +5,7 @@ class LoadCharacterMessage extends Message {
   static type = 0x0d;
 
   read(byteStream) {
-    this.id = String.read(byteStream);
+    this.name = String.read(byteStream);
   }
 }
 

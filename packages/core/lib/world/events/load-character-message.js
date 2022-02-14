@@ -1,16 +1,16 @@
 const { CharacterDataMessage } = require('@black-moon-rewind/messaging');
 const { PATH_BEAT } = require('../config');
-const { sessions, characters } = require('../state');
+const { sessions, charactersByName } = require('../state');
 
 module.exports = function listener(message, socket) {
   const session = sessions.get(socket);
   const { id: accountId } = session;
-  const { id: characterId } = message;
-  const character = characters.get(characterId);
+  const { name } = message;
+  const character = charactersByName.get(name);
   if (character.accountId !== accountId) {
     return;
   }
-  session.characterId = characterId;
+  session.characterId = character.id;
   const characterData = new CharacterDataMessage();
   characterData.id = character.unitId;
   characterData.x = character.x;
@@ -20,7 +20,7 @@ module.exports = function listener(message, socket) {
   characterData.pathBeat = PATH_BEAT;
   this.emit(
     'open-chatter-channels-session-server-message',
-    { accountId, characterId },
+    { accountId, characterId: character.id },
     socket
   );
   socket.send(characterData);

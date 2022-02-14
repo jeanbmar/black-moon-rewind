@@ -5,6 +5,7 @@ const database = require('../database-mock');
 const sessions = new Map();
 const time = new Time();
 const characters = new Map();
+const charactersByName = new Map();
 
 const character = new Character();
 // todo implement proper deserialization
@@ -18,9 +19,11 @@ character.items = characterData.items;
 character.level = characterData.level;
 character.name = characterData.name;
 characters.set(character.id, character);
+charactersByName.set(character.name, character);
 
 module.exports = {
   time,
   characters,
   sessions,
+  charactersByName,
 };

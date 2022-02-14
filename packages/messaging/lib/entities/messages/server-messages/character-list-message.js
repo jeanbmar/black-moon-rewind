@@ -16,7 +16,7 @@ class CharacterListMessage extends Message {
   write(byteStream) {
     UInt8.write(byteStream, this.characters.length);
     this.characters.forEach((character) => {
-      String.write(byteStream, character.id);
+      String.write(byteStream, character.name);
       UInt16BE.write(byteStream, character.level);
     });
   }

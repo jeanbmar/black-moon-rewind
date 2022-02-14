@@ -8,7 +8,7 @@ module.exports = function listener(message, socket) {
   );
   const characterList = new CharacterListMessage();
   characterList.characters = accountCharacters.map((accountCharacter) => ({
-    id: accountCharacter.id,
+    name: accountCharacter.name,
     level: accountCharacter.level,
   }));
   socket.send(characterList);
