@@ -1,14 +1,15 @@
 const Character = require('./models/character');
-const { World } = require('./models');
+const { Time } = require('../shared').models;
 const database = require('../database-mock');
 
 const sessions = new Map();
-const world = new World();
+const time = new Time();
 const characters = new Map();
 
 const character = new Character();
 // todo implement proper deserialization
 const characterData = database.characters[0];
+character.accountId = characterData.accountId;
 character.id = characterData.id;
 character.x = characterData.x;
 character.y = characterData.y;
@@ -19,7 +20,7 @@ character.name = characterData.name;
 characters.set(character.id, character);
 
 module.exports = {
-  world,
+  time,
   characters,
   sessions,
 };

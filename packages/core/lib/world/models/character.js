@@ -5,7 +5,9 @@ const { MOVEMENT_BUFFER_SIZE } = require('../config');
 
 class Character {
   constructor() {
-    this.id = `${crypto.randomInt(1, 0xffff)}`;
+    this.accountId = null;
+    this.id = null;
+    this.unitId = crypto.randomInt(1, 0xffff);
     this.name = null;
     this.x = 0;
     this.y = 0;
@@ -13,7 +15,6 @@ class Character {
     this.exhaustTimer = null;
     this.path = [];
     this.pathUpdated = false;
-    this.chatterChannels = [];
     this.items = [];
   }
 
@@ -22,14 +23,7 @@ class Character {
     this.y = y;
   }
 
-  tick(events) {
-    if (this.pathUpdated) {
-      events.emit('path-updated-server-message', { characterId: this.id });
-      this.pathUpdated = false;
-    }
-  }
-
-  subTick(events, time) {
+  subTick(time) {
     if (this.exhaustTimer !== null) {
       const remainingExhaustMs = this.exhaustTimer.getRemainingMs(time);
       if (remainingExhaustMs <= 0) {

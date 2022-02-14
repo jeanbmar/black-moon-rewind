@@ -8,7 +8,7 @@ module.exports = {
   characters: [
     {
       accountId: 'xyz',
-      id: '1234',
+      id: '1234abc',
       name: 'Black Moon Rewind',
       x: 457,
       y: 555,

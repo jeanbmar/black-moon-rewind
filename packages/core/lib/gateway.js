@@ -22,7 +22,7 @@ events.on('unknown-message', (message, socket) => {
   socket.send(new KeepAliveOkMessage());
 });
 setInterval(() => {
-  events.emit('server-update-server-message');
+  events.emit('update-world-server-message');
 }, 1000 / TICK_RATE);
 
 const gateway = net.createServer();

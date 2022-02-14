@@ -1,5 +1,6 @@
 const {
   Int32BE,
+  UInt32BE,
   UInt16BE,
   UInt8,
   Int8,
@@ -18,7 +19,7 @@ class Unit extends Entity {
     Int32BE.write(byteStream, this.a ?? 0x000016e7);
     Int8.write(byteStream, this.b ?? 0);
     Int8.write(byteStream, this.c ?? 0);
-    Int32BE.write(byteStream, this.id);
+    UInt32BE.write(byteStream, this.id);
     Int8.write(byteStream, this.e ?? 2);
     UInt8.write(byteStream, this.f ?? 0);
     UInt8.write(byteStream, this.g ?? 2);

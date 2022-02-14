@@ -1,9 +1,10 @@
 const { ChatterChannelListMessage } = require('@black-moon-rewind/messaging');
-const { chatterChannels } = require('../state');
+const { chatterChannels, characters } = require('../state');
 
-module.exports = function listener({ channels, character }, socket) {
+module.exports = function listener({ characterId }, socket) {
+  const character = characters.get(characterId);
   const chatterChannelList = new ChatterChannelListMessage();
-  channels.forEach(({ id }) => {
+  character.chatterChannels.forEach(({ id }) => {
     const chatterChannel = chatterChannels.get(id);
     const chatterChannelMember = chatterChannel.findMember(character.id);
     if (chatterChannel && chatterChannelMember) {
@@ -14,5 +15,6 @@ module.exports = function listener({ channels, character }, socket) {
       });
     }
   });
+  // fixme with socket io
   socket.send(chatterChannelList);
 };

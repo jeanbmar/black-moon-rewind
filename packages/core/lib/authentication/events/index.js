@@ -12,5 +12,9 @@ events.on(
 );
 events.on('register-account-message', require('./register-account-message'));
 events.on('exit-game-message', require('./exit-game-message'));
+events.on(
+  'close-session-server-message',
+  require('./close-session-server-message')
+);
 
 module.exports = events;

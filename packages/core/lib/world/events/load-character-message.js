@@ -12,7 +12,7 @@ module.exports = function listener(message, socket) {
   }
   session.characterId = characterId;
   const characterData = new CharacterDataMessage();
-  characterData.name = character.name;
+  characterData.id = character.unitId;
   characterData.x = character.x;
   characterData.y = character.y;
   characterData.z = character.z;
