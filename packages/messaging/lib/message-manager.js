@@ -17,20 +17,18 @@ class MessageManager {
     header.nonce = header.length > 0 ? UInt16LE.read(byteStream) : 0;
     header.checksum = header.length > 0 ? UInt16LE.read(byteStream) : 0;
     header.type = header.length > 0 ? UInt16BE.read(byteStream) : 0;
-    const message = MessageFactory.createMessageByType(header.type);
-    message.header = header;
     if (header.length > 0) {
-      message.read(byteStream);
+      return {
+        header,
+        payload: byteStream.toBuffer(byteStream.offset),
+      };
     }
-    if (!byteStream.isAtEnd()) {
-      throw new Error('message length mismatch');
-    }
-    return message;
+    return { header, payload: null };
   }
 
   static write(byteStream, message) {
     const { offset } = byteStream;
-    if (!message instanceof Message) {
+    if (!(message instanceof Message)) {
       MessageFactory.createMessageByType(message.header.type).write.call(
         message,
         byteStream

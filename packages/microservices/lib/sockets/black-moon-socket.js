@@ -12,6 +12,8 @@ class BlackMoonSocket extends Socket {
     this.buffer = Buffer.alloc(0);
     this.seq = 0;
     this.keepAliveCount = 0;
+    this.setNoDelay(true);
+    this.setTimeout(2000);
     this.on('data', this.onData.bind(this));
     this.on('timeout', this.onTimeout.bind(this));
   }
