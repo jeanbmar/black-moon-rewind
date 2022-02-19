@@ -1,9 +1,11 @@
+const net = require('net');
 const amqp = require('amqplib');
 const { BlackMoonSocket } = require('@black-moon-rewind/microservices');
 const kebabCase = require('lodash.kebabcase');
 const { KeepAliveOkMessage } = require('@black-moon-rewind/messaging');
-const Server = require('./server');
-const { Worker } = require('./worker');
+const BrokerClient = require('./broker-client');
+const MessageReader = require('./message-reader');
+const MessageWriter = require('./message-writer');
 
 const { TICK_RATE } = require('./shared').config;
 
@@ -18,43 +20,20 @@ setInterval(() => {
 }, 1000 / TICK_RATE);
 */
 
-// todo change to gateway
-// a gateway is both a server and an amqp client
-
 const PORT = 19947;
 const AMQP_URL = 'amqp://localhost';
-const REQUEST_EXCHANGE = 'requests';
-const RESPONSE_EXCHANGE = 'responses';
-const GATEWAY_ID = 'gateway-1'; // todo use uuid
 
 (async () => {
-  const client = await amqp.connect(AMQP_URL, { userId: GATEWAY_ID });
-  const channel = await client.createChannel();
-
-  const server = new Server({ transport: BlackMoonSocket });
-
-  server.on('receive-from', async ({ header, payload }, socketId) => {
-    await channel.assertExchange(REQUEST_EXCHANGE, 'direct', {
-      durable: false,
-    });
-    channel.publish(REQUEST_EXCHANGE, `${header.type}`, payload, {
-      headers: { clientId: `${GATEWAY_ID}.${socketId}` },
-    });
+  const server = net.createServer();
+  const client = new BrokerClient({ prefix: 'gateway' });
+  await client.connect(AMQP_URL);
+  server.on('connection', (socket) => {
+    socket
+      .pipe(new MessageReader())
+      .pipe(client.createStream())
+      .pipe(new MessageWriter())
+      .pipe(socket);
   });
-
-  await channel.assertExchange(RESPONSE_EXCHANGE, 'topic', {
-    durable: false,
-  });
-  const { queue } = await channel.assertQueue('', { exclusive: true });
-  await channel.bindQueue(queue, RESPONSE_EXCHANGE, `${GATEWAY_ID}.*`);
-  await channel.consume(
-    queue,
-    (msg) => {
-      server.sendTo(msg.content, msg.properties.headers.clientId);
-    },
-    { noAck: true }
-  );
-
   server.listen(PORT, () => {
     console.log(`listening on ${PORT}`);
   });
