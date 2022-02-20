@@ -6,6 +6,7 @@ const {
 const Message = require('../../message');
 
 class ChatterChannelListMessage extends Message {
+  static key = 'chatterChannelListMessage';
   static type = 20075;
 
   constructor() {

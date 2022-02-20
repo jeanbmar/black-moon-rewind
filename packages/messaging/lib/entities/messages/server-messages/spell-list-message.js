@@ -9,6 +9,7 @@ const {
 const Message = require('../../message');
 
 class SpellListMessage extends Message {
+  static key = 'spellListMessage';
   static type = 20062;
 
   constructor() {

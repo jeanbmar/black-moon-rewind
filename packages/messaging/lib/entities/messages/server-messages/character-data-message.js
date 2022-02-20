@@ -7,6 +7,7 @@ const {
 const Message = require('../../message');
 
 class CharacterDataMessage extends Message {
+  static key = 'characterDataMessage';
   static type = 20013;
 
   constructor() {

@@ -6,6 +6,7 @@ const {
 const Message = require('../../message');
 
 class DirectTalkMessage extends Message {
+  static key = 'directTalkMessage';
   static type = 10030;
 
   read(byteStream) {

@@ -3,6 +3,7 @@ const Message = require('../../message');
 const Unit = require('../../unit');
 
 class EnteredGameMessage extends Message {
+  static key = 'enteredGameMessage';
   static type = 20046;
 
   constructor() {

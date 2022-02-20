@@ -2,6 +2,7 @@ const { UInt16BE, String } = require('@black-moon-rewind/byte-stream-scalars');
 const Message = require('../../message');
 
 class JoinChatterChannelsMessage extends Message {
+  static key = 'joinChatterChannelsMessage';
   static type = 10048;
 
   constructor() {

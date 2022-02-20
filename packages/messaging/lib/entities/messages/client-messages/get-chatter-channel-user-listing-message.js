@@ -2,6 +2,7 @@ const { String } = require('@black-moon-rewind/byte-stream-scalars');
 const Message = require('../../message');
 
 class GetChatterChannelUserListingMessage extends Message {
+  static key = 'getChatterChannelUserListingMessage';
   static type = 10050;
 
   read(byteStream) {

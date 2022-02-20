@@ -53,94 +53,102 @@ class MessageFactory {
   }
 
   static getMessageByType(type) {
-    switch (type) {
-      case ClientAckMessage.type:
+    return this.getMessageById(type, 'type');
+  }
+
+  static getMessageByKey(key) {
+    return this.getMessageById(key, 'key');
+  }
+
+  static getMessageById(id, type) {
+    switch (id) {
+      case ClientAckMessage[type]:
         return ClientAckMessage;
-      case ServerAckMessage.type:
+      case ServerAckMessage[type]:
         return ServerAckMessage;
-      case MoveTopMessage.type:
+      case MoveTopMessage[type]:
         return MoveTopMessage;
-      case MoveTopRightMessage.type:
+      case MoveTopRightMessage[type]:
         return MoveTopRightMessage;
-      case MoveRightMessage.type:
+      case MoveRightMessage[type]:
         return MoveRightMessage;
-      case MoveBottomRightMessage.type:
+      case MoveBottomRightMessage[type]:
         return MoveBottomRightMessage;
-      case MoveBottomMessage.type:
+      case MoveBottomMessage[type]:
         return MoveBottomMessage;
-      case MoveBottomLeftMessage.type:
+      case MoveBottomLeftMessage[type]:
         return MoveBottomLeftMessage;
-      case MoveLeftMessage.type:
+      case MoveLeftMessage[type]:
         return MoveLeftMessage;
-      case MoveTopLeftMessage.type:
+      case MoveTopLeftMessage[type]:
         return MoveTopLeftMessage;
-      case KeepAliveOkMessage.type:
+      case KeepAliveOkMessage[type]:
         return KeepAliveOkMessage;
-      case LoadCharacterMessage.type:
+      case LoadCharacterMessage[type]:
         return LoadCharacterMessage;
-      case RegisterAccountMessage.type:
+      case RegisterAccountMessage[type]:
         return RegisterAccountMessage;
-      case ViewEquippedMessage.type:
+      case ViewEquippedMessage[type]:
         return ViewEquippedMessage;
-      case ExitGameMessage.type:
+      case ExitGameMessage[type]:
         return ExitGameMessage;
-      case GetCharacterListMessage.type:
+      case GetCharacterListMessage[type]:
         return GetCharacterListMessage;
-      case DirectTalkMessage.type:
+      case DirectTalkMessage[type]:
         return DirectTalkMessage;
-      case EnterGameMessage.type:
+      case EnterGameMessage[type]:
         return EnterGameMessage;
-      case JoinChatterChannelsMessage.type:
+      case JoinChatterChannelsMessage[type]:
         return JoinChatterChannelsMessage;
-      case SendChatterChannelTextMessage.type:
+      case SendChatterChannelTextMessage[type]:
         return SendChatterChannelTextMessage;
-      case GetChatterChannelUserListingMessage.type:
+      case GetChatterChannelUserListingMessage[type]:
         return GetChatterChannelUserListingMessage;
-      case GetSpellListMessage.type:
+      case GetSpellListMessage[type]:
         return GetSpellListMessage;
-      case RemoveFromChatterChannelsMessage.type:
+      case RemoveFromChatterChannelsMessage[type]:
         return RemoveFromChatterChannelsMessage;
-      case GetChatterChannelListMessage.type:
+      case GetChatterChannelListMessage[type]:
         return GetChatterChannelListMessage;
-      case AuthenticateServerVersionMessage.type:
+      case AuthenticateServerVersionMessage[type]:
         return AuthenticateServerVersionMessage;
-      case UpdatePathMessage.type:
+      case UpdatePathMessage[type]:
         return UpdatePathMessage;
-      case GetLagOkMessage.type:
+      case GetLagOkMessage[type]:
         return GetLagOkMessage;
-      case StopPathMessage.type:
+      case StopPathMessage[type]:
         return StopPathMessage;
-      case AccountRegisteredMessage.type:
+      case AccountRegisteredMessage[type]:
         return AccountRegisteredMessage;
-      case CharacterDataMessage.type:
+      case CharacterDataMessage[type]:
         return CharacterDataMessage;
-      case CharacterListMessage.type:
+      case CharacterListMessage[type]:
         return CharacterListMessage;
-      case ChatterChannelJoinedMessage.type:
+      case ChatterChannelJoinedMessage[type]:
         return ChatterChannelJoinedMessage;
-      case ChatterChannelListMessage.type:
+      case ChatterChannelListMessage[type]:
         return ChatterChannelListMessage;
-      case ChatterChannelTextMessage.type:
+      case ChatterChannelTextMessage[type]:
         return ChatterChannelTextMessage;
-      case EnteredGameMessage.type:
+      case EnteredGameMessage[type]:
         return EnteredGameMessage;
-      case EntityMovedMessage.type:
+      case EntityMovedMessage[type]:
         return EntityMovedMessage;
-      case EquipmentDataMessage.type:
+      case EquipmentDataMessage[type]:
         return EquipmentDataMessage;
-      case GameExitedMessage.type:
+      case GameExitedMessage[type]:
         return GameExitedMessage;
-      case GetLagMessage.type:
+      case GetLagMessage[type]:
         return GetLagMessage;
-      case KeepAliveMessage.type:
+      case KeepAliveMessage[type]:
         return KeepAliveMessage;
-      case PathBeatUpdateMessage.type:
+      case PathBeatUpdateMessage[type]:
         return PathBeatUpdateMessage;
-      case PathUpdatedMessage.type:
+      case PathUpdatedMessage[type]:
         return PathUpdatedMessage;
-      case ServerVersionMessage.type:
+      case ServerVersionMessage[type]:
         return ServerVersionMessage;
-      case SpellListMessage.type:
+      case SpellListMessage[type]:
         return SpellListMessage;
       default:
         return UnknownMessage;

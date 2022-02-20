@@ -2,6 +2,7 @@ const { Int32BE } = require('@black-moon-rewind/byte-stream-scalars');
 const Message = require('../../message');
 
 class ServerVersionMessage extends Message {
+  static key = 'serverVersionMessage';
   static type = 20099;
 
   write(byteStream) {
