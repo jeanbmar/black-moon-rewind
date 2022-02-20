@@ -1,6 +1,8 @@
 const { Transform } = require('stream');
-const { Packet } = require('@black-moon-rewind/messaging');
+const { Packet, MessageFactory } = require('@black-moon-rewind/messaging');
 const ByteStream = require('@black-moon-rewind/byte-stream');
+
+const OUTGOING_PACKET_RADIX = 20000;
 
 class PacketWriter extends Transform {
   constructor() {
@@ -15,11 +17,16 @@ class PacketWriter extends Transform {
     return seq;
   }
 
+  static getPacketType(key) {
+    const messageClass = MessageFactory.getMessageByKey(key);
+    return messageClass.type - OUTGOING_PACKET_RADIX;
+  }
+
   _transform(brokerMessage, encoding, callback) {
     try {
       this.byteStream.reset();
       const packet = new Packet();
-      packet.type = parseInt(brokerMessage.type, 10);
+      packet.type = PacketWriter.getPacketType(brokerMessage.type);
       packet.seq = this.nextSeq();
       packet.payload = brokerMessage.payload;
       packet.write(this.byteStream);
