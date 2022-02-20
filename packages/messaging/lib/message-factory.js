@@ -1,5 +1,5 @@
 const {
-  AckMessage,
+  ClientAckMessage,
   RegisterAccountMessage,
   AuthenticateServerVersionMessage,
   GetCharacterListMessage,
@@ -27,6 +27,7 @@ const {
   GetChatterChannelUserListingMessage,
   RemoveFromChatterChannelsMessage,
   SendChatterChannelTextMessage,
+  ServerAckMessage,
   AccountRegisteredMessage,
   CharacterDataMessage,
   CharacterListMessage,
@@ -53,8 +54,10 @@ class MessageFactory {
 
   static getMessageByType(type) {
     switch (type) {
-      case AckMessage.type:
-        return AckMessage;
+      case ClientAckMessage.type:
+        return ClientAckMessage;
+      case ServerAckMessage.type:
+        return ServerAckMessage;
       case MoveTopMessage.type:
         return MoveTopMessage;
       case MoveTopRightMessage.type:
