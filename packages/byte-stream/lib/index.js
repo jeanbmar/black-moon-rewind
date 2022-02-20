@@ -15,7 +15,7 @@ class ByteStream {
     } = options;
     this.dynamic = dynamic;
     this.growth = growth;
-    this.internalOffset = 0;
+    this._offset = 0;
     if (buffer) {
       this.buffer = buffer;
       this.byteLength = buffer.length;
@@ -29,11 +29,16 @@ class ByteStream {
     if (value > this.byteLength) {
       this.byteLength = value;
     }
-    this.internalOffset = value;
+    this._offset = value;
   }
 
   get offset() {
-    return this.internalOffset;
+    return this._offset;
+  }
+
+  reset() {
+    this.offset = 0;
+    this.byteLength = 0;
   }
 
   skip(offset) {
@@ -49,7 +54,7 @@ class ByteStream {
   }
 
   ensureCapacity(size) {
-    const overflow = this.internalOffset + size - this.capacity;
+    const overflow = this._offset + size - this.capacity;
     if (overflow > 0) {
       const growth = this.dynamic
         ? Math.ceil(this.capacity * this.growth)
@@ -62,7 +67,7 @@ class ByteStream {
   }
 
   isAtEnd() {
-    return this.byteLength === this.internalOffset;
+    return this.byteLength === this._offset;
   }
 }
 
