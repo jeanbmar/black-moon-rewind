@@ -9,7 +9,7 @@ const Message = require('../../message');
 const SLOTS = 10;
 
 class EquipmentDataMessage extends Message {
-  static type = 0x13;
+  static type = 20019;
 
   constructor() {
     super();

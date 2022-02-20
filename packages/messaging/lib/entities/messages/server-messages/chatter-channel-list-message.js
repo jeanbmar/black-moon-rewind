@@ -6,7 +6,7 @@ const {
 const Message = require('../../message');
 
 class ChatterChannelListMessage extends Message {
-  static type = 0x4b;
+  static type = 20075;
 
   constructor() {
     super();

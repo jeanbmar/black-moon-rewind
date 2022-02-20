@@ -2,7 +2,7 @@ const { String } = require('@black-moon-rewind/byte-stream-scalars');
 const Message = require('../../message');
 
 class RegisterAccountMessage extends Message {
-  static type = 0x0e;
+  static type = 10014;
 
   read(byteStream) {
     this.id = String.read(byteStream);

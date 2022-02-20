@@ -7,7 +7,7 @@ const {
 const Message = require('../../message');
 
 class CharacterDataMessage extends Message {
-  static type = 0x0d;
+  static type = 20013;
 
   constructor() {
     super();

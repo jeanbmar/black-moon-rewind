@@ -1,7 +1,7 @@
 const MoveMessage = require('./move-message');
 
 class MoveBottomRightMessage extends MoveMessage {
-  static type = 0x04;
+  static type = 10004;
 }
 
 module.exports = MoveBottomRightMessage;

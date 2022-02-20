@@ -6,7 +6,7 @@ const {
 const Message = require('../../message');
 
 class DirectTalkMessage extends Message {
-  static type = 0x1e;
+  static type = 10030;
 
   read(byteStream) {
     this.x = UInt16BE.read(byteStream);

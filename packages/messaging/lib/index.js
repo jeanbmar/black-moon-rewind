@@ -1,7 +1,7 @@
 const entities = require('./entities');
-const MessageManager = require('./message-manager');
+const MessageFactory = require('./message-factory');
 
 module.exports = {
-  MessageManager,
+  MessageFactory,
   ...entities,
 };

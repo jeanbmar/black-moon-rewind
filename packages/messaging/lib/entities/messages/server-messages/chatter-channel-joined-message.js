@@ -2,7 +2,7 @@ const { String, Int32BE } = require('@black-moon-rewind/byte-stream-scalars');
 const Message = require('../../message');
 
 class ChatterChannelJoinedMessage extends Message {
-  static type = 0x30;
+  static type = 20048;
 
   write(byteStream) {
     Int32BE.write(byteStream, this.a ?? 100);

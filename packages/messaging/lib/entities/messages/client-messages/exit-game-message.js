@@ -1,7 +1,7 @@
 const Message = require('../../message');
 
 class ExitGameMessage extends Message {
-  static type = 0x14;
+  static type = 10020;
 }
 
 module.exports = ExitGameMessage;

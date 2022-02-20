@@ -6,7 +6,7 @@ const {
 const Message = require('../../message');
 
 class CharacterListMessage extends Message {
-  static type = 0x1a;
+  static type = 20026;
 
   constructor() {
     super();

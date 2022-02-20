@@ -2,7 +2,7 @@ const { String } = require('@black-moon-rewind/byte-stream-scalars');
 const Message = require('../../message');
 
 class LoadCharacterMessage extends Message {
-  static type = 0x0d;
+  static type = 10013;
 
   read(byteStream) {
     this.name = String.read(byteStream);

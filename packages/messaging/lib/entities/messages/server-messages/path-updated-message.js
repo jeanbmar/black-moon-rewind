@@ -7,7 +7,7 @@ const Message = require('../../message');
 const Unit = require('../../unit');
 
 class PathUpdatedMessage extends Message {
-  static type = 0x99;
+  static type = 20153;
 
   constructor() {
     super();

@@ -3,7 +3,7 @@ const Message = require('../../message');
 const Unit = require('../../unit');
 
 class EntityMovedMessage extends Message {
-  static type = 0x01;
+  static type = 20001;
 
   write(byteStream) {
     UInt16BE.write(byteStream, this.x);

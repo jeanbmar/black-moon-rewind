@@ -1,7 +1,7 @@
 const Message = require('../../message');
 
 class GetCharacterListMessage extends Message {
-  static type = 0x1a;
+  static type = 10026;
 }
 
 module.exports = GetCharacterListMessage;

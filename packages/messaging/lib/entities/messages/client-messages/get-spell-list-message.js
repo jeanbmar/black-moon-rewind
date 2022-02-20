@@ -1,7 +1,7 @@
 const Message = require('../../message');
 
 class GetSpellListMessage extends Message {
-  static type = 0x3e;
+  static type = 10062;
 }
 
 module.exports = GetSpellListMessage;

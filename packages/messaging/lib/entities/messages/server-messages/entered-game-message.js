@@ -3,7 +3,7 @@ const Message = require('../../message');
 const Unit = require('../../unit');
 
 class EnteredGameMessage extends Message {
-  static type = 0x2e;
+  static type = 20046;
 
   constructor() {
     super();

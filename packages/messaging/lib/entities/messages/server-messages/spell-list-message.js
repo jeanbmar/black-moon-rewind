@@ -9,7 +9,7 @@ const {
 const Message = require('../../message');
 
 class SpellListMessage extends Message {
-  static type = 0x3e;
+  static type = 20062;
 
   constructor() {
     super();
