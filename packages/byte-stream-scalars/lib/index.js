@@ -1,3 +1,4 @@
+const Buffer = require('./buffer');
 const Int8 = require('./int8');
 const Int16BE = require('./int16be');
 const Int16LE = require('./int16le');
@@ -19,6 +20,7 @@ const UInt64LE = require('./uint64le');
 const String = require('./string');
 
 module.exports = {
+  Buffer,
   Int8,
   Int16BE,
   Int16LE,
