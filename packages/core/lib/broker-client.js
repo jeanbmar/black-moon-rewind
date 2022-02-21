@@ -1,9 +1,10 @@
-const { Duplex } = require('stream');
+const { EventEmitter } = require('events');
 const { v4: uuidv4 } = require('uuid');
 const amqp = require('amqplib');
 
-class BrokerClient {
+class BrokerClient extends EventEmitter {
   constructor(options = {}) {
+    super();
     this.id = uuidv4();
     if (options.prefix) {
       this.id = `${options.prefix}-${this.id}`;
@@ -28,46 +29,24 @@ class BrokerClient {
   async connect(url, options) {
     this.client = await amqp.connect(url, options);
     this.channel = await this.client.createChannel();
+    return this.channel;
   }
 
-  createStream() {
-    const correlationId = this.nextUid();
+  consume(queue, listener) {
+    super.on(queue, listener);
     const { channel } = this;
-    const duplex = new Duplex({
-      objectMode: true,
-      read() {},
-      write({ header, payload }) {
-        (async () => {
-          try {
-            const queue = `${header.type}`;
-            await channel.assertQueue(queue, { durable: true });
-            await channel.sendToQueue(queue, payload, { correlationId });
-          } catch (error) {
-            this.emit('error', error);
-          }
-        })();
-      },
-    });
     (async () => {
       try {
-        await channel.assertQueue(correlationId, { durable: false });
+        await channel.assertQueue(queue, { durable: false });
         await channel.consume(
-          correlationId,
-          (msg) => {
-            duplex.push({
-              header: { type: msg.properties.headers.type },
-              payload: msg.content,
-            });
-          },
-          {
-            noAck: true,
-          }
+          queue,
+          (msg) => this.emit(queue, this.deserialize(msg)),
+          { noAck: true }
         );
       } catch (error) {
-        duplex.emit('error', error);
+        this.emit('error');
       }
     })();
-    return duplex;
   }
 }
 

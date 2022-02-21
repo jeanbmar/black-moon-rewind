@@ -14,8 +14,8 @@ class BlackMoonSocket extends Socket {
     this.keepAliveCount = 0;
     this.setNoDelay(true);
     this.setTimeout(2000);
-    this.on('data', this.onData.bind(this));
-    this.on('timeout', this.onTimeout.bind(this));
+    this.on('data', this.handleData.bind(this));
+    this.on('timeout', this.handleTimeout.bind(this));
   }
 
   send(message, callback) {
@@ -27,7 +27,7 @@ class BlackMoonSocket extends Socket {
     this.write(bs.toBuffer(), callback);
   }
 
-  onData(data) {
+  handleData(data) {
     this.keepAliveCount = 0;
     this.buffer = Buffer.concat([this.buffer, data]);
     while (this.buffer.length >= 12) {
@@ -44,12 +44,13 @@ class BlackMoonSocket extends Socket {
     }
   }
 
-  onTimeout() {
+  handleTimeout() {
     if (this.keepAliveCount >= 3) {
       this.destroy(new Error('connection timeout'));
+    } else {
+      this.send(new KeepAliveMessage());
+      this.keepAliveCount += 1;
     }
-    this.send(new KeepAliveMessage());
-    this.keepAliveCount += 1;
   }
 }
 

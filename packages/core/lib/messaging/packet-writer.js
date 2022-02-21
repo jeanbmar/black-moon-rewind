@@ -22,13 +22,13 @@ class PacketWriter extends Transform {
     return messageClass.type - OUTGOING_PACKET_RADIX;
   }
 
-  _transform(brokerMessage, encoding, callback) {
+  _transform({ type, payload }, encoding, callback) {
     try {
       this.byteStream.reset();
       const packet = new Packet();
-      packet.type = PacketWriter.getPacketType(brokerMessage.type);
+      packet.type = PacketWriter.getPacketType(type);
       packet.seq = this.nextSeq();
-      packet.payload = brokerMessage.payload;
+      packet.payload = payload;
       packet.write(this.byteStream);
       this.push(this.byteStream.toBuffer());
       callback();

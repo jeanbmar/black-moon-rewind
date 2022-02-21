@@ -4,7 +4,8 @@ const amqp = require('amqplib');
 const DefaultSerializer = require('./default-serializer');
 
 const REQUEST_EXCHANGE = 'requests';
-const RESPONSE_EXCHANGE = 'responses';
+const RESPONSE_EXCHANGE = 'responses'; // fixme use one queue per connection, no point in using an exchange
+const EVENT_EXCHANGE = 'service'; // todo for service events shared across workers (eg shutdown)
 
 class Worker extends EventEmitter {
   constructor(options = {}) {
@@ -25,6 +26,7 @@ class Worker extends EventEmitter {
     this.channel = await this.client.createChannel();
   }
 
+  // todo add option for events
   // like .on, but over network
   consume(eventName, listener) {
     super.on(eventName, listener);
@@ -43,19 +45,32 @@ class Worker extends EventEmitter {
           { noAck: true }
         );
       } catch (error) {
-        super.emit('error');
+        this.emit('error');
       }
     })();
   }
 
   // like .emit, but over network
   publish(message) {
-    // publish to REQUEST_EXCHANGE and RESPONSE_EXCHANGE
+    // publish to REQUEST_EXCHANGE
   }
 
   // in the spirit of socket.send
   sendTo(message, clientId) {
-    // publish to RESPONSE_EXCHANGE
+    (async () => {
+      try {
+        await this.channel.assertExchange(RESPONSE_EXCHANGE, 'topic', {
+          durable: false,
+        });
+        this.channel.publish(
+          RESPONSE_EXCHANGE,
+          clientId,
+          this.serialize(message)
+        );
+      } catch (error) {
+        this.emit('error');
+      }
+    })();
   }
 }
 

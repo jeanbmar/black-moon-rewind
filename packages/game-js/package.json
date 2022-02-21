@@ -1,0 +1,9 @@
+{
+  "name": "@black-moon-rewind/game-js",
+  "version": "1.0.0",
+  "author": "Jean-Baptiste (Ultrapowa) Martin",
+  "main": "lib/index.js",
+  "dependencies": {
+    "amqplib": "^0.8.0"
+  }
+}
