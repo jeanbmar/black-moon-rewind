@@ -1,7 +1,7 @@
-const middlewares = require('./middlewares');
+const streams = require('./streams');
 const Client = require('./client');
 
 module.exports = {
   Client,
-  ...middlewares,
+  ...streams,
 };

@@ -1,12 +1,14 @@
 const net = require('net');
 const amqp = require('amqplib');
+const { v4: uuidv4 } = require('uuid');
 const { KeepAliveOkMessage } = require('@black-moon-rewind/messaging');
 const {
+  MicroService,
   PacketPublisher,
   PacketConsumer,
 } = require('@black-moon-rewind/game-js');
 const MessagingClient = require('./broker-client');
-const { PacketReader, PacketWriter } = require('./messaging');
+const { packetReader, packetWriter } = require('./messaging');
 
 const { TICK_RATE } = require('./common').config;
 
@@ -27,7 +29,6 @@ const AMQP_URL = 'amqp://localhost';
 /*
 (async () => {
   // const { channel } = await MessagingClient.connect(AMQP_URL);
-  // todo add uid as default middleware
   gateway.in(() => new PacketReader());
   // game.use(() => new PacketPublisher(channel));
   // game.use(() => new PacketConsumer(channel, replyTo));
@@ -38,15 +39,33 @@ const AMQP_URL = 'amqp://localhost';
 */
 
 (async () => {
+  // todo 2 types de MicroService
+  // 1. les workers qui finissent avec un message listener pour process de la logique
+  // 2. les gateway qui recoivent les messages clients et et forward les messages serveurs
+  // todo add uid in default gateway middleware
+
+  /*
+  const worker = new MicroService();
+  worker.use(() => new PacketWriter());
+  await worker.connect(AMQP_URL);
+
+  const gateway = new Gateway();
+  gateway.use(() => new PacketReader());
+  await gateway.connect(AMQP_URL);
+
+  // server.use(() => new PacketPublisher(channel, { clientId: me }));
+  const server = net.createServer();
+  const me = `gateway-${uuidv4()}`;
+*/
   const server = net.createServer();
   const broker = new MessagingClient({ prefix: 'gateway' });
   const channel = await broker.connect(AMQP_URL);
   server.on('connection', (socket) => {
     const me = broker.nextUid();
     socket
-      .pipe(new PacketReader())
+      .pipe(packetReader())
       .pipe(new PacketPublisher(channel, { clientId: me }));
-    new PacketConsumer(channel).pipe(new PacketWriter()).pipe(socket);
+    new PacketConsumer(channel, me).pipe(packetWriter()).pipe(socket);
 
     // done complete message writer
     // done replace msg.properties.headers.type with msg.properties.type
@@ -75,23 +94,5 @@ messageManager.consume('x', (message, recipient) => {
   messageManager.send('user-id', message);
   messageManager.send('message-name', message);
   messageManager.publish('room-id', message); // publish sends to every queue in exchange
-});
-messageManager.consume('y', () => {});
-const messageStream = messageManager.createStream();
-messageStream
-  .pipe(new MessageReader())
-  .pipe(messageManager)
-  .pipe(new MessageWriter())
-  .pipe(messageStream);
-
-
-
-new PacketConsumer(channel, 'y')
-  .pipe(new MessageReader())
-  .on('data', (message) => {
-
-  });
-
-messageManager.consume('x', (req, client) => {
 });
 */

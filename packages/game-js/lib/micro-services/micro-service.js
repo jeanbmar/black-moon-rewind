@@ -1,7 +1,7 @@
 const amqp = require('amqplib');
 const { pipeline } = require('stream');
 const { EventEmitter } = require('events');
-const { PacketConsumer, MessageListener } = require('../messaging/middlewares');
+const { PacketConsumer, MessageListener } = require('../messaging');
 
 class MicroService extends EventEmitter {
   constructor() {

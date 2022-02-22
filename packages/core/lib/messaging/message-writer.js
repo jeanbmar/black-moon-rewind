@@ -1,25 +1,17 @@
-const { Transform } = require('stream');
+const { Middleware } = require('@black-moon-rewind/game-js');
 const ByteStream = require('@black-moon-rewind/byte-stream');
 
-class MessageWriter extends Transform {
-  constructor() {
-    super({ objectMode: true });
-  }
-
-  _transform({ message, ...object }, encoding, callback) {
-    try {
-      const bs = new ByteStream();
-      message.write(bs);
-      this.push({
-        type: message.constructor.key,
-        payload: bs.toBuffer(),
-        ...object,
-      });
-      callback();
-    } catch (error) {
-      callback(error);
-    }
+class MessageWriter extends Middleware {
+  // eslint-disable-next-line class-methods-use-this
+  transform({ message, ...object }) {
+    const bs = new ByteStream();
+    message.write(bs);
+    return {
+      type: message.constructor.key,
+      payload: bs.toBuffer(),
+      ...object,
+    };
   }
 }
 
-module.exports = MessageWriter;
+module.exports = () => new MessageWriter();

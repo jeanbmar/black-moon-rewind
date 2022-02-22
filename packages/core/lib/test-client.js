@@ -1,11 +1,11 @@
 const { MicroService } = require('@black-moon-rewind/game-js');
-const { MessageReader } = require('./messaging');
+const { messageReader } = require('./messaging');
 
 const AMQP_URL = 'amqp://localhost';
 
 (async () => {
   const worker = new MicroService();
-  worker.use(() => new MessageReader());
+  worker.use(messageReader);
   await worker.connect(AMQP_URL);
   worker.consume('registerAccountMessage', (message, client) => {
     console.log('registerAccountMessage', message, client);

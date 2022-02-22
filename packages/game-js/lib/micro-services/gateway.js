@@ -1,7 +1,7 @@
 const net = require('net');
 const { Transform } = require('stream');
 const MicroService = require('./micro-service');
-const { PacketConsumer, PacketPublisher } = require('../messaging/middlewares');
+const { PacketConsumer, PacketPublisher } = require('../messaging');
 
 class Gateway extends MicroService {
   /*constructor() {
