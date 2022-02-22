@@ -1,7 +1,7 @@
-const Gateway = require('./gateway');
 const MicroService = require('./micro-service');
+const TcpServer = require('./tcp-server');
 
 module.exports = {
-  Gateway,
   MicroService,
+  TcpServer,
 };

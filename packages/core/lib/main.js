@@ -1,11 +1,12 @@
 const net = require('net');
 const amqp = require('amqplib');
-const { v4: uuidv4 } = require('uuid');
 const { KeepAliveOkMessage } = require('@black-moon-rewind/messaging');
 const {
   MicroService,
   PacketPublisher,
   PacketConsumer,
+  tcpGateway,
+  TcpServer,
 } = require('@black-moon-rewind/game-js');
 const MessagingClient = require('./broker-client');
 const { packetReader, packetWriter } = require('./messaging');
@@ -24,63 +25,28 @@ setInterval(() => {
 */
 
 const PORT = 19947;
-const AMQP_URL = 'amqp://localhost';
-
-/*
-(async () => {
-  // const { channel } = await MessagingClient.connect(AMQP_URL);
-  gateway.in(() => new PacketReader());
-  // game.use(() => new PacketPublisher(channel));
-  // game.use(() => new PacketConsumer(channel, replyTo));
-  gateway.out(() => new PacketWriter());
-  gateway.connect(AMQP_URL);
-  gateway.listen(PORT);
-})();
-*/
 
 (async () => {
-  // todo 2 types de MicroService
-  // 1. les workers qui finissent avec un message listener pour process de la logique
-  // 2. les gateway qui recoivent les messages clients et et forward les messages serveurs
-  // todo add uid in default gateway middleware
+  const client = await MicroService.connect();
+  const server = new TcpServer();
 
-  /*
-  const worker = new MicroService();
-  worker.use(() => new PacketWriter());
-  await worker.connect(AMQP_URL);
+  server.use(packetReader).pipe(client);
+  client.use(packetWriter).pipe(server);
 
-  const gateway = new Gateway();
-  gateway.use(() => new PacketReader());
-  await gateway.connect(AMQP_URL);
-
-  // server.use(() => new PacketPublisher(channel, { clientId: me }));
-  const server = net.createServer();
-  const me = `gateway-${uuidv4()}`;
-*/
-  const server = net.createServer();
-  const broker = new MessagingClient({ prefix: 'gateway' });
-  const channel = await broker.connect(AMQP_URL);
-  server.on('connection', (socket) => {
-    const me = broker.nextUid();
-    socket
-      .pipe(packetReader())
-      .pipe(new PacketPublisher(channel, { clientId: me }));
-    new PacketConsumer(channel, me).pipe(packetWriter()).pipe(socket);
-
-    // done complete message writer
-    // done replace msg.properties.headers.type with msg.properties.type
-    // done check absence of side effects on correlationId (done: use replyTo)
-    // done destroy messages from queue after consumption
-    // todo add publish and consume methods to broker client
-    // done convert message ids, eg 99 -> 10099
-    // todo handle socket, stream, channel errors -> wrappers?
-    // todo handle disconnect sockets on demand
-    // todo discard unknown messages -> inside packet reader
-    // todo handle socket timeout (keep alive) -> via a MessageWriter stream?
-  });
   server.listen(PORT, () => {
     console.log(`listening on ${PORT}`);
   });
+
+  // done complete message writer
+  // done replace msg.properties.headers.type with msg.properties.type
+  // done check absence of side effects on correlationId (done: use replyTo)
+  // done destroy messages from queue after consumption
+  // todo add publish and consume methods to broker client
+  // done convert message ids, eg 99 -> 10099
+  // todo handle socket, stream, channel errors -> wrappers?
+  // todo handle disconnect sockets on demand
+  // todo discard unknown messages -> inside packet reader
+  // todo handle socket timeout (keep alive) -> via a MessageWriter stream?
 })();
 
 /*

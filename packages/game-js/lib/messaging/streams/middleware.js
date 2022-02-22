@@ -8,6 +8,7 @@ class Middleware extends Transform {
   }
 
   handlePipe(source) {
+    // todo bind a whole metadata object instead
     this.clientId = source.clientId;
   }
 
@@ -20,7 +21,11 @@ class Middleware extends Transform {
     (async () => {
       try {
         const result = await this.transform(object);
-        callback(null, result);
+        if (result !== undefined) {
+          callback(null, result);
+        } else {
+          callback();
+        }
       } catch (error) {
         callback(error);
       }
