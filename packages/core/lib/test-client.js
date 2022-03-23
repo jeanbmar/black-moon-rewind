@@ -1,25 +1,19 @@
-const { MicroService } = require('@black-moon-rewind/game-js');
-const { messageReader } = require('./messaging');
+const { Exchange, Router } = require('@reultra/core');
+const { message } = require('./messaging');
 
 (async () => {
-  const worker = await MicroService.connect();
-  worker.use(messageReader);
-  worker.consume('registerAccountMessage', (message, client) => {
-    console.log('registerAccountMessage', message, client);
-  });
+  const router = new Router();
+  const exchange = new Exchange();
 
-  // new PacketConsumer(channel, 'registerAccountMessage').pipe(new MessageReader());
-  /*
-  await channel.assertQueue('14', { durable: false });
-  await channel.consume(
-    '14',
-    (msg) => {
-      console.log('received', msg);
-      channel.sendToQueue(msg.properties.replyTo, msg.content, {
-        type: '14',
-      });
-    },
-    { noAck: true }
-  );
-   */
+  exchange
+    .use(message.decode())
+    .use(router.middleware())
+    .use(message.encode())
+    .use(exchange.publish());
+
+  router.use('/authenticate-server-version', async () => {
+    console.log('authenticating!');
+  });
+  router.routes().forEach((route) => exchange.subscribe(route));
+  await exchange.connect();
 })();

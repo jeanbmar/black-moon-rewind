@@ -1,17 +1,8 @@
-const net = require('net');
-const amqp = require('amqplib');
-const { KeepAliveOkMessage } = require('@black-moon-rewind/messaging');
-const {
-  MicroService,
-  PacketPublisher,
-  PacketConsumer,
-  tcpGateway,
-  TcpServer,
-} = require('@black-moon-rewind/game-js');
-const MessagingClient = require('./broker-client');
-const { packetReader, packetWriter } = require('./messaging');
+// const { KeepAliveOkMessage } = require('@black-moon-rewind/messaging');
+const { Exchange, TcpServer } = require('@reultra/core');
+const { packet } = require('./messaging');
 
-const { TICK_RATE } = require('./common').config;
+// const { TICK_RATE } = require('./common').config;
 
 /*
 events.on('keep-alive-ok-message', () => {});
@@ -27,26 +18,31 @@ setInterval(() => {
 const PORT = 19947;
 
 (async () => {
-  const client = await MicroService.connect();
   const server = new TcpServer();
+  const exchange = new Exchange();
 
-  server.use(packetReader).pipe(client);
-  client.use(packetWriter).pipe(server);
+  server.use(packet.read()).use(exchange.publish());
+  exchange.use(server.map()).use(packet.write());
 
+  exchange.pair(server);
+  await exchange.connect();
   server.listen(PORT, () => {
-    console.log(`listening on ${PORT}`);
+    // eslint-disable-next-line no-console
+    console.log(`listening on ${server.address().port}`);
   });
 
+  // done 'use' keeps a reference to caller (like koa app)
+  // done 'use' does try catch wrapping
+  // done 'push' clones parent context so it's safe to write multiple times
   // done complete message writer
   // done replace msg.properties.headers.type with msg.properties.type
   // done check absence of side effects on correlationId (done: use replyTo)
   // done destroy messages from queue after consumption
-  // todo add publish and consume methods to broker client
+  // done add publish and consume methods to broker client
   // done convert message ids, eg 99 -> 10099
-  // todo handle socket, stream, channel errors -> wrappers?
-  // todo handle disconnect sockets on demand
   // todo discard unknown messages -> inside packet reader
-  // todo handle socket timeout (keep alive) -> via a MessageWriter stream?
+  // todo handle socket timeout (keep alive)
+  // todo implement joining and leaving queues (eg joining chatter channel)
 })();
 
 /*
@@ -56,7 +52,6 @@ messageManager.consume('x', (message, recipient) => {
   recipient.publish(exchange, message) // send to every queue in the exchange / room
   recipient.join(exchange); // join a room
   recipient.leave(exchange); // leave a room
-
   messageManager.send('user-id', message);
   messageManager.send('message-name', message);
   messageManager.publish('room-id', message); // publish sends to every queue in exchange

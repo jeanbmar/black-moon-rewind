@@ -7,7 +7,6 @@
     "@black-moon-rewind/byte-stream": "^1.0.0",
     "@black-moon-rewind/game-js": "^1.0.0",
     "@black-moon-rewind/messaging": "^1.0.0",
-    "amqplib": "^0.8.0",
-    "uuid": "^8.3.2"
+    "@reultra/core": "^0.1.0"
   }
 }
