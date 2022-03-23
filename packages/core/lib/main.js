@@ -24,8 +24,9 @@ const PORT = 19947;
   server.use(packet.read()).use(exchange.publish());
   exchange.use(packet.write()).use(server.send());
 
-  exchange.pair(server);
   await exchange.connect();
+  exchange.pair(server);
+
 
   server.listen(PORT, () => {
     // eslint-disable-next-line no-console

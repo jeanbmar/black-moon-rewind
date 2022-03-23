@@ -14,6 +14,6 @@ const { message } = require('./messaging');
   router.use('/authenticate-server-version', async () => {
     console.log('authenticating!');
   });
-  router.routes().forEach((route) => exchange.subscribe(route));
   await exchange.connect();
+  router.routes().forEach((route) => exchange.subscribe(route));
 })();
