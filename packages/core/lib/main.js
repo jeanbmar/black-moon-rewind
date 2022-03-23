@@ -27,7 +27,6 @@ const PORT = 19947;
   await exchange.connect();
   exchange.pair(server);
 
-
   server.listen(PORT, () => {
     // eslint-disable-next-line no-console
     console.log(`listening on ${PORT}`);
