@@ -22,14 +22,20 @@ const PORT = 19947;
   const exchange = new Exchange();
 
   server.use(packet.read()).use(exchange.publish());
-  exchange.use(server.map()).use(packet.write());
+  exchange.use(packet.write()).use(server.send());
 
   exchange.pair(server);
   await exchange.connect();
+
   server.listen(PORT, () => {
     // eslint-disable-next-line no-console
-    console.log(`listening on ${server.address().port}`);
+    console.log(`listening on ${PORT}`);
   });
+
+  // TODO
+  // TODO consider that maybe context should never be cloned and child data should be in the state ?
+  // TODO if we do so state should be named differently (fork?)
+  // TODO -> less garbage collection on every middleware
 
   // done 'use' keeps a reference to caller (like koa app)
   // done 'use' does try catch wrapping

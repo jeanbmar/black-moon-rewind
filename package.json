@@ -16,6 +16,6 @@
     "prettier": "^2.5.1"
   },
   "workspaces": [
-    "packages/*"
+    "packages/**"
   ]
 }

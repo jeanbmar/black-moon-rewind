@@ -1,11 +1,7 @@
-const messageReader = require('./message-reader');
-const messageWriter = require('./message-writer');
-const packetReader = require('./packet-reader');
-const packetWriter = require('./packet-writer');
+const message = require('./message');
+const packet = require('./packet');
 
 module.exports = {
-  messageReader,
-  messageWriter,
-  packetReader,
-  packetWriter,
+  message,
+  packet,
 };
