@@ -10,7 +10,7 @@ const getMessageKey = (packetType) => {
   return messageClass.key;
 };
 
-const read = () => (context, push) => {
+const fromBuffer = () => (context, push) => {
   while (context.state.buffer.length >= 12) {
     let packetLength = context.state.buffer.readUInt16LE(2);
     if (packetLength === 0) {
@@ -37,7 +37,7 @@ const getPacketType = (key) => {
 };
 
 const byteStream = new ByteStream();
-const write = () => (context, push) => {
+const toBuffer = () => (context, push) => {
   byteStream.reset();
   const packet = new Packet();
   packet.type = getPacketType(context.packet.type);
@@ -50,6 +50,6 @@ const write = () => (context, push) => {
 };
 
 module.exports = {
-  read,
-  write,
+  fromBuffer,
+  toBuffer,
 };

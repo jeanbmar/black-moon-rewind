@@ -21,8 +21,8 @@ const PORT = 19947;
   const server = new TcpServer();
   const exchange = new Exchange();
 
-  server.use(packet.read()).use(exchange.publish());
-  exchange.use(packet.write()).use(server.send());
+  server.use(packet.fromBuffer()).use(exchange.publish());
+  exchange.use(packet.toBuffer()).use(server.send());
 
   await exchange.connect();
   exchange.pair(server);
@@ -36,6 +36,17 @@ const PORT = 19947;
   // TODO consider that maybe context should never be cloned and child data should be in the state ?
   // TODO if we do so state should be named differently (fork?)
   // TODO -> less garbage collection on every middleware
+
+  /*
+  context
+    upstream // always cloned
+    downstream // always cloned
+
+    pas forcément besoin de faire la différence, car le dev doit appeler un push
+    il n'y a donc pas de risque de passer de mauvaises données par hasard
+    le context n'est cloné que lorsque des data sont passées explicitement à push() -> non sinon pb avec data persistantes
+  */
+
 
   // done 'use' keeps a reference to caller (like koa app)
   // done 'use' does try catch wrapping

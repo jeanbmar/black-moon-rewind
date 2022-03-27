@@ -6,9 +6,9 @@ const { message } = require('./messaging');
   const exchange = new Exchange();
 
   exchange
-    .use(message.decode())
+    .use(message.fromPacket())
     .use(router.middleware())
-    .use(message.encode())
+    .use(message.toPacket())
     .use(exchange.publish());
 
   router.use('/authenticate-server-version', async () => {
