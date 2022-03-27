@@ -32,7 +32,7 @@ const PORT = 19947;
     console.log(`listening on ${PORT}`);
   });
 
-  // todo inside worker, split upstream and downstream (no more context issue afterward with incoming and outgoing var named identically)
+  // todo inside worker, split upstream and downstream (no more context issue afterward with incoming and outgoing var named identically) (use something like a messaging application)
   // done rename state to session
   // done 'use' keeps a reference to caller (like koa app)
   // done 'use' does try catch wrapping
