@@ -32,22 +32,8 @@ const PORT = 19947;
     console.log(`listening on ${PORT}`);
   });
 
-  // TODO
-  // TODO consider that maybe context should never be cloned and child data should be in the state ?
-  // TODO if we do so state should be named differently (fork?)
-  // TODO -> less garbage collection on every middleware
-
-  /*
-  context
-    upstream // always cloned
-    downstream // always cloned
-
-    pas forcément besoin de faire la différence, car le dev doit appeler un push
-    il n'y a donc pas de risque de passer de mauvaises données par hasard
-    le context n'est cloné que lorsque des data sont passées explicitement à push() -> non sinon pb avec data persistantes
-  */
-
-
+  // todo inside worker, split upstream and downstream (no more context issue afterward with incoming and outgoing var named identically)
+  // done rename state to session
   // done 'use' keeps a reference to caller (like koa app)
   // done 'use' does try catch wrapping
   // done 'push' clones parent context so it's safe to write multiple times

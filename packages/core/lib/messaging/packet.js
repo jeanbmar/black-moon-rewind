@@ -11,16 +11,16 @@ const getMessageKey = (packetType) => {
 };
 
 const fromBuffer = () => (context, push) => {
-  while (context.state.buffer.length >= 12) {
-    let packetLength = context.state.buffer.readUInt16LE(2);
+  while (context.session.buffer.length >= 12) {
+    let packetLength = context.session.buffer.readUInt16LE(2);
     if (packetLength === 0) {
       packetLength = 12;
     }
-    if (packetLength <= context.state.buffer.length) {
+    if (packetLength <= context.session.buffer.length) {
       const byteStream = new ByteStream(
-        context.state.buffer.slice(0, packetLength)
+        context.session.buffer.slice(0, packetLength)
       );
-      context.state.buffer = context.state.buffer.slice(packetLength);
+      context.session.buffer = context.session.buffer.slice(packetLength);
       const packet = Packet.read(byteStream);
       context.packet = {
         type: getMessageKey(packet.type),
@@ -41,8 +41,8 @@ const toBuffer = () => (context, push) => {
   byteStream.reset();
   const packet = new Packet();
   packet.type = getPacketType(context.packet.type);
-  packet.seq = context.state.count ?? 0;
-  context.state.count = packet.seq + 1;
+  packet.seq = context.session.count ?? 0;
+  context.session.count = packet.seq + 1;
   packet.payload = context.packet.payload;
   packet.write(byteStream);
   context.data = byteStream.toBuffer();
