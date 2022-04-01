@@ -1,22 +1,22 @@
 const { MessageFactory } = require('@black-moon-rewind/messaging');
 const ByteStream = require('@black-moon-rewind/byte-stream');
 
-const fromPacket = () => (context, push) => {
-  const byteStream = new ByteStream(context.packet.payload);
-  context.message = MessageFactory.getMessageByKey(context.packet.type).read(
+const fromPacket = () => (session, state, push) => {
+  const byteStream = new ByteStream(state.packet.payload);
+  const message = MessageFactory.getMessageByKey(state.packet.type).read(
     byteStream
   );
-  push();
+  push(null, { ...state, message });
 };
 
-const toPacket = () => (context, push) => {
+const toPacket = () => (session, state, push) => {
   const bs = new ByteStream();
-  context.message.write(bs);
-  context.packet = {
-    type: context.message.constructor.key,
+  state.message.write(bs);
+  const packet = {
+    type: state.message.constructor.key,
     payload: bs.toBuffer(),
   };
-  push();
+  push(null, { ...state, packet });
 };
 
 module.exports = {

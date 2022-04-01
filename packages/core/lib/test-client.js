@@ -15,5 +15,6 @@ const { message } = require('./messaging');
     console.log('authenticating!');
   });
   await exchange.connect();
-  router.routes().forEach((route) => exchange.subscribe(route));
+  await exchange.subscribe('auth.messages.*');
+  await exchange.subscribe('service.messages.*');
 })();

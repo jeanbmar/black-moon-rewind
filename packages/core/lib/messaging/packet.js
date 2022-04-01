@@ -10,23 +10,22 @@ const getMessageKey = (packetType) => {
   return messageClass.key;
 };
 
-const fromBuffer = () => (context, push) => {
-  while (context.session.buffer.length >= 12) {
-    let packetLength = context.session.buffer.readUInt16LE(2);
+const fromBuffer = () => (session, state, push) => {
+  while (session.buffer.length >= 12) {
+    let packetLength = session.buffer.readUInt16LE(2);
     if (packetLength === 0) {
       packetLength = 12;
     }
-    if (packetLength <= context.session.buffer.length) {
-      const byteStream = new ByteStream(
-        context.session.buffer.slice(0, packetLength)
-      );
-      context.session.buffer = context.session.buffer.slice(packetLength);
-      const packet = Packet.read(byteStream);
-      context.packet = {
-        type: getMessageKey(packet.type),
-        payload: packet.payload,
+    if (packetLength <= session.buffer.length) {
+      const byteStream = new ByteStream(session.buffer.slice(0, packetLength));
+      // eslint-disable-next-line no-param-reassign
+      session.buffer = session.buffer.slice(packetLength);
+      const packetEntity = Packet.read(byteStream);
+      const packet = {
+        type: getMessageKey(packetEntity.type),
+        payload: packetEntity.payload,
       };
-      push();
+      push(null, { ...state, packet });
     }
   }
 };
@@ -37,16 +36,16 @@ const getPacketType = (key) => {
 };
 
 const byteStream = new ByteStream();
-const toBuffer = () => (context, push) => {
+const toBuffer = () => (session, state, push) => {
   byteStream.reset();
-  const packet = new Packet();
-  packet.type = getPacketType(context.packet.type);
-  packet.seq = context.session.count ?? 0;
-  context.session.count = packet.seq + 1;
-  packet.payload = context.packet.payload;
-  packet.write(byteStream);
-  context.data = byteStream.toBuffer();
-  push();
+  const packetEntity = new Packet();
+  packetEntity.type = getPacketType(state.packet.type);
+  packetEntity.seq = session.seq ?? 0;
+  // eslint-disable-next-line no-param-reassign
+  session.seq = packetEntity.seq + 1;
+  packetEntity.payload = state.packet.payload;
+  packetEntity.write(byteStream);
+  push(null, { ...state, data: byteStream.toBuffer() });
 };
 
 module.exports = {
