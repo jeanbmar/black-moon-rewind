@@ -25,13 +25,15 @@ const PORT = 19947;
   exchange.use(packet.toBuffer()).use(server.send());
 
   await exchange.connect();
-  exchange.pair(server);
+  await exchange.subscribe(`${server.name}.*`);
 
   server.listen(PORT, () => {
     // eslint-disable-next-line no-console
     console.log(`listening on ${PORT}`);
   });
 
+  // todo implement joining and leaving queues (eg joining chatter channel)
+  // todo implement methods on exchange session to publish / send
   // todo inside worker, split upstream and downstream (no more context issue afterward with incoming and outgoing var named identically) (use something like a messaging application)
   // done rename state to session
   // done 'use' keeps a reference to caller (like koa app)
@@ -45,7 +47,6 @@ const PORT = 19947;
   // done convert message ids, eg 99 -> 10099
   // todo discard unknown messages -> inside packet reader
   // todo handle socket timeout (keep alive)
-  // todo implement joining and leaving queues (eg joining chatter channel)
 })();
 
 /*
