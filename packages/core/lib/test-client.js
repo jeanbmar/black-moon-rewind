@@ -1,13 +1,22 @@
 const { Router } = require('@reultra/core');
 const { Consumer } = require('@reultra/applications');
+const { AccountRegisteredMessage } = require('@black-moon-rewind/messaging');
 const { message } = require('./messaging');
 
 (async () => {
   const router = new Router();
   const consumer = new Consumer();
 
-  router.use('auth.registerAccount', async (session, state) => {
-    console.log('registerAccount!', state.message);
+  router.use('auth.registerAccount', async (session, state, push) => {
+    push(null, {
+      ...state,
+      key: state.from,
+      exchange: '',
+      message: new AccountRegisteredMessage(),
+    });
+  });
+  router.use(async (session, state) => {
+    console.log(`skipping ${state.packet.type}`);
   });
 
   consumer
