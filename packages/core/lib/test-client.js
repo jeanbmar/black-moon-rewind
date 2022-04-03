@@ -1,24 +1,24 @@
 const { Router } = require('@reultra/core');
-const { BrokerClient } = require('@reultra/applications');
+const { Consumer } = require('@reultra/applications');
 const { message } = require('./messaging');
 
 (async () => {
   const router = new Router();
-  const broker = new BrokerClient();
+  const consumer = new Consumer();
 
-  // consumer.session.publish = publisher.publish;
-  broker
+  router.use('auth.authenticateServerVersion', async (session, state) => {
+    console.log('authenticating!', state.message);
+  });
+
+  consumer
     .use(message.fromPacket())
     .use(router.middleware())
     .use(message.toPacket())
-    .use(broker.publish());
+    .use(consumer.publish());
 
-  router.use('authenticateServerVersion', async () => {
-    console.log('authenticating!');
-  });
-  await broker.connect();
-  await broker.assertExchange('root', 'topic', { durable: false });
-  const { queue: authQueue } = await broker.assertQueue('', { durable: false });
-  await broker.bindQueue(authQueue, 'root', 'auth.*');
-  await broker.consume(authQueue);
+  await consumer.connect();
+  await consumer.assertExchange('root', 'topic', { durable: false });
+  const { queue: authQueue } = await consumer.assertQueue('', { durable: false });
+  await consumer.bindQueue(authQueue, 'root', 'auth.*');
+  await consumer.consume(authQueue);
 })();

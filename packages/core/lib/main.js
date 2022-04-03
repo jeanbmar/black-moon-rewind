@@ -1,5 +1,5 @@
 // const { KeepAliveOkMessage } = require('@black-moon-rewind/messaging');
-const { BrokerClient, TcpServer } = require('@reultra/applications');
+const { Consumer, TcpServer } = require('@reultra/applications');
 const { packet } = require('./messaging');
 
 // const { TICK_RATE } = require('./common').config;
@@ -19,20 +19,20 @@ const PORT = 19947;
 
 (async () => {
   const server = new TcpServer();
-  const broker = new BrokerClient();
+  const consumer = new Consumer();
 
-  server.use(packet.fromBuffer()).use(broker.publish());
-  broker.use(packet.toBuffer()).use(server.send());
+  server.use(packet.fromBuffer()).use(consumer.publish());
+  consumer.use(packet.toBuffer()).use(server.send());
 
   server.on('connect', async (session) => {
-    await broker.assertQueue(session.id, { durable: false, autoDelete: true });
-    await broker.consume(session.id);
+    await consumer.assertQueue(session.id, { durable: false, autoDelete: true });
+    await consumer.consume(session.id);
   });
   server.on('disconnect', async (session) => {
-    await broker.cancel(session.id);
+    await consumer.cancel(session.id);
   });
 
-  await broker.connect();
+  await consumer.connect();
 
   server.listen(PORT, () => {
     // eslint-disable-next-line no-console
