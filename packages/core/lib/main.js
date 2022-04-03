@@ -1,5 +1,5 @@
 // const { KeepAliveOkMessage } = require('@black-moon-rewind/messaging');
-const { Exchange, TcpServer } = require('@reultra/core');
+const { BrokerClient, TcpServer } = require('@reultra/applications');
 const { packet } = require('./messaging');
 
 // const { TICK_RATE } = require('./common').config;
@@ -19,22 +19,28 @@ const PORT = 19947;
 
 (async () => {
   const server = new TcpServer();
-  const exchange = new Exchange();
+  const broker = new BrokerClient();
 
-  server.use(packet.fromBuffer()).use(exchange.publish());
-  exchange.use(packet.toBuffer()).use(server.send());
+  server.use(packet.fromBuffer()).use(broker.publish());
+  broker.use(packet.toBuffer()).use(server.send());
 
-  await exchange.connect();
-  await exchange.subscribe(`${server.name}.*`);
+  server.on('connect', async (session) => {
+    await broker.assertQueue(session.id, { durable: false, autoDelete: true });
+    await broker.consume(session.id);
+  });
+  server.on('disconnect', async (session) => {
+    await broker.cancel(session.id);
+  });
+
+  await broker.connect();
 
   server.listen(PORT, () => {
     // eslint-disable-next-line no-console
     console.log(`listening on ${PORT}`);
   });
 
-  // todo implement joining and leaving queues (eg joining chatter channel)
+  // done implement joining and leaving queues (eg joining chatter channel) -> done by separating consume from subscribe. use bindQueue.
   // todo implement methods on exchange session to publish / send
-  // todo inside worker, split upstream and downstream (no more context issue afterward with incoming and outgoing var named identically) (use something like a messaging application)
   // done rename state to session
   // done 'use' keeps a reference to caller (like koa app)
   // done 'use' does try catch wrapping

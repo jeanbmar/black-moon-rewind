@@ -7,6 +7,7 @@
     "@black-moon-rewind/byte-stream": "^1.0.0",
     "@black-moon-rewind/game-js": "^1.0.0",
     "@black-moon-rewind/messaging": "^1.0.0",
+    "@reultra/applications": "^0.1.0",
     "@reultra/core": "^0.1.0"
   }
 }

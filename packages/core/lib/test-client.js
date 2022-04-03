@@ -1,20 +1,24 @@
-const { Exchange, Router } = require('@reultra/core');
+const { Router } = require('@reultra/core');
+const { BrokerClient } = require('@reultra/applications');
 const { message } = require('./messaging');
 
 (async () => {
   const router = new Router();
-  const exchange = new Exchange();
+  const broker = new BrokerClient();
 
-  exchange
+  // consumer.session.publish = publisher.publish;
+  broker
     .use(message.fromPacket())
     .use(router.middleware())
     .use(message.toPacket())
-    .use(exchange.publish());
+    .use(broker.publish());
 
-  router.use('/authenticate-server-version', async () => {
+  router.use('authenticateServerVersion', async () => {
     console.log('authenticating!');
   });
-  await exchange.connect();
-  await exchange.subscribe('auth.messages.*');
-  await exchange.subscribe('service.messages.*');
+  await broker.connect();
+  await broker.assertExchange('root', 'topic', { durable: false });
+  const { queue: authQueue } = await broker.assertQueue('', { durable: false });
+  await broker.bindQueue(authQueue, 'root', 'auth.*');
+  await broker.consume(authQueue);
 })();
