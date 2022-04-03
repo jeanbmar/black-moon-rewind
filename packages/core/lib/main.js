@@ -21,11 +21,19 @@ const PORT = 19947;
   const server = new TcpServer();
   const consumer = new Consumer();
 
-  server.use(packet.fromBuffer()).use(consumer.publish());
+  server
+    .use(packet.fromBuffer())
+    .use((session, state, push) => {
+      push(null, { ...state, from: session.id, exchange: 'root' });
+    })
+    .use(consumer.publish());
   consumer.use(packet.toBuffer()).use(server.send());
 
   server.on('connect', async (session) => {
-    await consumer.assertQueue(session.id, { durable: false, autoDelete: true });
+    await consumer.assertQueue(session.id, {
+      durable: false,
+      autoDelete: true,
+    });
     await consumer.consume(session.id);
   });
   server.on('disconnect', async (session) => {
@@ -54,16 +62,3 @@ const PORT = 19947;
   // todo discard unknown messages -> inside packet reader
   // todo handle socket timeout (keep alive)
 })();
-
-/*
-messageManager.consume('x', (message, recipient) => {
-  recipient.reply(message); // send to sender queue
-  recipient.send(queue, message) // send to a single queue
-  recipient.publish(exchange, message) // send to every queue in the exchange / room
-  recipient.join(exchange); // join a room
-  recipient.leave(exchange); // leave a room
-  messageManager.send('user-id', message);
-  messageManager.send('message-name', message);
-  messageManager.publish('room-id', message); // publish sends to every queue in exchange
-});
-*/

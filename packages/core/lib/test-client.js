@@ -6,8 +6,8 @@ const { message } = require('./messaging');
   const router = new Router();
   const consumer = new Consumer();
 
-  router.use('auth.authenticateServerVersion', async (session, state) => {
-    console.log('authenticating!', state.message);
+  router.use('auth.registerAccount', async (session, state) => {
+    console.log('registerAccount!', state.message);
   });
 
   consumer
@@ -18,7 +18,7 @@ const { message } = require('./messaging');
 
   await consumer.connect();
   await consumer.assertExchange('root', 'topic', { durable: false });
-  const { queue: authQueue } = await consumer.assertQueue('', { durable: false });
-  await consumer.bindQueue(authQueue, 'root', 'auth.*');
-  await consumer.consume(authQueue);
+  const { queue } = await consumer.assertQueue('', { durable: false });
+  await consumer.bindQueue(queue, 'root', 'auth.*');
+  await consumer.consume(queue);
 })();
