@@ -27,7 +27,13 @@ const PORT = 19947;
       push(null, { ...state, from: session.id, exchange: 'root' });
     })
     .use(consumer.publish());
-  consumer.use(packet.toBuffer()).use(server.send());
+
+  consumer
+    .use(packet.toBuffer())
+    .use(async (session, state, push) => {
+      push(null, { ...state, id: state.key });
+    })
+    .use(server.send());
 
   server.on('connect', async (session) => {
     await consumer.assertQueue(session.id, {
