@@ -1,8 +1,8 @@
 const { CharacterListMessage } = require('@black-moon-rewind/messaging');
-const { sessions, characters } = require('../state');
+const { characters, sessions } = require('../state');
 
-module.exports = function listener(message, socket) {
-  const { id } = sessions.get(socket);
+module.exports = (session, state, push) => {
+  const { id } = sessions.get(session.from);
   const accountCharacters = Array.from(characters.values()).filter(
     ({ accountId }) => accountId === id
   );
@@ -11,5 +11,9 @@ module.exports = function listener(message, socket) {
     name: accountCharacter.name,
     level: accountCharacter.level,
   }));
-  socket.send(characterList);
+  push(null, {
+    ...state,
+    key: state.from,
+    message: characterList,
+  });
 };

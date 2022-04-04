@@ -1,20 +1,20 @@
 const { Router } = require('@reultra/core');
 const { Consumer } = require('@reultra/applications');
-const { AccountRegisteredMessage } = require('@black-moon-rewind/messaging');
 const { message } = require('@black-moon-rewind/middleware');
+const authenticateServerVersion = require('./middleware/authenticate-server-version');
+const exitGame = require('./middleware/exit-game');
+const getCharacterList = require('./middleware/get-character-list');
+const registerAccount = require('./middleware/register-account');
 
 (async () => {
   const router = new Router();
   const consumer = new Consumer();
 
-  router.use('auth.registerAccount', async (session, state, push) => {
-    push(null, {
-      ...state,
-      key: state.from,
-      exchange: '',
-      message: new AccountRegisteredMessage(),
-    });
-  });
+  router.use('auth.authenticateServerVersion', authenticateServerVersion);
+  router.use('auth.exitGame', exitGame);
+  router.use('auth.getCharacterList', getCharacterList);
+  router.use('auth.registerAccount', registerAccount);
+
   router.use(async (session, state) => {
     console.log(`skipping ${state.packet.type}`);
   });

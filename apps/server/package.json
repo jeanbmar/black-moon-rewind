@@ -2,9 +2,5 @@
   "name": "@black-moon-rewind/server",
   "version": "1.0.0",
   "author": "Jean-Baptiste Martin",
-  "main": "lib/main.js",
-  "dependencies": {
-    "@black-moon-rewind/gateway": "^1.0.0",
-    "@black-moon-rewind/auth": "^1.0.0"
-  }
+  "main": "lib/main.js"
 }
