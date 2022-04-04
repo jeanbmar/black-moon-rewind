@@ -1,9 +1,9 @@
 const path = require('path');
 const fs = require('fs');
 const fsp = require('fs/promises');
+const FridaClient = require('@reultra/frida-client');
 
-const script = require.resolve('@black-moon-rewind/frida-agent');
-const FridaClient = require('@black-moon-rewind/frida-client');
+const script = require.resolve('../lib/memory-agent');
 const Download = require('./download');
 
 const {

@@ -4,7 +4,6 @@
   "author": "Jean-Baptiste (Ultrapowa) Martin",
   "main": "lib/main.js",
   "dependencies": {
-    "@black-moon-rewind/messaging": "^1.0.0",
     "@reultra/applications": "^0.1.0",
     "@reultra/byte-stream": "^0.1.0",
     "@reultra/core": "^0.1.0"

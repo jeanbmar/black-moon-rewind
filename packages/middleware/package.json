@@ -1,0 +1,10 @@
+{
+  "name": "@black-moon-rewind/middleware",
+  "version": "1.0.0",
+  "author": "Jean-Baptiste Martin",
+  "main": "lib/index.js",
+  "dependencies": {
+    "@black-moon-rewind/byte-stream": "^1.0.0",
+    "@black-moon-rewind/messaging": "^1.0.0"
+  }
+}

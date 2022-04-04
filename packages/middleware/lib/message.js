@@ -1,5 +1,5 @@
-const { MessageFactory } = require('@black-moon-rewind/messaging');
 const ByteStream = require('@black-moon-rewind/byte-stream');
+const { MessageFactory } = require('@black-moon-rewind/messaging');
 
 const fromPacket = () => (session, state, push) => {
   const byteStream = new ByteStream(state.packet.payload);

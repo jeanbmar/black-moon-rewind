@@ -1,0 +1,9 @@
+{
+  "name": "@black-moon-rewind/byte-stream",
+  "version": "1.0.0",
+  "author": "Jean-Baptiste Martin",
+  "main": "lib/index.js",
+  "dependencies": {
+    "@reultra/byte-stream": "^0.1.0"
+  }
+}
