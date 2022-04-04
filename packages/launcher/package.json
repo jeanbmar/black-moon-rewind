@@ -6,6 +6,7 @@
   "repository": "github:jeanbmar/black-moon-rewind",
   "main": "src/main.js",
   "scripts": {
+    "agent": "node scripts/agent.js",
     "dev": "node main.js",
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -18,7 +19,7 @@
   },
   "dependencies": {
     "@black-moon-rewind/frida-agent": "1.0.0",
-    "@black-moon-rewind/frida-client": "1.0.0",
+    "@reultra/frida-client": "1.0.0",
     "dotenv": "^14.3.2",
     "electron-squirrel-startup": "^1.0.0",
     "got": "^9.6.0",
@@ -26,7 +27,7 @@
     "update-electron-app": "^2.0.1"
   },
   "devDependencies": {
-    "@reultra/npm-install-to": "^1.0.1",
+    "@reultra/npm-install-to": "^1.0.2",
     "@electron-forge/cli": "^6.0.0-beta.63",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
     "@electron-forge/publisher-github": "^6.0.0-beta.63",

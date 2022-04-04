@@ -1,7 +1,9 @@
+/* eslint-disable no-console */
 const path = require('path');
-const FridaClient = require('@black-moon-rewind/frida-client');
+const FridaClient = require('@reultra/frida-client');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
-const script = require.resolve('@black-moon-rewind/frida-agent');
+const script = require.resolve('../lib/memory-agent');
 
 const {
   BMC_GAME_DEBUG,
