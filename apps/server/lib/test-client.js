@@ -1,7 +1,7 @@
 const { Router } = require('@reultra/core');
 const { Consumer } = require('@reultra/applications');
 const { AccountRegisteredMessage } = require('@black-moon-rewind/messaging');
-const { message } = require('./messaging');
+const { message } = require('@black-moon-rewind/middleware');
 
 (async () => {
   const router = new Router();

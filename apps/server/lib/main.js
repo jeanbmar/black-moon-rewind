@@ -1,6 +1,6 @@
 // const { KeepAliveOkMessage } = require('@black-moon-rewind/messaging');
 const { Consumer, TcpServer } = require('@reultra/applications');
-const { packet } = require('./messaging');
+const { packet } = require('@black-moon-rewind/middleware');
 
 // const { TICK_RATE } = require('./common').config;
 

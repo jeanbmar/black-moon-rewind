@@ -1,9 +1,11 @@
 {
-  "name": "@black-moon-rewind/core",
+  "name": "@black-moon-rewind/server",
   "version": "1.0.0",
-  "author": "Jean-Baptiste (Ultrapowa) Martin",
+  "author": "Jean-Baptiste Martin",
   "main": "lib/main.js",
   "dependencies": {
+    "@black-moon-rewind/messaging": "^1.0.0",
+    "@black-moon-rewind/middleware": "^1.0.0",
     "@reultra/applications": "^0.1.0",
     "@reultra/byte-stream": "^0.1.0",
     "@reultra/core": "^0.1.0"

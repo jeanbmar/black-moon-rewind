@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "author": "Jean-Baptiste (Ultrapowa) Martin",
   "scripts": {
-    "start": "node packages/core"
+    "start": "node apps/server"
   },
   "devDependencies": {
     "eslint": "^8.8.0",
@@ -16,6 +16,8 @@
     "prettier": "^2.5.1"
   },
   "workspaces": [
-    "packages/**"
+    "apps/**",
+    "packages/**",
+    "services/**"
   ]
 }
