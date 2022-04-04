@@ -2,7 +2,7 @@ const { CharacterListMessage } = require('@black-moon-rewind/messaging');
 const { characters, sessions } = require('../state');
 
 module.exports = (session, state, push) => {
-  const { id } = sessions.get(session.from);
+  const { id } = sessions.get(state.from);
   const accountCharacters = Array.from(characters.values()).filter(
     ({ accountId }) => accountId === id
   );
