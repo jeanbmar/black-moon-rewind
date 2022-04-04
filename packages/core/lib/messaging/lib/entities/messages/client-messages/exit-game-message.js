@@ -1,7 +1,7 @@
 const Message = require('../../message');
 
 class ExitGameMessage extends Message {
-  static key = 'exitGameMessage';
+  static key = 'auth.exitGame';
   static type = 10020;
 }
 
