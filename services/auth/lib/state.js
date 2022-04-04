@@ -1,4 +1,4 @@
-const database = require('../database-mock');
+const database = require('@black-moon-rewind/database');
 const { Account, Character } = require('./models');
 
 const sessions = new Map();
