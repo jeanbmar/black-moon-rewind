@@ -3,7 +3,7 @@ const process = require('process');
 const fs = require('fs/promises');
 require('dotenv').config();
 // eslint-disable-next-line import/no-extraneous-dependencies
-const { bundle } = require('@black-moon-rewind/np-bundle');
+const installTo = require('@reultra/npm-install-to');
 const { version } = require('./package.json');
 
 module.exports = {
@@ -45,7 +45,8 @@ module.exports = {
     packageAfterCopy: async (forgeConfig, buildPath) => {
       await fs.rm(path.join(buildPath, '.env'));
       await fs.rm(path.join(buildPath, 'forge.config.js'));
-      await bundle(__dirname, buildPath, {
+      await installTo(buildPath, {
+        source: __dirname,
         root: path.join(__dirname, '../..'),
       });
     },

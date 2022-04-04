@@ -26,7 +26,7 @@
     "update-electron-app": "^2.0.1"
   },
   "devDependencies": {
-    "@black-moon-rewind/np-bundle": "1.0.0",
+    "@reultra/npm-install-to": "^1.0.1",
     "@electron-forge/cli": "^6.0.0-beta.63",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
     "@electron-forge/publisher-github": "^6.0.0-beta.63",
