@@ -25,7 +25,7 @@ class ByteStream extends Base {
     return value;
   }
 
-  writeString(stream, value) {
+  writeString(value) {
     const length = Buffer.byteLength(value, 'utf8');
     this.writeUInt16BE(length);
     this.ensureCapacity(length);
