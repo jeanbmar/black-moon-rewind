@@ -10,16 +10,18 @@ module.exports = {
   },
   plugins: ['prettier'],
   rules: {
-    'prettier/prettier': 'error',
-    'no-underscore-dangle': 'off',
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: ['**/scripts/*.js'] },
+    ],
     'lines-between-class-members': [
       'error',
       'always',
       { exceptAfterSingleLine: true },
     ],
-    'import/no-extraneous-dependencies': [
-      'error',
-      { devDependencies: ['**/scripts/*.js'] },
-    ],
+    'no-await-in-loop': 'off',
+    'no-param-reassign': ['error', { props: false }],
+    'no-underscore-dangle': 'off',
+    'prettier/prettier': 'error',
   },
 };
