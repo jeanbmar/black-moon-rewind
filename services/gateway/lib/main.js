@@ -1,6 +1,6 @@
 // const { KeepAliveOkMessage } = require('@black-moon-rewind/messaging');
-const { Consumer, TcpServer } = require('@reultra/applications');
-const { packet } = require('@black-moon-rewind/middleware');
+const { MessageManager, TcpGateway } = require('@reultra/core');
+const { amqpConfig, tcpConfig } = require('@black-moon-rewind/core');
 
 // const { TICK_RATE } = require('./common').config;
 
@@ -18,43 +18,30 @@ setInterval(() => {
 const PORT = 19947;
 
 (async () => {
-  const server = new TcpServer();
-  const consumer = new Consumer();
+  const gateway = new TcpGateway({ ...tcpConfig });
+  await gateway.connect();
 
-  server
-    .use(packet.fromBuffer())
-    .use((session, state, push) => {
-      push(null, { ...state, from: session.id, exchange: 'root' });
-    })
-    .use(consumer.publish());
-
-  consumer
-    .use(packet.toBuffer())
-    .use(async (session, state, push) => {
-      push(null, { ...state, id: state.key });
-    })
-    .use(server.send());
-
-  server.on('connect', async (session) => {
-    await consumer.assertQueue(session.id, {
-      durable: false,
-      autoDelete: true,
-    });
-    await consumer.consume(session.id);
-  });
-  server.on('disconnect', async (session) => {
-    await consumer.cancel(session.id);
+  gateway.on('connect', (session) => {
+    session.totalSent = 0;
   });
 
-  await consumer.connect();
+  const messageManager = new MessageManager({ ...amqpConfig });
+  await messageManager.connect();
+  await messageManager.subscribe(gateway.uid, '');
+  messageManager.on('setAccountHeader', (message) => {
+    console.log('setAccountHeader!', message);
+  });
+  messageManager.on('logicError', (...args) => {
+    console.log('logicError', ...args);
+  });
 
-  server.listen(PORT, () => {
+  gateway.listen(PORT, () => {
     // eslint-disable-next-line no-console
     console.log(`listening on ${PORT}`);
   });
 
   // done implement joining and leaving queues (eg joining chatter channel) -> done by separating consume from subscribe. use bindQueue.
-  // todo implement methods on exchange session to publish / send
+  // done implement methods on exchange session to publish / send
   // done rename state to session
   // done 'use' keeps a reference to caller (like koa app)
   // done 'use' does try catch wrapping
@@ -65,6 +52,7 @@ const PORT = 19947;
   // done destroy messages from queue after consumption
   // done add publish and consume methods to broker client
   // done convert message ids, eg 99 -> 10099
+  // todo wrap deserialize in try catch block + emit error in catch
   // todo discard unknown messages -> inside packet reader
   // todo handle socket timeout (keep alive)
 })();
