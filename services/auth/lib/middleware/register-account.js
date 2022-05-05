@@ -1,19 +1,14 @@
 const { AccountRegisteredMessage } = require('@black-moon-rewind/messaging');
-const { accounts, sessions } = require('../state');
+const { accounts } = require('../state');
 
-module.exports = (session, state, push) => {
-  const {
-    message: { id, password },
-  } = state;
+// todo handle wrong credentials
+
+module.exports = async function registerAccount(message, ctx) {
+  const { id, password } = message;
   const account = accounts.get(id);
   if (account && account.password === password) {
-    // todo remove this shit and bind character id in rabbitmq for further routing
-    sessions.set(state.from, { id });
-    // this.emit('open-world-session-server-message', { id }, socket);
-    push(null, {
-      ...state,
-      key: state.from,
-      message: new AccountRegisteredMessage(),
-    });
+    await ctx.handshake('auth', id);
+    await ctx.setHeaders({ accountId: id });
+    await ctx.send(new AccountRegisteredMessage());
   }
 };
