@@ -1,18 +1,13 @@
-const {
-  UInt16BE,
-  Int32BE,
-  UInt8,
-} = require('@black-moon-rewind/byte-stream-scalars');
+const { UInt16BE, Int32BE, UInt8 } = require('../../../types');
 const Message = require('../../message');
 const Unit = require('../../unit');
 
 class PathUpdatedMessage extends Message {
-  static type = 0x99;
+  static service = 'world';
+  static key = 'pathUpdated';
+  static type = 20153;
 
-  constructor() {
-    super();
-    this.path = [];
-  }
+  path = [];
 
   write(byteStream) {
     UInt16BE.write(byteStream, this.x);

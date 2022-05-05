@@ -1,0 +1,13 @@
+{
+  "name": "@black-moon-rewind/world",
+  "version": "1.0.0",
+  "author": "Jean-Baptiste Martin",
+  "main": "lib/main.js",
+  "dependencies": {
+    "@black-moon-rewind/database": "^1.0.0",
+    "@black-moon-rewind/common": "^1.0.0",
+    "@black-moon-rewind/core": "^1.0.0",
+    "@black-moon-rewind/messaging": "^1.0.0",
+    "@reultra/core": "^0.1.0"
+  }
+}

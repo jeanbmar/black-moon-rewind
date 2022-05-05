@@ -1,8 +1,10 @@
-const { UInt16BE, UInt8 } = require('@black-moon-rewind/byte-stream-scalars');
+const { UInt16BE, UInt8 } = require('../../../types');
 const Message = require('../../message');
 
 class UpdatePathMessage extends Message {
-  static type = 0x99;
+  static service = 'world';
+  static key = 'updatePath';
+  static type = 10153;
 
   constructor() {
     super();

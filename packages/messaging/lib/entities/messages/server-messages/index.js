@@ -13,6 +13,8 @@ const PathBeatUpdateMessage = require('./path-beat-update-message');
 const ChatterChannelListMessage = require('./chatter-channel-list-message');
 const ChatterChannelJoinedMessage = require('./chatter-channel-joined-message');
 const GameExitedMessage = require('./game-exited-message');
+const ChatterChannelTextMessage = require('./chatter-channel-text-message');
+const ServerAckMessage = require('./server-ack-message');
 
 module.exports = {
   AccountRegisteredMessage,
@@ -30,4 +32,6 @@ module.exports = {
   ChatterChannelListMessage,
   ChatterChannelJoinedMessage,
   GameExitedMessage,
+  ChatterChannelTextMessage,
+  ServerAckMessage,
 };

@@ -1,11 +1,10 @@
 {
   "name": "@black-moon-rewind/core",
   "version": "1.0.0",
-  "author": "Jean-Baptiste (Ultrapowa) Martin",
-  "main": "lib/main.js",
+  "author": "Jean-Baptiste Martin",
+  "main": "lib/index.js",
   "dependencies": {
-    "@black-moon-rewind/messaging": "^1.0.0",
-    "@black-moon-rewind/microservices": "^1.0.0",
-    "lodash.kebabcase": "^4.1.1"
+    "@black-moon-rewind/byte-stream": "^1.0.0",
+    "@black-moon-rewind/messaging": "^1.0.0"
   }
 }

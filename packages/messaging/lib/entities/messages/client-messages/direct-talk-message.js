@@ -1,12 +1,10 @@
-const {
-  UInt8,
-  Int32BE,
-  UInt16BE,
-} = require('@black-moon-rewind/byte-stream-scalars');
+const { UInt8, Int32BE, UInt16BE } = require('../../../types');
 const Message = require('../../message');
 
 class DirectTalkMessage extends Message {
-  static type = 0x1e;
+  static service = 'world';
+  static key = 'directTalk';
+  static type = 10030;
 
   read(byteStream) {
     this.x = UInt16BE.read(byteStream);

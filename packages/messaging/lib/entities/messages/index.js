@@ -1,9 +1,9 @@
 const clientMessages = require('./client-messages');
 const serverMessages = require('./server-messages');
-const AckMessage = require('./ack-message');
+const serviceMessages = require('./service-messages');
 
 module.exports = {
-  AckMessage,
   ...clientMessages,
   ...serverMessages,
+  ...serviceMessages,
 };

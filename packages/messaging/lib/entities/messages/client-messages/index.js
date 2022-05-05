@@ -25,9 +25,12 @@ const StopPathMessage = require('./stop-path-message');
 const GetChatterChannelListMessage = require('./get-chatter-channel-list-message');
 const GetChatterChannelUserListingMessage = require('./get-chatter-channel-user-listing-message');
 const RemoveFromChatterChannelsMessage = require('./remove-from-chatter-channels-message');
+const SendChatterChannelTextMessage = require('./send-chatter-channel-text-message');
+const ClientAckMessage = require('./client-ack-message');
 
 module.exports = {
   AuthenticateServerVersionMessage,
+  ClientAckMessage,
   EnterGameMessage,
   ExitGameMessage,
   GetCharacterListMessage,
@@ -54,4 +57,5 @@ module.exports = {
   GetChatterChannelListMessage,
   GetChatterChannelUserListingMessage,
   RemoveFromChatterChannelsMessage,
+  SendChatterChannelTextMessage,
 };

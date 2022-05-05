@@ -1,7 +1,10 @@
-const { String } = require('@black-moon-rewind/byte-stream-scalars');
+const { String } = require('../../../types');
 const Message = require('../../message');
 
 class UnknownMessage extends Message {
+  static service = 'gateway';
+  static key = 'unknown';
+
   read(byteStream) {
     const payloadLength = this.header.length > 0 ? this.header.length - 18 : 0;
     if (payloadLength > 1000) {

@@ -1,68 +1,36 @@
-const { Buffer } = require('buffer');
+const Base = require('@reultra/byte-stream');
 
-const DEFAULT_SIZE = 128;
-const DEFAULT_FIXED_GROWTH_SIZE = 64;
-const DEFAULT_DYNAMIC_GROWTH_FACTOR = 0.5;
-
-class ByteStream {
-  constructor(buffer, options = {}) {
-    const {
-      dynamic = false,
-      growth = dynamic
-        ? DEFAULT_DYNAMIC_GROWTH_FACTOR
-        : DEFAULT_FIXED_GROWTH_SIZE,
-      defaultSize = DEFAULT_SIZE,
-    } = options;
-    this.dynamic = dynamic;
-    this.growth = growth;
-    this.internalOffset = 0;
-    if (buffer) {
-      this.buffer = buffer;
-      this.byteLength = buffer.length;
-    } else {
-      this.buffer = Buffer.allocUnsafe(defaultSize);
-      this.byteLength = 0;
-    }
+class ByteStream extends Base {
+  readBuffer(options) {
+    const length = options?.length ?? this.length;
+    const value = this.toBuffer(this.offset, length);
+    this.offset += length;
+    return value;
   }
 
-  set offset(value) {
-    if (value > this.byteLength) {
-      this.byteLength = value;
-    }
-    this.internalOffset = value;
+  writeBuffer(value) {
+    this.ensureCapacity(value.length);
+    value.copy(this.buffer, this.offset);
+    this.offset += value.length;
   }
 
-  get offset() {
-    return this.internalOffset;
+  readString() {
+    const length = this.readUInt16BE();
+    const value = this.buffer.toString(
+      'utf8',
+      this.offset,
+      this.offset + length
+    );
+    this.offset += length;
+    return value;
   }
 
-  skip(offset) {
-    this.offset += offset;
-  }
-
-  toBuffer(start = 0, end = this.byteLength) {
-    return this.buffer.slice(start, end);
-  }
-
-  get capacity() {
-    return this.buffer.length;
-  }
-
-  ensureCapacity(size) {
-    const overflow = this.internalOffset + size - this.capacity;
-    if (overflow > 0) {
-      const growth = this.dynamic
-        ? Math.ceil(this.capacity * this.growth)
-        : this.growth;
-      this.buffer = Buffer.concat([
-        this.buffer,
-        Buffer.allocUnsafe(Math.max(overflow, growth)),
-      ]);
-    }
-  }
-
-  isAtEnd() {
-    return this.byteLength === this.internalOffset;
+  writeString(value) {
+    const length = Buffer.byteLength(value, 'utf8');
+    this.writeUInt16BE(length);
+    this.ensureCapacity(length);
+    this.buffer.write(value, this.offset, length, 'utf8');
+    this.offset += length;
   }
 }
 
