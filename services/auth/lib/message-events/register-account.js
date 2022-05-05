@@ -8,6 +8,7 @@ module.exports = async (message, ctx) => {
   const account = accounts.get(accountId);
   if (account && account.password === password) {
     await ctx.handshake('auth', accountId);
+    await ctx.handshake('world', accountId);
     await ctx.setHeaders({ accountId });
     await ctx.send(new AccountRegisteredMessage());
   }
