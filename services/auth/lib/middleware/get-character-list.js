@@ -6,7 +6,7 @@ module.exports = async (message, ctx) => {
     ({ accountId }) => accountId === ctx.headers.accountId
   );
   await ctx.send(
-    new CharacterListMessage({
+    CharacterListMessage.create({
       characters: accountCharacters.map((accountCharacter) => ({
         name: accountCharacter.name,
         level: accountCharacter.level,
