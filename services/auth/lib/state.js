@@ -1,7 +1,6 @@
 const database = require('@black-moon-rewind/database');
 const { Account, Character } = require('./models');
 
-const sessions = new Map();
 const accounts = new Map();
 const characters = new Map();
 
@@ -21,6 +20,5 @@ characters.set(character.id, character);
 
 module.exports = {
   accounts,
-  sessions,
   characters,
 };
