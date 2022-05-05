@@ -1,7 +1,8 @@
 const Message = require('../../message');
 
 class EnterGameMessage extends Message {
-  static key = 'world.enterGame';
+  static service = 'world';
+  static key = 'enterGame';
   static type = 10046;
 }
 

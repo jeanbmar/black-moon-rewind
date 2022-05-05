@@ -2,7 +2,8 @@ const { String, Int32BE } = require('../../../types');
 const Message = require('../../message');
 
 class ChatterChannelJoinedMessage extends Message {
-  static key = 'chat.chatterChannelJoined';
+  static service = 'chat';
+  static key = 'chatterChannelJoined';
   static type = 20048;
 
   write(byteStream) {

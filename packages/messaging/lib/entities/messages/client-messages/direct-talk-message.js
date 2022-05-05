@@ -2,7 +2,8 @@ const { UInt8, Int32BE, UInt16BE } = require('../../../types');
 const Message = require('../../message');
 
 class DirectTalkMessage extends Message {
-  static key = 'world.directTalk';
+  static service = 'world';
+  static key = 'directTalk';
   static type = 10030;
 
   read(byteStream) {

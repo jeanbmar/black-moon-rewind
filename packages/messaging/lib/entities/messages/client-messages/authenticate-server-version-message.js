@@ -2,7 +2,8 @@ const { Int32BE } = require('../../../types');
 const Message = require('../../message');
 
 class AuthenticateServerVersionMessage extends Message {
-  static key = 'auth.authenticateServerVersion';
+  static service = 'auth';
+  static key = 'authenticateServerVersion';
   static type = 10099;
 
   read(byteStream) {

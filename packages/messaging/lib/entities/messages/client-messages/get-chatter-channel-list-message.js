@@ -1,7 +1,8 @@
 const Message = require('../../message');
 
 class GetChatterChannelListMessage extends Message {
-  static key = 'chat.getChatterChannelList';
+  static service = 'chat';
+  static key = 'getChatterChannelList';
   static type = 10075;
 }
 

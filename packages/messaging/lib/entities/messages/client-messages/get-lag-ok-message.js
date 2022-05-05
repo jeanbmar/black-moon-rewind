@@ -2,7 +2,8 @@ const { Int32BE } = require('../../../types');
 const Message = require('../../message');
 
 class GetLagOkMessage extends Message {
-  static key = 'gateway.getLagOk';
+  static service = 'gateway';
+  static key = 'getLagOk';
   static type = 10154;
 
   read(byteStream) {

@@ -2,7 +2,8 @@ const { UInt16BE, UInt8 } = require('../../../types');
 const Message = require('../../message');
 
 class UpdatePathMessage extends Message {
-  static key = 'world.updatePath';
+  static service = 'world';
+  static key = 'updatePath';
   static type = 10153;
 
   constructor() {

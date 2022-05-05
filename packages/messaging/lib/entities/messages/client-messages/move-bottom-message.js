@@ -1,7 +1,8 @@
 const MoveMessage = require('./move-message');
 
 class MoveBottomMessage extends MoveMessage {
-  static key = 'world.moveBottom';
+  static service = 'world';
+  static key = 'moveBottom';
   static type = 10005;
 }
 

@@ -1,7 +1,8 @@
 const Message = require('../../message');
 
 class KeepAliveOkMessage extends Message {
-  static key = 'gateway.keepAliveOk';
+  static service = 'gateway';
+  static key = 'keepAliveOk';
   static type = 10010;
 }
 

@@ -2,7 +2,8 @@ const { UInt8, UInt16BE, Int16BE, UInt32BE } = require('../../../types');
 const Message = require('../../message');
 
 class CharacterDataMessage extends Message {
-  static key = 'world.characterData';
+  static service = 'world';
+  static key = 'characterData';
   static type = 20013;
 
   constructor() {

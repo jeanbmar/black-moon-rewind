@@ -3,7 +3,8 @@ const Message = require('../../message');
 const Unit = require('../../unit');
 
 class EnteredGameMessage extends Message {
-  static key = 'world.enteredGame';
+  static service = 'world';
+  static key = 'enteredGame';
   static type = 20046;
 
   constructor() {

@@ -2,7 +2,8 @@ const { String } = require('../../../types');
 const Message = require('../../message');
 
 class UnknownMessage extends Message {
-  static key = 'gateway.unknown';
+  static service = 'gateway';
+  static key = 'unknown';
 
   read(byteStream) {
     const payloadLength = this.header.length > 0 ? this.header.length - 18 : 0;

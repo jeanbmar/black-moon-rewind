@@ -3,7 +3,8 @@ const Message = require('../../message');
 const Unit = require('../../unit');
 
 class PathUpdatedMessage extends Message {
-  static key = 'world.pathUpdated';
+  static service = 'world';
+  static key = 'pathUpdated';
   static type = 20153;
 
   constructor() {

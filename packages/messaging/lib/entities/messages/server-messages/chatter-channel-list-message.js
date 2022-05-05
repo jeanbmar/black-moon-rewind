@@ -2,7 +2,8 @@ const { Int8, String, UInt16BE } = require('../../../types');
 const Message = require('../../message');
 
 class ChatterChannelListMessage extends Message {
-  static key = 'chat.chatterChannelList';
+  static service = 'chat';
+  static key = 'chatterChannelList';
   static type = 20075;
 
   constructor() {

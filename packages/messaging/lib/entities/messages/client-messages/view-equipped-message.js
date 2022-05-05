@@ -1,7 +1,8 @@
 const Message = require('../../message');
 
 class ViewEquippedMessage extends Message {
-  static key = 'world.viewEquipped';
+  static service = 'world';
+  static key = 'viewEquipped';
   static type = 10019;
 }
 

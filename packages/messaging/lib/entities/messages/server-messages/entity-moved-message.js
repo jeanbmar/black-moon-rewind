@@ -3,7 +3,8 @@ const Message = require('../../message');
 const Unit = require('../../unit');
 
 class EntityMovedMessage extends Message {
-  static key = 'world.entityMoved';
+  static service = 'world';
+  static key = 'entityMoved';
   static type = 20001;
 
   write(byteStream) {

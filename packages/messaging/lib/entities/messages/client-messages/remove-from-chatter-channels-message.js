@@ -2,7 +2,8 @@ const { String } = require('../../../types');
 const Message = require('../../message');
 
 class RemoveFromChatterChannelsMessage extends Message {
-  static key = 'chat.removeFromChatterChannels';
+  static service = 'chat';
+  static key = 'removeFromChatterChannels';
   static type = 10074;
 
   read(byteStream) {
