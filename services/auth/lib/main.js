@@ -1,9 +1,9 @@
 const { Worker } = require('@reultra/core');
 const { workerConfig } = require('@black-moon-rewind/core');
-const authenticateServerVersion = require('./middleware/authenticate-server-version');
-const exitGame = require('./middleware/exit-game');
-const getCharacterList = require('./middleware/get-character-list');
-const registerAccount = require('./middleware/register-account');
+const authenticateServerVersion = require('./message-events/authenticate-server-version');
+const exitGame = require('./message-events/exit-game');
+const getCharacterList = require('./message-events/get-character-list');
+const registerAccount = require('./message-events/register-account');
 
 (async () => {
   const worker = await new Worker(workerConfig).connect('auth');
