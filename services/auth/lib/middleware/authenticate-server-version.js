@@ -1,9 +1,5 @@
 const { ServerVersionMessage } = require('@black-moon-rewind/messaging');
 
-module.exports = (session, state, push) => {
-  push(null, {
-    ...state,
-    key: state.from,
-    message: new ServerVersionMessage(),
-  });
+module.exports = async (message, ctx) => {
+  await ctx.send(new ServerVersionMessage());
 };
