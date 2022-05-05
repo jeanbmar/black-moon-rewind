@@ -1,6 +1,5 @@
-// const { KeepAliveOkMessage } = require('@black-moon-rewind/messaging');
-const { MessageManager, TcpGateway } = require('@reultra/core');
-const { amqpConfig, tcpConfig } = require('@black-moon-rewind/core');
+const { Worker, TcpGateway } = require('@reultra/core');
+const { workerConfig, tcpServerConfig } = require('@black-moon-rewind/core');
 
 // const { TICK_RATE } = require('./common').config;
 
@@ -18,21 +17,11 @@ setInterval(() => {
 const PORT = 19947;
 
 (async () => {
-  const gateway = new TcpGateway({ ...tcpConfig });
-  await gateway.connect();
+  const worker = new Worker(workerConfig);
+  const gateway = await new TcpGateway(worker, tcpServerConfig).connect();
 
   gateway.on('connect', (session) => {
     session.totalSent = 0;
-  });
-
-  const messageManager = new MessageManager({ ...amqpConfig });
-  await messageManager.connect();
-  await messageManager.subscribe(gateway.uid, '');
-  messageManager.on('setAccountHeader', (message) => {
-    console.log('setAccountHeader!', message);
-  });
-  messageManager.on('logicError', (...args) => {
-    console.log('logicError', ...args);
   });
 
   gateway.listen(PORT, () => {
@@ -40,19 +29,8 @@ const PORT = 19947;
     console.log(`listening on ${PORT}`);
   });
 
-  // done implement joining and leaving queues (eg joining chatter channel) -> done by separating consume from subscribe. use bindQueue.
-  // done implement methods on exchange session to publish / send
-  // done rename state to session
-  // done 'use' keeps a reference to caller (like koa app)
-  // done 'use' does try catch wrapping
-  // done 'push' clones parent context so it's safe to write multiple times
-  // done complete message writer
-  // done replace msg.properties.headers.type with msg.properties.type
-  // done check absence of side effects on correlationId (done: use replyTo)
-  // done destroy messages from queue after consumption
-  // done add publish and consume methods to broker client
-  // done convert message ids, eg 99 -> 10099
-  // todo wrap deserialize in try catch block + emit error in catch
-  // todo discard unknown messages -> inside packet reader
   // todo handle socket timeout (keep alive)
+  // done investigate: can we merge messageManager subscribe and .on?
+  // done wrap deserialize in try catch block + emit error in catch
+  // done implement consistent hash exchange (see TcpGateway.prototype.handleMessage)
 })();

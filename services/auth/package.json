@@ -5,9 +5,8 @@
   "main": "lib/main.js",
   "dependencies": {
     "@black-moon-rewind/database": "^1.0.0",
+    "@black-moon-rewind/core": "^1.0.0",
     "@black-moon-rewind/messaging": "^1.0.0",
-    "@black-moon-rewind/middleware": "^1.0.0",
-    "@reultra/applications": "^0.1.0",
     "@reultra/core": "^0.1.0"
   }
 }
