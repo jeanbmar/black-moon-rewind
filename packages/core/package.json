@@ -1,5 +1,5 @@
 {
-  "name": "@black-moon-rewind/middleware",
+  "name": "@black-moon-rewind/core",
   "version": "1.0.0",
   "author": "Jean-Baptiste Martin",
   "main": "lib/index.js",
