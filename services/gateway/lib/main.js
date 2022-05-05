@@ -30,7 +30,4 @@ const PORT = 19947;
   });
 
   // todo handle socket timeout (keep alive)
-  // done investigate: can we merge messageManager subscribe and .on?
-  // done wrap deserialize in try catch block + emit error in catch
-  // done implement consistent hash exchange (see TcpGateway.prototype.handleMessage)
 })();
