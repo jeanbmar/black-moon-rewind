@@ -6,10 +6,7 @@ class CharacterDataMessage extends Message {
   static key = 'characterData';
   static type = 20013;
 
-  constructor() {
-    super();
-    this.items = [];
-  }
+  items = [];
 
   write(byteStream) {
     UInt32BE.write(byteStream, this.id);

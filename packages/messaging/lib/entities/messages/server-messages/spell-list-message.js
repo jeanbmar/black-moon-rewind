@@ -13,10 +13,7 @@ class SpellListMessage extends Message {
   static key = 'spellList';
   static type = 20062;
 
-  constructor() {
-    super();
-    this.spells = [{ id: 0x0a21 }];
-  }
+  spells = [{ id: 0x0a21 }];
 
   write(byteStream) {
     UInt16BE.write(byteStream, this.mana ?? 0x20);

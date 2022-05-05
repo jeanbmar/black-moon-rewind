@@ -8,10 +8,7 @@ class EquipmentDataMessage extends Message {
   static key = 'equipmentData';
   static type = 20019;
 
-  constructor() {
-    super();
-    this.items = [];
-  }
+  items = [];
 
   write(byteStream) {
     UInt8.write(byteStream, this.a ?? 2);

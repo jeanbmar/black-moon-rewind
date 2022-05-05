@@ -7,10 +7,7 @@ class PathUpdatedMessage extends Message {
   static key = 'pathUpdated';
   static type = 20153;
 
-  constructor() {
-    super();
-    this.path = [];
-  }
+  path = [];
 
   write(byteStream) {
     UInt16BE.write(byteStream, this.x);

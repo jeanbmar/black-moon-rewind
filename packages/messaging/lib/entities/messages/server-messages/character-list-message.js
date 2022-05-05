@@ -6,10 +6,7 @@ class CharacterListMessage extends Message {
   static key = 'characterList';
   static type = 20026;
 
-  constructor() {
-    super();
-    this.characters = [];
-  }
+  characters = [];
 
   write(byteStream) {
     UInt8.write(byteStream, this.characters.length);

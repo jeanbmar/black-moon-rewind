@@ -6,10 +6,7 @@ class ChatterChannelListMessage extends Message {
   static key = 'chatterChannelList';
   static type = 20075;
 
-  constructor() {
-    super();
-    this.channels = [];
-  }
+  channels = [];
 
   write(byteStream) {
     UInt16BE.write(byteStream, this.channels.length);
