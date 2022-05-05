@@ -1,8 +1,7 @@
-const Character = require('./models/character');
-const { Time } = require('../shared').models;
-const database = require('../database-mock');
+const { Time } = require('@black-moon-rewind/common');
+const database = require('@black-moon-rewind/database');
+const { Character } = require('./models');
 
-const sessions = new Map();
 const time = new Time();
 const characters = new Map();
 const charactersByName = new Map();
@@ -24,6 +23,5 @@ charactersByName.set(character.name, character);
 module.exports = {
   time,
   characters,
-  sessions,
   charactersByName,
 };

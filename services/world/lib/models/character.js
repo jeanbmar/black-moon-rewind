@@ -1,6 +1,6 @@
 const crypto = require('crypto');
-const { Timer } = require('../../shared/models');
-const movementHelper = require('./movement-helper');
+const { Timer } = require('@black-moon-rewind/common');
+const MovementHelper = require('./movement-helper');
 const { MOVEMENT_BUFFER_SIZE } = require('../config');
 
 class Character {
@@ -28,12 +28,12 @@ class Character {
       const remainingExhaustMs = this.exhaustTimer.getRemainingMs(time);
       if (remainingExhaustMs <= 0) {
         if (this.path.length) {
-          const [offsetX, offsetY] = movementHelper.getOffset(
+          const [offsetX, offsetY] = MovementHelper.getOffset(
             this.path.shift()
           );
           this.updatePosition(this.x + offsetX, this.y + offsetY);
           const exhaustSeconds =
-            movementHelper.getExhaustMs(offsetX, offsetY) / 1000 +
+            MovementHelper.getExhaustMs(offsetX, offsetY) / 1000 +
             remainingExhaustMs / 1000;
           this.exhaustTimer.start(exhaustSeconds, time);
         } else {
@@ -41,10 +41,10 @@ class Character {
         }
       }
     } else if (this.path.length > 0) {
-      const [offsetX, offsetY] = movementHelper.getOffset(this.path.shift());
+      const [offsetX, offsetY] = MovementHelper.getOffset(this.path.shift());
       this.updatePosition(this.x + offsetX, this.y + offsetY);
       const exhaustSeconds =
-        movementHelper.getExhaustMs(offsetX, offsetY) / 1000;
+        MovementHelper.getExhaustMs(offsetX, offsetY) / 1000;
       this.exhaustTimer = new Timer();
       this.exhaustTimer.start(exhaustSeconds, time);
     }
