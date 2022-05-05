@@ -6,7 +6,8 @@
   "scripts": {
     "client": "npm run agent --prefix apps/launcher",
     "auth": "node services/auth",
-    "gateway": "node services/gateway"
+    "gateway": "node services/gateway",
+    "world": "node services/world"
   },
   "devDependencies": {
     "eslint": "^8.8.0",
