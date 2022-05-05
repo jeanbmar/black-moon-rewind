@@ -1,6 +1,6 @@
 class Entity {
-  constructor(properties) {
-    Object.assign(this, properties);
+  static create(properties) {
+    return Object.assign(new this(), properties);
   }
 
   static read(byteStream, options) {
