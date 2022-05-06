@@ -5,19 +5,19 @@ const {
   MessageFactory,
 } = require('@black-moon-rewind/messaging');
 
-const deserialize = function deserialize(session, buffer) {
-  if (buffer.length >= 12) {
-    let size = buffer.readUInt16LE(2);
+const deserialize = function deserialize(session, ref) {
+  if (ref.buffer.length >= 12) {
+    let size = ref.buffer.readUInt16LE(2);
     if (size === 0) size = 12;
-    if (size <= buffer.length) {
-      const readStream = new ByteStream(buffer.subarray(0, size));
+    if (size <= ref.buffer.length) {
+      const readStream = new ByteStream(ref.buffer.subarray(0, size));
+      ref.buffer = ref.buffer.subarray(size);
       const packet = ClientPacket.read(readStream);
       const { service, key } = MessageFactory.getMessageByType(packet.type);
       return {
         service,
         key,
         payload: packet.payload,
-        size,
       };
     }
   }
