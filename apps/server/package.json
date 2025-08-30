@@ -1,0 +1,6 @@
+{
+  "name": "@black-moon-rewind/server",
+  "version": "1.0.0",
+  "author": "Jean-Baptiste Martin",
+  "main": "lib/main.js"
+}

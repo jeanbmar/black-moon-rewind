@@ -1,0 +1,34 @@
+const { Worker } = require('@reultra/core');
+const { workerConfig } = require('@black-moon-rewind/core');
+const enterGame = require('./message-events/enter-game');
+const getSpellList = require('./message-events/get-spell-list');
+const loadCharacter = require('./message-events/load-character');
+const moveBottom = require('./message-events/move-bottom');
+const moveBottomLeft = require('./message-events/move-bottom-left');
+const moveBottomRight = require('./message-events/move-bottom-right');
+const moveLeft = require('./message-events/move-left');
+const moveRight = require('./message-events/move-right');
+const moveTop = require('./message-events/move-top');
+const moveTopLeft = require('./message-events/move-top-left');
+const moveTopRight = require('./message-events/move-top-right');
+const stopPath = require('./message-events/stop-path');
+const updatePath = require('./message-events/update-path');
+const viewEquipped = require('./message-events/view-equipped');
+
+(async () => {
+  const worker = await new Worker(workerConfig).connect('world');
+  worker.on('enterGame', enterGame);
+  worker.on('getSpellList', getSpellList);
+  worker.on('loadCharacter', loadCharacter);
+  worker.on('moveBottom', moveBottom);
+  worker.on('moveBottomLeft', moveBottomLeft);
+  worker.on('moveBottomRight', moveBottomRight);
+  worker.on('moveLeft', moveLeft);
+  worker.on('moveRight', moveRight);
+  worker.on('moveTop', moveTop);
+  worker.on('moveTopLeft', moveTopLeft);
+  worker.on('moveTopRight', moveTopRight);
+  worker.on('stopPath', stopPath);
+  worker.on('updatePath', updatePath);
+  worker.on('viewEquipped', viewEquipped);
+})();

@@ -1,4 +1,8 @@
 class Entity {
+  static create(properties) {
+    return Object.assign(new this(), properties);
+  }
+
   static read(byteStream, options) {
     const entity = new this();
     entity.read(byteStream, options);

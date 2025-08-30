@@ -1,17 +1,12 @@
-const {
-  UInt8,
-  String,
-  UInt16BE,
-} = require('@black-moon-rewind/byte-stream-scalars');
+const { UInt8, String, UInt16BE } = require('../../../types');
 const Message = require('../../message');
 
 class CharacterListMessage extends Message {
-  static type = 0x1a;
+  static service = 'auth';
+  static key = 'characterList';
+  static type = 20026;
 
-  constructor() {
-    super();
-    this.characters = [];
-  }
+  characters = [];
 
   write(byteStream) {
     UInt8.write(byteStream, this.characters.length);

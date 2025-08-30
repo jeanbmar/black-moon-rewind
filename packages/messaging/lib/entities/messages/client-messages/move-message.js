@@ -1,4 +1,4 @@
-const { UInt8 } = require('@black-moon-rewind/byte-stream-scalars');
+const { UInt8 } = require('../../../types');
 const Message = require('../../message');
 
 class MoveMessage extends Message {

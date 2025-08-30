@@ -1,0 +1,7 @@
+{
+  "name": "@black-moon-rewind/common",
+  "version": "1.0.0",
+  "author": "Jean-Baptiste Martin",
+  "main": "lib/index.js",
+  "dependencies": {}
+}

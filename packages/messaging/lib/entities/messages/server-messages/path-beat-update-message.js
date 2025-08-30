@@ -1,8 +1,10 @@
-const { Int16BE } = require('@black-moon-rewind/byte-stream-scalars');
+const { Int16BE } = require('../../../types');
 const Message = require('../../message');
 
 class PathBeatUpdateMessage extends Message {
-  static type = 0x9d;
+  static service = 'world';
+  static key = 'pathBeatUpdate';
+  static type = 20157;
 
   write(byteStream) {
     Int16BE.write(byteStream, this.pathBeat);
